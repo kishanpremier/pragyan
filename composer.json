@@ -25,11 +25,12 @@
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4.0",
+        "nette/di": "2.*",
         "spatie/laravel-cors": "^1.2",
         "tymon/jwt-auth": "dev-develop",
         "unisharp/laravel-filemanager": "~1.8",
         "yajra/laravel-datatables-oracle": "~9.0",
-        "nette/di": "2.*"
+        "yoeunes/toastr": "^1.2"
     },
     "require-dev": {
         "bvipul/generator": "^5.8.1",

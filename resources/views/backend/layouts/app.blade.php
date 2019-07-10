@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         {{-- <link rel="icon" sizes="16x16" type="image/png" href="{{route('frontend.index')}}/img/favicon_icon/{{settings()->favicon}}"> --}}
-        <title>@yield('title', app_name())</title>
+        {{--<title>@yield('title', app_name())</title>--}}
 
         <!-- Meta -->
         <meta name="description" content="@yield('meta_description', 'Default Description')">

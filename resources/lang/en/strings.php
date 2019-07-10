@@ -24,6 +24,7 @@ return [
 
         'dashboard' => [
             'title'   => 'Administrative Dashboard',
+            'classdashboard'   => 'Class Dashboard',
             'welcome' => 'Welcome',
         ],
 

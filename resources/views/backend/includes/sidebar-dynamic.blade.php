@@ -11,8 +11,20 @@
                     <span>{{ trans('menus.backend.sidebar.dashboard') }}</span>
                 </a>
             </li>
+            {{--<li>
+                <a href="#">
+                    <i class="fa fa-dashboard"></i>
+                    <span>{{ trans('menus.backend.sidebar.subject') }}</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-dashboard"></i>
+                    <span>{{ trans('menus.backend.sidebar.subject') }}</span>
+                </a>
+            </li>--}}
 <!--            <li class="header">{{ trans('menus.backend.sidebar.system') }}</li>-->
-<!--            {{ renderMenuItems(getMenuItems()) }}-->
+            {{ renderMenuItems(getMenuItems()) }}
         </ul><!-- /.sidebar-menu -->
     </section><!-- /.sidebar -->
 </aside>

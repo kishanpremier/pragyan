@@ -61,6 +61,8 @@ return [
 
         'sidebar' => [
             'dashboard' => 'Dashboard',
+            'sub' => 'Dashboard',
+            'subject' => 'Class',
             'general'   => 'General',
             'system'    => 'System',
         ],
