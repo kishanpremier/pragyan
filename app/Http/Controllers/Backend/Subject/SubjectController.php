@@ -3,37 +3,29 @@
 namespace App\Http\Controllers\Backend\Subject;
 
 use Illuminate\Support\Facades\Validator;
-use App\Models\Subject\Subject;
+use App\Models\School\Schoolclass;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class SubjectController extends Controller
-{
+class SubjectController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('backend.subject.index');
+    public function index() {
+        $Schoolclass = Schoolclass::get();
+        return view('backend.subject.index', compact('Schoolclass'));
     }
 
-    public function listing()
-    {
-        $abc = Datatables::of($this->pages->getForDataTable());
-        foreach ($abc as $val){
-            return response()->json($val);
-        }
-    }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('backend.subject.dashboard');
+    public function create() {
+        return view('backend.subject.add');
     }
 
     /**
@@ -42,25 +34,36 @@ class SubjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
 
-        $abc = Validator::make($request->all(), [ // <---
-            'class_name' => 'required|unique:class',
-        ]);
+        try {
 
-        if($abc->fails()){
-            $status = "Fail";
-            $msg = $abc->errors()->first();
-            return view('backend.subject.dashboard',compact('status','msg'));
+            $request->validate([
+                'class_name' => 'required|unique:class',
+            ]);
+
+            if ($request->id != '') {
+                $Schoolclass = Schoolclass::findOrFail($request->id);
+            } else {
+                $Schoolclass = new Schoolclass();
+            }
+
+            $Schoolclass->class_name = $request['class_name'];
+
+            $Schoolclass->save();
+
+            if ($request->id != '') {
+                toastr()->success('', 'Class has been updated', ['timeOut' => 5000]);
+            } else {
+                toastr()->success('', 'Class has been created', ['timeOut' => 5000]);
+            }
+        } catch (Exception $e) {
+
+            toastr()->warning('', 'Something went wrong', ['timeOut' => 5000]);
         }
-        else{
-            $obj = new Subject;
-            $obj->class_name = $request->input('class_name');
-            $obj->save();
-            toastr()->success('Class has been Inserted', 'Successfully Inserted', ['timeOut' => 5000]);
-            return redirect()->route('admin.subject.create');
-        }
+        
+        return redirect()->route('admin.class.list');
+        
     }
 
     /**
@@ -69,8 +72,7 @@ class SubjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
@@ -80,9 +82,11 @@ class SubjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($id) {
+        
+        $SchoolclassEdit = Schoolclass::find($id);
+        return view('backend.subject.editform', compact('SchoolclassEdit'));
+        
     }
 
     /**
@@ -92,8 +96,7 @@ class SubjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
@@ -103,8 +106,8 @@ class SubjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
+
 }

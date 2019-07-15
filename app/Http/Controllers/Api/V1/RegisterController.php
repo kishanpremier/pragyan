@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Models\School\School;
 use App\Models\School\Schoolboard;
 use App\Models\School\Schoolclass;
+use App\Models\School\Subject;
 use App\Repositories\Frontend\Access\User\UserRepository;
 use Config;
 use Illuminate\Http\Request;
@@ -90,6 +91,14 @@ class RegisterController extends APIController
         
         $Schoolclass = Schoolclass::get();
         return response($Schoolclass);
+        
+    }
+    
+    
+     public function subject(){
+        
+        $subject = Subject::get();
+        return response($subject);
         
     }
 }

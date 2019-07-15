@@ -6,42 +6,50 @@
 @extends('backend.layouts.app')
 
 @section('page-header')
-    <h1>
-        Class Listing
-        {{--<small>{{ trans('strings.backend.dashboard.classdashboard') }}</small>--}}
-    </h1>
+<h1>
+    Class Listing
+    {{--<small>{{ trans('strings.backend.dashboard.classdashboard') }}</small>--}}
+</h1>
 @endsection
 
 @section('content')
-    <div class="box box-info">
-        <div class="box-header with-border">
-            <h3 class="box-title">{{ trans('history.backend.listing') }}</h3>
-        </div><!-- /.box-header -->
-        <div class="box-body">
-            <div class="table-responsive data-table-wrapper">
-                <table id="pages-table" class="table table-condensed table-hover table-bordered">
-                    <thead>
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">{{ trans('history.backend.listing') }}</h3>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <div class="table-responsive data-table-wrapper">
+            <table id="example" class="display" style="width:100%">
+                <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Id</th>
+                        <th>Subject Name</th>
                         <th>Action</th>
+                        
                     </tr>
-                    </thead>
-                    <thead class="transparent-bg">
+                </thead>
+                <tbody>
+                    @foreach($Schoolclass as $k=> $SchoolclassData)
                     <tr>
-                        <th>
-                            {!! Form::text('first_name', null, ["class" => "search-input-text form-control", "data-column" => 0, "placeholder" => "Name"]) !!}
-                            <a class="reset-data" href="javascript:void(0)"><i class="fa fa-times"></i></a>
-                        </th>
-                        <th></th>
+                        <td>{{$SchoolclassData->id}}</td>
+                        <td>{{$SchoolclassData->class_name}}</td>
+                        <td>
+                        <a href="{{route('admin.class.edit',$SchoolclassData->id)}}"><i class="fa fa-pencil schoolclass" aria-hidden="true"></i></a>
+                        <a href="{{route('admin.class.delete',$SchoolclassData->id)}}"><i class="fa fa-trash schoolclass" aria-hidden="true"></i></a>
+                        </td>
+                        
                     </tr>
-                    </thead>
-                </table>
-            </div>
-        </div><!-- /.box-body -->
-        <div class="box-footer">
-
+                    @endforeach
+                   
+                </tbody>
+                
+            </table>
         </div>
-    </div><!--box box-info-->
+    </div><!-- /.box-body -->
+    <div class="box-footer">
+
+    </div>
+</div><!--box box-info-->
 @endsection
 @jquery
 @toastr_js
@@ -51,50 +59,14 @@
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 </html>
 @section('after-scripts')
-    {{-- For DataTables --}}
-    {{ Html::script(mix('js/dataTable.js')) }}
+{{-- For DataTables --}}
+{{ Html::script(mix('js/dataTable.js')) }}
 
-    <script>
+<script>
 
-        $(function () {
-            var dataTable1 = $('#pages-table').dataTable({
-                "processing": true,
-                "serverSide": true,
-                "bPaginate": true,
-                "destroy": true,
-                "bFilter": false,
-                "bInfo": false,
-                "bLengthChange": false,
-                "sScrollY": "30vh",
-                "dom": "lfrti",
-                "language": {
-                    processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '
-                },
-                scrollY: 150,
-                scroller: {
-                    loadingIndicator: true,
-                    "language": {
-                        processing: '<i class="fa fa-spinner fa-spin fa-2x fa-fw"></i><span class="sr-only">Loading...</span> '
-                    },
-                    serverWait: 300
-                },
-                "ajax": {
-                    "url": "{{route('admin.subject.get')}}",
-                    "dataType": "json",
-                    "type": "POST",
-                    "data": {
-                        "_token": "{{ csrf_token() }}",
-                    },
-                },
-                "fnInitComplete": function () {
-                    $(window).trigger('resize');
-                },
-                "columns": [
-                    {data: 'name', name: 'name'},
-                    {data: 'actions', name: 'actions', searchable: false, sortable: false}
-                ],
-            });
-            Backend.DataTableSearch.init(dataTable1);
-        });
-    </script>
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+
+</script>
 @endsection

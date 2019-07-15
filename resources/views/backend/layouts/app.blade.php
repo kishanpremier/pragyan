@@ -12,6 +12,14 @@
         <meta name="description" content="@yield('meta_description', 'Default Description')">
         <meta name="author" content="@yield('meta_author', 'Viral Solani')">
         <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+        
+        <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+        <link href="https://cdn.datatables.net/1.10.19/css/dataTables.jqueryui.min.css" rel="stylesheet">
+        
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.jqueryui.min.js"></script>
+        
         @yield('meta')
 
         <!-- Styles -->
@@ -39,6 +47,7 @@
         <script>
             window.Laravel = {!! json_encode([ 'csrfToken' => csrf_token() ]) !!};
         </script>
+        
         <?php
             if (!empty($google_analytics)) {
                 echo $google_analytics;
@@ -79,5 +88,8 @@
         {{ Html::script(mix('js/backend.js')) }}
         {{ Html::script(mix('js/backend-custom.js')) }}
         @yield('after-scripts')
-    </body>
+        </body>
+        
+        
+    
 </html>

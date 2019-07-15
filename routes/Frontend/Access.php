@@ -22,7 +22,7 @@ Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
     /*
      * These routes require no user to be logged in
      */
-    Route::group(['middleware' => 'guest'], function () {
+   // Route::group(['middleware' => 'guest'], function () {
         // Authentication Routes
         Route::get('/', 'LoginController@showLoginForm')->name('login');
         Route::post('login', 'LoginController@login')->name('login');
@@ -46,5 +46,5 @@ Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
 
         Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset.form');
         Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset');
-    });
+   // });
 });

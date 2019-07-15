@@ -33,4 +33,10 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
      * Note: Administrator has all permissions so you do not have to specify the administrator role everywhere.
      */
     includeRouteFiles(__DIR__.'/Backend/');
+    
+    Route::get('classlist','Subject\SubjectController@index')->name('class.list');
+    Route::get('create','Subject\SubjectController@create')->name('class.create');
+    Route::post('store','Subject\SubjectController@store')->name('class.store');
+    Route::get('edit/{id}','Subject\SubjectController@edit')->name('class.edit');
+    Route::get('delete/{id}','Subject\SubjectController@delete')->name('class.delete');
 });

@@ -22,13 +22,16 @@
         Route::get('stateborad', 'RegisterController@stateBoard');
         Route::get('school', 'RegisterController@school');
         Route::get('schoolclass', 'RegisterController@schoolClass');
+        Route::get('subject', 'RegisterController@subject');
+        Route::post('chapter', 'ChapterController@chapter');
+        Route::post('chaptercontent', 'ChapterController@chapterContent');
         
     });
 
     Route::group(['middleware' => ['auth:api']], function () {
         Route::group(['prefix' => 'auth'], function () {
             Route::post('logout', 'AuthController@logout');
-            // Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset');
+             Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset');
         });
         // Users
         Route::resource('users', 'UsersController', ['except' => ['create', 'edit']]);
@@ -57,5 +60,9 @@
 
         // Blogs
         Route::resource('blogs', 'BlogsController', ['except' => ['create', 'edit']]);
+        
+        // Chapter
+     
+        
     });
 });

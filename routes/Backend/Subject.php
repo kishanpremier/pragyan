@@ -6,17 +6,16 @@
 //Route::get('subject', 'SubjectController@index')->name('subject');
 //Route::post('get-permission', 'DashboardController@getPermissionByRole')->name('get.permission');
 
-
-Route::group([
-    'namespace' => 'subject',
-], function () {
-    Route::resource('subject', 'SubjectController');
-
-
-});
+//
+//Route::group([
+//    'namespace' => 'subject',
+//], function () {
+//    Route::resource('subject', 'SubjectController');
+//
+//
+//});
 
 /*
  * Edit Profile
 */
 
-Route::post('subject/listing','SubjectController@listing')->name('subject.get');
