@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Subject;
 
 use App\Models\School\Schoolclass;
+use App\Models\School\Subject;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,8 +15,8 @@ class SubjectController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $Schoolclass = Schoolclass::get();
-        return view('backend.subject.index', compact('Schoolclass'));
+        $users = Schoolclass::get();
+        return view('backend.subject.index', compact('users'));
     }
 
     /**
@@ -24,7 +25,8 @@ class SubjectController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return view('backend.subject.addform');
+        $val = Subject::get();
+        return view('backend.subject.addform')->with(compact('val'));
     }
 
     /**
@@ -39,6 +41,7 @@ class SubjectController extends Controller {
 
             $request->validate([
                 'class_name' => 'required|unique:class',
+                'subject_name' => 'required|integer',
             ]);
 
             if ($request->id != '') {
@@ -48,7 +51,7 @@ class SubjectController extends Controller {
             }
 
             $Schoolclass->class_name = $request['class_name'];
-
+            $Schoolclass->subject_id = $request['subject_name'];
             $Schoolclass->save();
 
             if ($request->id != '') {
@@ -56,13 +59,12 @@ class SubjectController extends Controller {
             } else {
                 toastr()->success('', 'Class has been created', ['timeOut' => 5000]);
             }
-        } catch (Exception $e) {
-
+        }
+        catch(Exception $e)
+        {
             toastr()->warning('', 'Something went wrong', ['timeOut' => 5000]);
         }
-        
         return redirect()->route('admin.class.list');
-        
     }
 
     /**

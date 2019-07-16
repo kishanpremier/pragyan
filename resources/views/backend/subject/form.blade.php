@@ -1,7 +1,16 @@
          <div class="box-body">
             <div class="form-group">
-                  
-                <label for="class_name" class="col-sm-2 control-label">Name:</label>
+                <label for="subject_name" class="col-sm-2 control-label"><b>Subject Name:</b></label>
+                <div class="col-sm-12">
+                    <select name="subject_name" class="form-control {{ $errors->has('subject_name') ? ' is-invalid' : '' }}">
+                        @foreach($val as $key)
+                            <option value="{{$key['id']}}">{{$key['subject_name']}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="class_name" class="col-sm-2 control-label"><b>Name:</b></label>
                 <div class="col-sm-12">
                     <input type="hidden" name="id" @if(isset($SchoolclassEdit->id)) value="{{$SchoolclassEdit->id}}" @endif>
                     <input type="text" id="class_name" name="class_name" class="form-control {{ $errors->has('class_name') ? ' is-invalid' : '' }}"

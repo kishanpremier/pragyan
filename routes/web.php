@@ -57,6 +57,6 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
     Route::get('subjectschoolList','Subject1\Subject1Controller@index')->name('subjectschool.list');
     Route::get('schoolsubjectcreate','Subject1\Subject1Controller@create')->name('subjectschool.create');
     Route::post('schoolsubjectstore','Subject1\Subject1Controller@store')->name('subjectschool.store');
-    //Route::get('schoolboardedit/{id}','Board\BoardController@edit')->name('subjectschool.edit');
-    //Route::get('schoolboarddelete/{id}','Board\BoardController@delete')->name('schoolboard.delete');
+    Route::get('schoolsubjectedit/{id}','Subject1\Subject1Controller@edit')->name('subjectschool.edit');
+    Route::get('schoolsubjectdelete/{id}','Subject1\Subject1Controller@delete')->name('subjectschool.delete');
 });
