@@ -17,8 +17,16 @@ return [
         'none_for_type'   => 'There is no history for this type.',
         'none_for_entity' => 'There is no history for this :entity.',
         'recent_history'  => 'Recent History',
+        'schoolboard'  => 'Enter Details To Add SchoolBoard',
+        'school'  => 'Enter Details To Add School',
+        'editschool'  => 'Enter Details To Update School',
+        'edit'  => 'Enter Details To Update Class',
         'subject'  => 'Enter Details To Add Class',
+        'subject1'  => 'Enter Details To Add Subject',
         'listing'  => 'Class Listing',
+        'subjectlisting'  => 'Subject Listing',
+        'Schoollisting'  => 'School Listing',
+        'Schoolboardlisting'  => 'SchoolBoard Listing',
 
         'roles' => [
             'created' => 'created role',

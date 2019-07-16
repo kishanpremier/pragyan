@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Subject;
+namespace App\Http\Controllers\Backend\Board;
 
-use App\Models\School\Schoolclass;
+use App\Models\School\Schoolboard;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class SubjectController extends Controller {
-
+class BoardController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
-        $Schoolclass = Schoolclass::get();
-        return view('backend.subject.index', compact('Schoolclass'));
+    public function index()
+    {
+        $Schoolboard = Schoolboard::get();
+        return view('backend.schoolboard.index', compact('Schoolboard'));
     }
 
     /**
@@ -23,8 +24,9 @@ class SubjectController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
-        return view('backend.subject.addform');
+    public function create()
+    {
+        return view('backend.schoolboard.addform');
     }
 
     /**
@@ -33,36 +35,35 @@ class SubjectController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
-
+    public function store(Request $request)
+    {
         try {
 
             $request->validate([
-                'class_name' => 'required|unique:class',
+                'state_board_name' => 'required|unique:state_board',
             ]);
 
             if ($request->id != '') {
-                $Schoolclass = Schoolclass::findOrFail($request->id);
+                $Schoolboard = Schoolboard::findOrFail($request->id);
             } else {
-                $Schoolclass = new Schoolclass();
+                $Schoolboard = new Schoolboard();
             }
 
-            $Schoolclass->class_name = $request['class_name'];
+            $Schoolboard->state_board_name = $request['state_board_name'];
 
-            $Schoolclass->save();
+            $Schoolboard->save();
 
             if ($request->id != '') {
-                toastr()->success('', 'Class has been updated', ['timeOut' => 5000]);
+                toastr()->success('', 'Board has been updated', ['timeOut' => 5000]);
             } else {
-                toastr()->success('', 'Class has been created', ['timeOut' => 5000]);
+                toastr()->success('', 'Board has been created', ['timeOut' => 5000]);
             }
         } catch (Exception $e) {
 
             toastr()->warning('', 'Something went wrong', ['timeOut' => 5000]);
         }
-        
-        return redirect()->route('admin.class.list');
-        
+
+        return redirect()->route('admin.board.list');
     }
 
     /**
@@ -71,7 +72,8 @@ class SubjectController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) {
+    public function show($id)
+    {
         //
     }
 
@@ -81,11 +83,10 @@ class SubjectController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
-        
-        $SchoolclassEdit = Schoolclass::find($id);
-        return view('backend.subject.editform', compact('SchoolclassEdit'));
-        
+    public function edit($id)
+    {
+        $SchoolboardEdit = Schoolboard::find($id);
+        return view('backend.schoolboard.editform', compact('SchoolboardEdit'));
     }
 
     /**
@@ -95,7 +96,8 @@ class SubjectController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         //
     }
 
@@ -105,15 +107,15 @@ class SubjectController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
         //
     }
     public function delete($id){
-        $res=Schoolclass::where('id',$id)->delete();
+        $res=Schoolboard::where('id',$id)->delete();
         if($res) {
-            toastr()->error('', 'Class has been Deleted', ['timeOut' => 5000]);
-            return redirect()->route('admin.class.list');
+            toastr()->error('', 'SchoolBoard has been Deleted', ['timeOut' => 5000]);
+            return redirect()->route('admin.board.list');
         }
     }
-
 }

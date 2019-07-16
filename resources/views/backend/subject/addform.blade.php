@@ -29,7 +29,29 @@
 @toastr_js
 @toastr_render
 @section('before-scripts')
-<script>
-    $("#class_form").validate();
-</script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
+<script src="http://ajax.microsoft.com/ajax/jquery.validate/1.11.1/additional-methods.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        $('#class_form').submit(function (e) {
+            var class_name = $('#class_name').val();
+            if(class_name === ""){
+                $('<strong style="color: red">*The class name field is required.</strong>').appendTo('#invalid-feedback #error');
+                e.preventDefault();
+            }
+            $("#class_form").validate({
+                rules: {
+                    class_name: "required",
+                },
+                messages: {
+                    class_name: "*The class name field is required.",
+                },
+            });
+        });
+    });
+    </script>
 @stop
