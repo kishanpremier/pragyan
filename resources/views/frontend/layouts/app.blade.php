@@ -55,7 +55,7 @@
 
         <!-- Scripts -->
         @yield('before-scripts')
-        {!! Html::script(mix('js/frontend.js')) !!}
+        {{ Html::script('js/frontend.js') }}
         @yield('after-scripts')
         {{ Html::script('js/jquerysession.min.js') }}
         {{ Html::script('js/frontend/frontend.min.js') }}
