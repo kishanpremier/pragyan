@@ -14,13 +14,10 @@ class CreateChapterTable extends Migration {
     public function up() {
         Schema::create('chapter', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('class_id')->unsigned();
-            $table->foreign('subject_id')->references('id')->on('subject');
+            $table->foreign(['class_id','subject_id'])->references(['id','id'])
+                  ->on(['class','subject'])->onDelete(['cascade','cascade']);
             $table->string('chapter_name', 255)->nullable();
             $table->timestamps();
-            $table->foreign('class_id')
-                    ->references('id')->on('class')
-                    ->onDelete('cascade');
            
         });
     }
