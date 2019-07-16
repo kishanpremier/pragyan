@@ -15,8 +15,8 @@ class CreateChapterContentTable extends Migration {
         Schema::create('chapter_content', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('chapter_id')->unsigned();
-            $table->integer('class_id')->unsigned();
-            $table->integer('subject_id')->unsigned();
+            $table->foreign('class_id')->references('id')->on('class');
+            $table->foreign('subject_id')->references('id')->on('subject');
             $table->string('content_title', 255)->nullable();
             $table->string('content_type', 255)->nullable();
             $table->string('content_short_desc', 255)->nullable();
@@ -25,12 +25,7 @@ class CreateChapterContentTable extends Migration {
             $table->foreign('chapter_id')
                     ->references('id')->on('chapter')
                     ->onDelete('cascade');
-            $table->foreign('class_id')
-                    ->references('id')->on('class')
-                    ->onDelete('cascade');
-            $table->foreign('subject_id')
-                    ->references('id')->on('subject')
-                    ->onDelete('cascade');
+            
         });
     }
 
