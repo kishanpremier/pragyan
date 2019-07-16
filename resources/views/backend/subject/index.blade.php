@@ -60,7 +60,7 @@
 </html>
 @section('after-scripts')
 {{-- For DataTables --}}
-{{ Html::script(mix('js/dataTable.js')) }}
+{{ Html::script('js/dataTable.js') }}
 
 <script>
 
