@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api\V1;
+
 use App\Models\School\School;
 use App\Models\School\Schoolboard;
 use App\Models\School\Schoolclass;
@@ -10,8 +11,8 @@ use Config;
 use Illuminate\Http\Request;
 use Validator;
 
-class RegisterController extends APIController
-{
+class RegisterController extends APIController {
+
     protected $repository;
 
     /**
@@ -19,8 +20,7 @@ class RegisterController extends APIController
      *
      * @param $repository
      */
-    public function __construct(UserRepository $repository)
-    {
+    public function __construct(UserRepository $repository) {
         $this->repository = $repository;
     }
 
@@ -31,21 +31,20 @@ class RegisterController extends APIController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function register(Request $request)
-    {
+    public function register(Request $request) {
         $validation = Validator::make($request->all(), [
-            'user_type'            => 'required',
-            'age'            => 'required',
-            'gender'            => 'required',
-            'mobile'            => 'required',
-            'state'            => 'required',
-            'district'            => 'required',
-            'first_name'            => 'required',
-            'last_name'             => 'required',
-            'email'                 => 'required|email|unique:users',
-            'password'              => 'required|min:4',
-            'password_confirmation' => 'required|same:password',
-            'is_term_accept'        => 'required',
+                    'user_type' => 'required',
+                    'age' => 'required',
+                    'gender' => 'required',
+                    'mobile' => 'required',
+                    'state' => 'required',
+                    'district' => 'required',
+                    'first_name' => 'required',
+                    'last_name' => 'required',
+                    'email' => 'required|email|unique:users',
+                    'password' => 'required|min:4',
+                    'password_confirmation' => 'required|same:password',
+                    'is_term_accept' => 'required',
         ]);
 
         if ($validation->fails()) {
@@ -56,7 +55,7 @@ class RegisterController extends APIController
 
         if (!Config::get('api.register.release_token')) {
             return $this->respondCreated([
-                'message'  => trans('api.messages.registeration.success'),
+                        'message' => trans('api.messages.registeration.success'),
             ]);
         }
 
@@ -68,37 +67,72 @@ class RegisterController extends APIController
         $token = $passportToken->accessToken;
 
         return $this->respondCreated([
-            'message'   => trans('api.messages.registeration.success'),
-            'token'     => $token,
+                    'message' => trans('api.messages.registeration.success'),
+                    'token' => $token,
         ]);
     }
-    
-    public function stateBoard(){
-        
+
+    public function stateBoard() {
+
         $Schoolboard = Schoolboard::get();
-        return response($Schoolboard);
-        
+
+        if ($Schoolboard != '') {
+            $schoolStatus = true;
+        } else {
+            $schoolStatus = false;
+        }
+
+        return response()->json([
+                    'status' => $schoolStatus,
+                    'data' => $Schoolboard,
+                    'message' => 'State Board']);
     }
-    
-     public function school(){
-        
+
+    public function school() {
+
         $School = School::get();
-        return response($School);
-        
+        if ($School != '') {
+            $schoolStatusAc = true;
+        } else {
+            $schoolStatusAc = false;
+        }
+
+        return response()->json([
+                    'status' => $schoolStatusAc,
+                    'data' => $School,
+                    'message' => 'school']);
     }
-    
-     public function schoolClass(){
-        
+
+    public function schoolClass() {
+
         $Schoolclass = Schoolclass::get();
-        return response($Schoolclass);
+        
+        if ($Schoolclass != '') {
+            $SchoolclassStatus = true;
+        } else {
+            $SchoolclassStatus = false;
+        }
+
+        return response()->json([
+                    'status' => $SchoolclassStatus,
+                    'data' => $Schoolclass,
+                    'message' => 'School class']);
         
     }
-    
-    
-     public function subject(){
-        
+
+    public function subject() {
+
         $subject = Subject::get();
-        return response($subject);
-        
+        if ($subject != '') {
+            $subjectStatus = true;
+        } else {
+            $subjectStatus = false;
+        }
+
+        return response()->json([
+                    'status' => $subjectStatus,
+                    'data' => $subject,
+                    'message' => 'Subject']);
     }
+
 }
