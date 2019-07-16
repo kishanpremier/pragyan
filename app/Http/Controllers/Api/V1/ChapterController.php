@@ -24,13 +24,16 @@ class ChapterController extends Controller {
             $Chapter->chapter_name = $request['chapter_name'];
 
             $Chapter->save();
+            
             $message = 'chapter has been created';
         } catch (Exception $e) {
 
             $message = 'Something went wrong';
         }
 
-        return response($message);
+        return response()->json([
+              'message' => $message]);
+        
     }
     
        public function chapterContent(Request $request) {
@@ -60,7 +63,9 @@ class ChapterController extends Controller {
             $message = 'Something went wrong';
         }
 
-        return response($message);
+        
+        return response()->json([
+              'message' => $message]);
     }
 
 }
