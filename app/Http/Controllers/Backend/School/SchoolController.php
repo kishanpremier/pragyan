@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Subject;
+namespace App\Http\Controllers\Backend\School;
 
-use App\Models\School\Schoolclass;
+use App\Models\School\School;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class SubjectController extends Controller {
-
+class SchoolController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
-        $Schoolclass = Schoolclass::get();
-        return view('backend.subject.index', compact('Schoolclass'));
+    public function index()
+    {
+        $School = School::get();
+        return view('backend.school.index', compact('School'));
     }
 
     /**
@@ -23,8 +24,9 @@ class SubjectController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
-        return view('backend.subject.addform');
+    public function create()
+    {
+        return view('backend.school.addform');
     }
 
     /**
@@ -33,36 +35,35 @@ class SubjectController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
-
+    public function store(Request $request)
+    {
         try {
 
             $request->validate([
-                'class_name' => 'required|unique:class',
+                'school_name' => 'required|unique:school',
             ]);
 
             if ($request->id != '') {
-                $Schoolclass = Schoolclass::findOrFail($request->id);
+                $School = School::findOrFail($request->id);
             } else {
-                $Schoolclass = new Schoolclass();
+                $School = new School();
             }
 
-            $Schoolclass->class_name = $request['class_name'];
+            $School->school_name = $request['school_name'];
 
-            $Schoolclass->save();
+            $School->save();
 
             if ($request->id != '') {
-                toastr()->success('', 'Class has been updated', ['timeOut' => 5000]);
+                toastr()->success('', 'School has been updated', ['timeOut' => 5000]);
             } else {
-                toastr()->success('', 'Class has been created', ['timeOut' => 5000]);
+                toastr()->success('', 'School has been created', ['timeOut' => 5000]);
             }
         } catch (Exception $e) {
 
             toastr()->warning('', 'Something went wrong', ['timeOut' => 5000]);
         }
-        
-        return redirect()->route('admin.class.list');
-        
+
+        return redirect()->route('admin.school.list');
     }
 
     /**
@@ -71,7 +72,8 @@ class SubjectController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) {
+    public function show($id)
+    {
         //
     }
 
@@ -81,11 +83,10 @@ class SubjectController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
-        
-        $SchoolclassEdit = Schoolclass::find($id);
-        return view('backend.subject.editform', compact('SchoolclassEdit'));
-        
+    public function edit($id)
+    {
+        $SchoolEdit = School::find($id);
+        return view('backend.school.editform', compact('SchoolEdit'));
     }
 
     /**
@@ -95,7 +96,8 @@ class SubjectController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         //
     }
 
@@ -105,15 +107,15 @@ class SubjectController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
         //
     }
     public function delete($id){
-        $res=Schoolclass::where('id',$id)->delete();
+        $res=School::where('id',$id)->delete();
         if($res) {
-            toastr()->error('', 'Class has been Deleted', ['timeOut' => 5000]);
-            return redirect()->route('admin.class.list');
+            toastr()->error('', 'School has been Deleted', ['timeOut' => 5000]);
+            return redirect()->route('admin.school.list');
         }
     }
-
 }

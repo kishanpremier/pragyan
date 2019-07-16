@@ -1,19 +1,19 @@
 <?php
 
 namespace App\Repositories\Backend\subject;
-namespace App\Http\Controllers\Backend\Subject;
+use App\Http\Controllers\Backend\Subject;
 use App\Repositories\BaseRepository;
-use App\Models\Subject\Subject;
+use App\Models\Subject\SubjectModel;
 
 /**
  * Class PagesRepository.
  */
-class CmsListingPagesRepository extends BaseRepository
+class SubjectPagesRepository extends BaseRepository
 {
     /**
      * Associated Repository Model.
      */
-    const MODEL = Subject::class;
+    const MODEL = SubjectModel::class;
 
     /**
      * @param $request
@@ -55,7 +55,7 @@ class CmsListingPagesRepository extends BaseRepository
     public function create(array $input)
     {
 
-        if ($this->query()->where('name', $input['name'])->first()) {
+        /*if ($this->query()->where('name', $input['name'])->first()) {
             throw new GeneralException(trans('exceptions.backend.pages.already_exists'));
         }
 
@@ -66,7 +66,8 @@ class CmsListingPagesRepository extends BaseRepository
             return $page;
         }
 
-        throw new GeneralException(trans('exceptions.backend.pages.create_error'));
+        throw new GeneralException(trans('exceptions.backend.pages.create_error'));*/
+        return 0;
     }
 
 

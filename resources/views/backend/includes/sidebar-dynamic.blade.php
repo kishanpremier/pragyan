@@ -13,7 +13,7 @@
             </li>
             {{--<li>
                 <a href="#">
-            <i class="fa fa-dashboar                            d"></i>
+            <i class="fa fa-dashboard"></i>
                                     <span>{{ trans('menus.backend.sidebar.subject') }}</span>
                                 </a>
                             </li>
@@ -24,7 +24,7 @@
                                 </a>
                             </li>--}}
                             <!--            <li class="header">{{ trans('menus.backend.sidebar.system') }}</li>-->
-                            <!--            {{ renderMenuItems(getMenuItems()) }}-->
+                            <!--            {{renderMenuItems(getMenuItems()) }}-->
 
                             <li class="treeview"><a href="">
                                     <i class="fa fa-users"></i> 
@@ -42,8 +42,62 @@
                                             <span>List class</span>
                                         </a>
                                     </li>
-                                    
                             </li>
-                            </ul><!-- /.sidebar-menu -->
+                            </ul>
+            <li class="treeview"><a href="">
+                    <i class="fa fa-users"></i>
+                    <span>School</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a> <ul class="treeview-menu" style="display: none;">
+                    <li class="  ">
+                        <a href="{{url('admin/schoolcreate')}}">
+                            <i class="fa "></i>
+                            <span>Add School</span></a>
+                    </li>
+                    <li class="">
+                        <a href="{{url('admin/schoolList')}}">
+                            <i class="fa "></i>
+                            <span>List School</span>
+                        </a>
+                    </li>
+                    </li><!-- /.sidebar-menu -->
+                </ul>
+                    <li class="treeview"><a href="">
+                            <i class="fa fa-users"></i>
+                            <span>Board</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a> <ul class="treeview-menu" style="display: none;">
+                            <li class="  ">
+                                <a href="{{url('admin/schoolboardcreate')}}">
+                                    <i class="fa "></i>
+                                    <span>Add Board</span></a>
+                            </li>
+                            <li class="">
+                                <a href="{{url('admin/boardList')}}">
+                                    <i class="fa "></i>
+                                    <span>List Board</span>
+                                </a>
+                            </li>
+                            </li>
+                </ul>
+            <li class="treeview"><a href="">
+                    <i class="fa fa-users"></i>
+                    <span>Subject</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu" style="display: none;">
+                    <li class="  ">
+                        <a href="{{url('admin/schoolsubjectcreate')}}">
+                            <i class="fa "></i>
+                            <span>Add Subject</span></a>
+                    </li>
+                    <li class="">
+                        <a href="{{url('admin/subjectschoolList')}}">
+                            <i class="fa "></i>
+                            <span>List Subject</span>
+                        </a>
+                    </li>
+                    </li>
+                </ul>
                             </section><!-- /.sidebar -->
                             </aside>

@@ -1,13 +1,13 @@
 <html>
 
-</html><title>Class Listing</title>
+</html><title>Subject Listing</title>
 
 
 @extends('backend.layouts.app')
 
 @section('page-header')
 <h1>
-    Class Listing
+    Subject Listing
     {{--<small>{{ trans('strings.backend.dashboard.classdashboard') }}</small>--}}
 </h1>
 @endsection
@@ -15,7 +15,7 @@
 @section('content')
 <div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title">{{ trans('history.backend.listing') }}</h3>
+        <h3 class="box-title">{{ trans('history.backend.subjectlisting') }}</h3>
     </div><!-- /.box-header -->
     <div class="box-body">
         <div class="table-responsive data-table-wrapper">
@@ -28,7 +28,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($Schoolclass as $k=> $SchoolclassData)
+                    @foreach($schoolsubject as $k=> $SchoolclassData)
                     <tr>
                         <td>{{$SchoolclassData->id}}</td>
                         <td>{{$SchoolclassData->class_name}}</td>
@@ -36,7 +36,6 @@
                         <a href="{{route('admin.class.edit',$SchoolclassData->id)}}"><i class="fa fa-pencil schoolclass" aria-hidden="true"></i></a>
                         <a href="{{route('admin.class.delete',$SchoolclassData->id)}}"><i class="fa fa-trash schoolclass" aria-hidden="true"></i></a>
                         </td>
-                        
                     </tr>
                     @endforeach
                    
@@ -61,7 +60,7 @@
 </html>
 @section('after-scripts')
 {{-- For DataTables --}}
-{{ Html::script('js/dataTable.js') }}
+{{ Html::script(mix('js/dataTable.js')) }}
 
 <script>
 
