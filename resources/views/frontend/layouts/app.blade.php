@@ -11,11 +11,6 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>@yield('title', app_name())</title>
 
-        <!-- Meta -->
-        <meta name="description" content="@yield('meta_description', 'Laravel AdminPanel')">
-        <meta name="author" content="@yield('meta_author', 'Viral Solani')">
-        <link rel="stylesheet" type="text/css" href="{{URL::asset('css/frontend.css')}}">
-        <link rel="stylesheet" type="text/css" href="{{URL::asset('css/frontend.css')}}">
         @yield('meta')
 
         <!-- Styles -->
@@ -24,6 +19,7 @@
         <!-- Check if the language is set to RTL, so apply the RTL layouts -->
         <!-- Otherwise apply the normal LTR layouts -->
       
+       {!! Html::style('css/frontend.css') !!}
        {!! Html::style('js/select2/select2.min.css') !!}
         @yield('after-styles')
 
