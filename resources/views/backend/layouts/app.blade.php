@@ -28,12 +28,12 @@
         <!-- Check if the language is set to RTL, so apply the RTL layouts -->
         <!-- Otherwise apply the normal LTR layouts -->
         @langrtl
-            {{ Html::style(getRtlCss(mix('css/backend.css'))) }}
+            {{ Html::style(getRtlCss('css/backend.css')) }}
         @else
-            {{ Html::style(mix('css/backend.css')) }}
+            {{ Html::style('css/backend.css') }}
         @endlangrtl
 
-        {{ Html::style(mix('css/backend-custom.css')) }}
+        {{ Html::style('css/backend-custom.css') }}
         @yield('after-styles')
 
         <!-- Html5 Shim and Respond.js IE8 support of Html5 elements and media queries -->
@@ -85,8 +85,8 @@
 
         <!-- JavaScripts -->
         @yield('before-scripts')
-        {{ Html::script(mix('js/backend.js')) }}
-        {{ Html::script(mix('js/backend-custom.js')) }}
+        {{ Html::script('js/backend.js') }}
+        {{ Html::script('js/backend-custom.js') }}
         @yield('after-scripts')
         </body>
         
