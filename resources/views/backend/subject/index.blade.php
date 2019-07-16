@@ -28,7 +28,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($Schoolclass as $k=> $SchoolclassData)
+                    @foreach($users as $k=> $SchoolclassData)
                     <tr>
                         <td>{{$SchoolclassData->id}}</td>
                         <td>{{$SchoolclassData->class_name}}</td>

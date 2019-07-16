@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Subject1;
 
 use App\Models\School\Subject;
+use App\Models\School\School;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -26,7 +27,8 @@ class Subject1Controller extends Controller
      */
     public function create()
     {
-        return view('backend.subject1.addform');
+        $val = School::get();
+        return view('backend.subject1.addform')->with(compact('val'));
     }
 
     /**
@@ -38,50 +40,79 @@ class Subject1Controller extends Controller
     public function store(Request $request)
     {
         try {
-            $request->validate([
-                'subject_name' => 'required|unique:subject',
-                'school_subject_image' => 'required'
-            ]);
+            if($request->id == ''){
+                $request->validate([
 
-            $ext = $request->file('school_subject_image')->getClientOriginalExtension();
-            $size = $request->file('school_subject_image')->getSize();
-            if($size > 2000000)
-            {
-                $errors1['size'] = "Size Should Be Less Than 2MB";
+                    'subject_name' => 'required|unique:subject',
+                    'subject_image' => 'required',
+                    'school_name' => 'required|integer'
+                ]);
             }
-            elseif ($ext != "jpeg" && $ext != "png" && $ext != "jpg")
-            {
-                $errors1['extension'] = "Invalid File Format";
-                if($request->id == '')
-                    return view('backend.subject1.addform')->with(compact('errors1'));
-                else
-                    return view('backend.subject1.editform')->with(compact('errors1'));
+            else{
+                $request->validate([
+                    'subject_name' => 'required|unique:subject',
+                    'school_name' => 'required|integer'
+                ]);
             }
+            $val = School::get();
+            if($request->file('subject_image') != null)
+            {
+                $ext = $request->file('subject_image')->getClientOriginalExtension();
+                $size = $request->file('subject_image')->getSize();
 
+                if ($size > 2000000) {
+                    $errors1['size'] = "Size Should Be Less Than 2MB";
+                } elseif ($ext != "jpeg" && $ext != "png" && $ext != "jpg") {
+                    $errors1['extension'] = "Invalid File Format";
+                    if ($request->id == '')
+                        return view('backend.subject1.addform')->with(compact('errors1','val'));
+                    else
+                        return view('backend.subject1.editform')->with(compact('errors1','val'));
+                }
+            }
             if ($request->id != '') {
                 $Schoolsubject = Subject::findOrFail($request->id);
-                $id = $request->id;
             } else {
                 $Schoolsubject = new Subject();
-                $val = Subject::orderBy('id', 'DESC')->first();
-                $id = $val['id'] + 1;
             }
 
-            $Schoolsubject->subject_name = $request['subject_name'];
-            $Schoolsubject->subject_image = $id.".".$ext;
-            $Schoolsubject->save();
+
+            if($request->file('subject_image') != null)
+            {
+                /*
+                $file = $request->file('subject_image');
+                $pathfile = md5($file->getClientOriginalName(). time()).".".$ext;
+                $file = $request->file('subject_image')->storeAs('public/subjectimages',$pathfile);
+                */
+
+                $file = $request->file('subject_image');
+                $pathfile = md5($file->getClientOriginalName(). time()).".".$ext;
+                $file->move(public_path('\subjectimages\\'), $pathfile);
+
+                $Schoolsubject->subject_name = $request['subject_name'];
+                $Schoolsubject->subject_image = $pathfile;
+                $Schoolsubject->school_id = $request['school_name'];
+                $Schoolsubject->save();
+            }
+            else
+            {
+                $Schoolsubject->subject_name = $request['subject_name'];
+                $Schoolsubject->school_id = $request['school_name'];
+                $Schoolsubject->save();
+            }
+
 
             if ($request->id != '') {
-                toastr()->success('', 'Class has been updated', ['timeOut' => 5000]);
+                toastr()->success('', 'Subject has been updated', ['timeOut' => 5000]);
             } else {
-                toastr()->success('', 'Class has been created', ['timeOut' => 5000]);
+                toastr()->success('', 'Subject has been created', ['timeOut' => 5000]);
             }
         } catch (Exception $e) {
 
             toastr()->warning('', 'Something went wrong', ['timeOut' => 5000]);
         }
 
-        return redirect()->route('admin.class.list');
+        return redirect()->route('admin.subjectschool.list');
     }
     /**
      * Display the specified resource.
@@ -102,7 +133,9 @@ class Subject1Controller extends Controller
      */
     public function edit($id)
     {
-        //
+        $val = School::get();
+        $schoolsubject = Subject::find($id);
+        return view('backend.subject1.editform', compact('schoolsubject','val'));
     }
 
     /**
@@ -126,5 +159,18 @@ class Subject1Controller extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function delete($id){
+        $res=Subject::where('id',$id)->get();
+        foreach ($res as $val)
+            $path = (base_path('public\\subjectimages\\'.$val['subject_image']));
+
+        unlink(public_path('\subjectimages\\'.$val['subject_image']));
+
+        $res=Subject::where('id',$id)->delete();
+        if($res) {
+            toastr()->error('', 'Subject has been Deleted', ['timeOut' => 5000]);
+            return redirect()->route('admin.subjectschool.list');
+        }
     }
 }

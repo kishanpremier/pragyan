@@ -32,3 +32,4 @@ public/error.log
 !public/js/jquerysession.min.js
 output.txt
 .php_cs.cache
+public/subjectimages/*

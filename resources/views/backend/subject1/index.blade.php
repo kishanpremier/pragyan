@@ -1,5 +1,4 @@
 <html>
-
 </html><title>Subject Listing</title>
 
 
@@ -31,16 +30,14 @@
                     @foreach($schoolsubject as $k=> $SchoolclassData)
                     <tr>
                         <td>{{$SchoolclassData->id}}</td>
-                        <td>{{$SchoolclassData->class_name}}</td>
+                        <td>{{$SchoolclassData->subject_name}}</td>
                         <td>
-                        <a href="{{route('admin.class.edit',$SchoolclassData->id)}}"><i class="fa fa-pencil schoolclass" aria-hidden="true"></i></a>
-                        <a href="{{route('admin.class.delete',$SchoolclassData->id)}}"><i class="fa fa-trash schoolclass" aria-hidden="true"></i></a>
+                            <a href="{{route('admin.subjectschool.edit',$SchoolclassData->id)}}"><i class="fa fa-pencil schoolclass" aria-hidden="true"></i></a>
+                            <a href="{{route('admin.subjectschool.delete',$SchoolclassData->id)}}"><i class="fa fa-trash schoolclass" aria-hidden="true"></i></a>
                         </td>
                     </tr>
                     @endforeach
-                   
                 </tbody>
-                
             </table>
         </div>
     </div><!-- /.box-body -->
