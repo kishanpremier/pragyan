@@ -14,9 +14,9 @@ class CreateChapterContentTable extends Migration {
     public function up() {
         Schema::create('chapter_content', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('chapter_id');
-            $table->integer('class_id');
-            $table->integer('subject_id');
+            $table->integer('chapter_id')->unsigned();
+            $table->integer('class_id')->unsigned();
+            $table->integer('subject_id')->unsigned();
             $table->string('content_title', 255)->nullable();
             $table->string('content_type', 255)->nullable();
             $table->string('content_short_desc', 255)->nullable();
