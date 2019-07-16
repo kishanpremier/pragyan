@@ -22,9 +22,9 @@
         <!-- Check if the language is set to RTL, so apply the RTL layouts -->
         <!-- Otherwise apply the normal LTR layouts -->
         @langrtl
-            {{ Html::style(getRtlCss(mix('css/frontend.css'))) }}
+            {{ Html::style(getRtlCss('css/frontend.css')) }}
         @else
-            {{ Html::style(mix('css/frontend.css')) }}
+            {{ Html::style('css/frontend.css') }}
         @endlangrtl
 
        {!! Html::style('js/select2/select2.min.css') !!}
@@ -55,7 +55,7 @@
 
         <!-- Scripts -->
         @yield('before-scripts')
-        {!! Html::script(mix('js/frontend.js')) !!}
+        {!! Html::script('js/frontend.js') !!}
         @yield('after-scripts')
         {{ Html::script('js/jquerysession.min.js') }}
         {{ Html::script('js/frontend/frontend.min.js') }}
