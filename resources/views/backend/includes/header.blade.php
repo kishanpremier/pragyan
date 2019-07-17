@@ -1,6 +1,6 @@
 <header class="main-header">
     
-    <a href="{{ route('frontend.auth.login') }}" class="logo">
+    <a href="#" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini">
            {{ substr(app_name(), 0, 1) }}
@@ -14,7 +14,7 @@
             @if($settings->logo)
                 <img height="48" width="226" class="navbar-brand" src="{{route('frontend.auth.login')}}/img/site_logo/{{$settings->logo}}">
             @else --}}
-                {{ app_name() }}
+                Pragyan
            {{--  @endif --}}
         </span>
     </a>
@@ -58,12 +58,7 @@
                         </li>
 
                         <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="{!! route('frontend.auth.login') !!}" class="btn btn-default btn-flat">
-                                    <i class="fa fa-home"></i>
-                                    {{ trans('navs.general.home') }}
-                                </a>
-                            </div>
+                            
                             <div class="pull-right">
                                 <a href="{!! route('frontend.auth.logout') !!}" class="btn btn-danger btn-flat">
                                     <i class="fa fa-sign-out"></i>

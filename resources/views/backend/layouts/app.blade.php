@@ -66,11 +66,7 @@
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    @yield('page-header')
-                    <!-- Breadcrumbs would render from routes/breadcrumb.php -->
-                    @if(Breadcrumbs::exists())
-                        {!! Breadcrumbs::render() !!}
-                    @endif
+                
                 </section>
 
                 <!-- Main content -->

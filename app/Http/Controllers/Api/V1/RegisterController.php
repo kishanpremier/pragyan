@@ -121,10 +121,9 @@ class RegisterController extends APIController {
         
     }
 
-    public function subject($id) {
+    public function subject() {
 
-        $subject = Subject::where('subject.school_id', '=', $id)
-                ->get();
+        $subject = get();
       
         if ($subject != '') {
             $subjectStatus = true;

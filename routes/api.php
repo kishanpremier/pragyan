@@ -22,7 +22,7 @@
         Route::get('stateborad', 'RegisterController@stateBoard');
         Route::get('school', 'RegisterController@school');
         Route::get('schoolclass/{id}', 'RegisterController@schoolClass');
-        Route::get('subject/{id}', 'RegisterController@subject');
+        Route::get('subject', 'RegisterController@subject');
         Route::post('chapter', 'ChapterController@chapter');
         Route::post('chaptercontent', 'ChapterController@chapterContent');
         Route::get('getchapterContent/{id}', 'ChapterController@getchapterContent');
