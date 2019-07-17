@@ -81,7 +81,7 @@
                         </ul>
                     </li>
 
-            <li class="treeview"><a href="">
+            {{--<li class="treeview"><a href="">
                     <i class="fa fa-users"></i>
                     <span>Subject</span>
                     <i class="fa fa-angle-left pull-right"></i>
@@ -99,7 +99,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li>--}}
 
             <li class="treeview"><a href="">
                     <i class="fa fa-users"></i>
