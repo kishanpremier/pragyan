@@ -1,13 +1,12 @@
 <html>
-
-</html><title>Class Listing</title>
+</html><title>Subject Listing</title>
 
 
 @extends('backend.layouts.app')
 
 @section('page-header')
 <h1>
-    Class Listing
+    Chapter Listing
     {{--<small>{{ trans('strings.backend.dashboard.classdashboard') }}</small>--}}
 </h1>
 @endsection
@@ -15,7 +14,7 @@
 @section('content')
 <div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title">{{ trans('history.backend.listing') }}</h3>
+        <h3 class="box-title">{{ trans('history.backend.subjectlisting') }}</h3>
     </div><!-- /.box-header -->
     <div class="box-body">
         <div class="table-responsive data-table-wrapper">
@@ -23,25 +22,22 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Class Name</th>
+                        <th>Chapter Name</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($users as $k=> $SchoolclassData)
+                    @foreach($chapter as $k=> $chapter1)
                     <tr>
-                        <td>{{$SchoolclassData->id}}</td>
-                        <td>{{$SchoolclassData->class_name}}</td>
+                        <td>{{$chapter1->id}}</td>
+                        <td>{{$chapter1->chapter_name}}</td>
                         <td>
-                        <a href="{{route('admin.class.edit',$SchoolclassData->id)}}"><i class="fa fa-pencil schoolclass" aria-hidden="true"></i></a>
-                        <a href="{{route('admin.class.delete',$SchoolclassData->id)}}"><i class="fa fa-trash schoolclass" aria-hidden="true"></i></a>
+                            <a href="{{route('admin.schoolchapter.edit',$chapter1->id)}}"><i class="fa fa-pencil schoolclass" aria-hidden="true"></i></a>
+                            <a href="{{route('admin.schoolchapter.delete',$chapter1->id)}}"><i class="fa fa-trash schoolclass" aria-hidden="true"></i></a>
                         </td>
-                        
                     </tr>
                     @endforeach
-                   
                 </tbody>
-                
             </table>
         </div>
     </div><!-- /.box-body -->

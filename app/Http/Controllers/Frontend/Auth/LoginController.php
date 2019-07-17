@@ -68,19 +68,24 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
+            
         /*
          * Check to see if the users account is confirmed and active
          */
+        if (!$user->user_type == 2) {
         if (!$user->isConfirmed()) {
+            
+            
             access()->logout();
 
-            throw new GeneralException(trans('exceptions.frontend.auth.confirmation.resend', ['user_id' => $user->id]), true);
+        throw new GeneralException(trans('exceptions.frontend.auth.confirmation.resend', ['user_id' => $user->id]), true);
         } elseif (!$user->isActive()) {
+        
             access()->logout();
 
             throw new GeneralException(trans('exceptions.frontend.auth.deactivated'));
         }
-
+        }
         event(new UserLoggedIn($user));
         /*
         // Push notification implementation
@@ -164,4 +169,8 @@ class LoginController extends Controller
             return redirect()->route('frontend.auth.login');
         }
     }
+    /*public function login(Request $request)
+    {
+        return view('errors.404');
+    }*/
 }

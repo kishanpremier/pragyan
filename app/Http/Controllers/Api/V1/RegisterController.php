@@ -103,9 +103,10 @@ class RegisterController extends APIController {
                     'message' => 'school']);
     }
 
-    public function schoolClass() {
+    public function schoolClass($id) {
 
-        $Schoolclass = Schoolclass::get();
+        $Schoolclass = Schoolclass::where('class.subject_id', '=', $id)
+                ->get();
         
         if ($Schoolclass != '') {
             $SchoolclassStatus = true;
@@ -123,6 +124,7 @@ class RegisterController extends APIController {
     public function subject() {
 
         $subject = Subject::get();
+      
         if ($subject != '') {
             $subjectStatus = true;
         } else {

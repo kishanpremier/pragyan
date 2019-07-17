@@ -1,5 +1,5 @@
 <li class="{{ active_class(isActiveMenuItem($item)) }} @if(!empty($item->children)) {{ 'treeview' }} @endif ">
-    <a href="{{ getRouteUrl($item->url, $item->url_type) }}" @if(!empty($item->open_in_new_tab) && ($item->open_in_new_tab == 1)) {{ 'target="_blank"' }} @endif>
+    <a href="" @if(!empty($item->open_in_new_tab) && ($item->open_in_new_tab == 1)) {{ 'target="_blank"' }} @endif>
         <i class="fa {{ @$item->icon }}"></i>
         <span>{{ $item->name }}</span>
         @if (!empty($item->children))

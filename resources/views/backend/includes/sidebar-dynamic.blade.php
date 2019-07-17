@@ -44,7 +44,7 @@
                                     </li>
                             </li>
                             </ul>
-            <li class="treeview"><a href="">
+            {{--<li class="treeview"><a href="">
                     <i class="fa fa-users"></i>
                     <span>School</span>
                     <i class="fa fa-angle-left pull-right"></i>
@@ -60,8 +60,8 @@
                             <span>List School</span>
                         </a>
                     </li>
-                    </li><!-- /.sidebar-menu -->
                 </ul>
+            </li><!-- /.sidebar-menu -->--}}
                     <li class="treeview"><a href="">
                             <i class="fa fa-users"></i>
                             <span>Board</span>
@@ -78,8 +78,9 @@
                                     <span>List Board</span>
                                 </a>
                             </li>
-                            </li>
-                </ul>
+                        </ul>
+                    </li>
+
             <li class="treeview"><a href="">
                     <i class="fa fa-users"></i>
                     <span>Subject</span>
@@ -97,7 +98,28 @@
                             <span>List Subject</span>
                         </a>
                     </li>
+                </ul>
+            </li>
+
+            <li class="treeview"><a href="">
+                    <i class="fa fa-users"></i>
+                    <span>Chapter</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu" style="display: none;">
+                    <li class="  ">
+                        <a href="{{url('admin/schoolchaptercreate')}}">
+                            <i class="fa "></i>
+                            <span>Add Chapter</span></a>
+                    </li>
+                    <li class="">
+                        <a href="{{url('admin/schoolchapterList')}}">
+                            <i class="fa "></i>
+                            <span>List Chapter</span>
+                        </a>
                     </li>
                 </ul>
-                            </section><!-- /.sidebar -->
-                            </aside>
+            </li>
+        </ul>
+    </section><!-- /.sidebar -->
+</aside>

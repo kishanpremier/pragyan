@@ -40,7 +40,7 @@ class BoardController extends Controller
         try {
 
             $request->validate([
-                'state_board_name' => 'required|unique:state_board',
+                'state_board_name' => 'required|unique:state_board,state_board_name,'.$request->id,
             ]);
 
             if ($request->id != '') {

@@ -27,13 +27,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($schoolsubject as $k=> $SchoolclassData)
+                    @foreach($schoolsubject as $k=> $SchoolsubjectData)
                     <tr>
-                        <td>{{$SchoolclassData->id}}</td>
-                        <td>{{$SchoolclassData->subject_name}}</td>
+                        <td>{{$SchoolsubjectData->id}}</td>
+                        <td>{{$SchoolsubjectData->subject_name}}</td>
                         <td>
-                            <a href="{{route('admin.subjectschool.edit',$SchoolclassData->id)}}"><i class="fa fa-pencil schoolclass" aria-hidden="true"></i></a>
-                            <a href="{{route('admin.subjectschool.delete',$SchoolclassData->id)}}"><i class="fa fa-trash schoolclass" aria-hidden="true"></i></a>
+                            <a href="{{route('admin.subjectschool.edit',$SchoolsubjectData->id)}}"><i class="fa fa-pencil schoolclass" aria-hidden="true"></i></a>
+                            <a href="{{route('admin.subjectschool.delete',$SchoolsubjectData->id)}}"><i class="fa fa-trash schoolclass" aria-hidden="true"></i></a>
                         </td>
                     </tr>
                     @endforeach

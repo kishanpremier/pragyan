@@ -19,11 +19,13 @@ return [
         'recent_history'  => 'Recent History',
         'editschool'  => 'Enter Details To Update School',
         'edit'  => 'Enter Details To Update Class',
+        'editchapter'  => 'Enter Details To Update Chapter',
         'editsubject'=>'Enter Details To Update Subject',
         'schoolboard'  => 'Enter Details To Add SchoolBoard',
         'school'  => 'Enter Details To Add School',
         'subject'  => 'Enter Details To Add Class',
         'subject1'  => 'Enter Details To Add Subject',
+        'chapter'  => 'Enter Details To Add Chapter',
 
         'listing'  => 'Class Listing',
         'subjectlisting'  => 'Subject Listing',
