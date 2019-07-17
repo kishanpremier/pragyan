@@ -21,8 +21,8 @@
 
         <div class="box-footer">
             <div class="text-right">
-    <input style="margin-right: 15px" type="submit" id="formbtn" class="btn btn-info" value="Add New Subject">
-    </div>
+                <input style="margin-right: 15px" type="submit" id="formbtn" class="btn btn-info" value="Add New Subject">
+            </div>
     </div>
     </form>
     </div><!--box box-info-->

@@ -20,7 +20,9 @@
             @include('backend.schoolboard.form')
 
             <div class="box-footer">
-                <input type="submit" id="formbtn" class="btn btn-info pull-right" value="Add New Class">
+                <div class="text-right">
+                    <input style="margin-right: 15px" type="submit" id="formbtn" class="btn btn-info" value="Add New StateBoard">
+                </div>
             </div>
         </form>
     </div><!--box box-info-->

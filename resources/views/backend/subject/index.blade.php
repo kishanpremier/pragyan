@@ -23,7 +23,7 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Subject Name</th>
+                        <th>Class Name</th>
                         <th>Action</th>
                     </tr>
                 </thead>

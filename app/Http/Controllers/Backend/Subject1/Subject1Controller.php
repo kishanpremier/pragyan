@@ -43,7 +43,8 @@ class Subject1Controller extends Controller
             if($request->id == ''){
                 $request->validate([
 
-                    'subject_name' => 'required|unique:subject',
+                    'subject_name' => 'required',
+                    //|unique:subject
                     'subject_image' => 'required',
                     //'school_name' => 'required|integer'
                 ]);
@@ -51,7 +52,8 @@ class Subject1Controller extends Controller
             else{
                 $request->validate([
                     //'school_name' => 'required|integer',
-                    'subject_name' => 'required|unique:subject,subject_name,'.$request->id
+                    'subject_name' => 'required'
+                    //|unique:subject,subject_name,'.$request->id
                 ]);
             }
             $val = School::get();
@@ -79,11 +81,6 @@ class Subject1Controller extends Controller
 
             if($request->file('subject_image') != null)
             {
-                /*
-                $file = $request->file('subject_image');
-                $pathfile = md5($file->getClientOriginalName(). time()).".".$ext;
-                $file = $request->file('subject_image')->storeAs('public/subjectimages',$pathfile);
-                */
 
                 $file = $request->file('subject_image');
                 $pathfile = md5($file->getClientOriginalName(). time()).".".$ext;
