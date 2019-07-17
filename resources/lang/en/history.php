@@ -24,6 +24,7 @@ return [
         'school'  => 'Enter Details To Add School',
         'subject'  => 'Enter Details To Add Class',
         'subject1'  => 'Enter Details To Add Subject',
+        'chapter'  => 'Enter Details To Add Chapter',
 
         'listing'  => 'Class Listing',
         'subjectlisting'  => 'Subject Listing',

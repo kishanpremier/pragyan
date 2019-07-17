@@ -164,4 +164,8 @@ class LoginController extends Controller
             return redirect()->route('frontend.auth.login');
         }
     }
+    /*public function login(Request $request)
+    {
+        return view('errors.404');
+    }*/
 }
