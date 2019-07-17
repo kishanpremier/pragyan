@@ -84,7 +84,7 @@ class Subject1Controller extends Controller
 
                 $file = $request->file('subject_image');
                 $pathfile = md5($file->getClientOriginalName(). time()).".".$ext;
-                $file->move(public_path('\subjectimages\\'), $pathfile);
+                $file->move(public_path('subjectimages'), $pathfile);
 
                 $Schoolsubject->subject_name = $request['subject_name'];
                 $Schoolsubject->subject_image = $pathfile;
