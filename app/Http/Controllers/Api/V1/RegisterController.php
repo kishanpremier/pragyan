@@ -123,7 +123,7 @@ class RegisterController extends APIController {
 
     public function subject() {
 
-        $subject = get();
+        $subject = Subject::get();
       
         if ($subject != '') {
             $subjectStatus = true;
