@@ -14,37 +14,64 @@
     <div class="box-header with-border">
         <h3 class="box-title">{{ trans('history.backend.subject1') }}</h3>
     </div><!-- /.box-header -->
-    <form id="school_subject_form" enctype="multipart/form-data" method="post" action="{{route('admin.subjectschool.store')}}">
+    <form id="school_subject_form" name="school_subject_form" enctype="multipart/form-data" method="post" action="{{route('admin.subjectschool.store')}}">
         @csrf
-       
+
         @include('backend.subject1.form')
-        
+
         <div class="box-footer">
             <div class="text-right">
-                <input style="margin-right: 15px" type="submit" id="formbtn" class="btn btn-info" value="Add New Subject">
-            </div>
-        </div>
+    <input style="margin-right: 15px" type="submit" id="formbtn" class="btn btn-info" value="Add New Subject">
+    </div>
+    </div>
     </form>
-</div><!--box box-info-->
-@endsection
+    </div><!--box box-info-->
+    @endsection
 
-@jquery
-@toastr_js
-@toastr_render
-@section('before-scripts')
-
-<script>
+    @jquery
+    @toastr_js
+    @toastr_render
+    @section('before-scripts')
+   
+    <script>
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
                 $('#imgsubject')
-                    .attr('src', e.target.result)
-                    .width(150)
-                    .height(200);
+                        .attr('src', e.target.result)
+                        .width(150)
+                        .height(200);
             };
             reader.readAsDataURL(input.files[0]);
         }
     }
-</script>
+    </script>
+    <script>
+
+    $(function () {
+    
+        // Initialize form validation on the registration form.
+        // It has the name attribute "registration"
+        $("form[name='school_subject_form']").validate({
+        
+            // Specify validation rules
+            rules: {
+                // The key name on the left side is the name attribute
+                // of an input field. Validation rules are defined
+                // on the right side
+                subject_name: "required"
+               
+            },
+            // Specify validation error messages
+            messages: {
+                subject_name: "Please enter your subject name"
+                
+            },
+            submitHandler: function (form) {
+                form.submit();
+            }
+        });
+    });
+    </script>
 @stop
