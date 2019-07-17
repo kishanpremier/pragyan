@@ -27,7 +27,8 @@ class ChapterController extends Controller
     public function create()
     {
         $val = Subject::get();
-        return view('backend.chapter.addform')->with(compact('val'));
+        $val1 = Schoolclass::get();
+        return view('backend.chapter.addform')->with(compact('val','val1'));
     }
 
     /**
@@ -90,12 +91,19 @@ class ChapterController extends Controller
     {
         $value = $request->get('value');
         $data = Schoolclass::where('subject_id',$value)->get();
-        dd($data);
-        $output = '<option disabled selected>---SELECT Class---</option>';
-        foreach($data as $row)
-        {
-            $output .= '<option value="'.$row->Society_Id.'">'.$row->societyname.'</option>';
+        if($data != null){
+            $output = '';
+            foreach($data as $row)
+            {
+                $output .= '<option value="'.$row->id.'">'.$row->class_name.'</option>';
+            }
+            return response()->json($output);
         }
-        return response()->json($output);
+        else
+        {
+            $output = '';
+            return response()->json($output);
+        }
+
     }
 }
