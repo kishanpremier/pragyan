@@ -45,12 +45,12 @@ class Subject1Controller extends Controller
 
                     'subject_name' => 'required|unique:subject',
                     'subject_image' => 'required',
-                    'school_name' => 'required|integer'
+                    //'school_name' => 'required|integer'
                 ]);
             }
             else{
                 $request->validate([
-                    'school_name' => 'required|integer',
+                    //'school_name' => 'required|integer',
                     'subject_name' => 'required|unique:subject,subject_name,'.$request->id
                 ]);
             }
@@ -91,13 +91,13 @@ class Subject1Controller extends Controller
 
                 $Schoolsubject->subject_name = $request['subject_name'];
                 $Schoolsubject->subject_image = $pathfile;
-                $Schoolsubject->school_id = $request['school_name'];
+                //$Schoolsubject->school_id = $request['school_name'];
                 $Schoolsubject->save();
             }
             else
             {
                 $Schoolsubject->subject_name = $request['subject_name'];
-                $Schoolsubject->school_id = $request['school_name'];
+                //$Schoolsubject->school_id = $request['school_name'];
                 $Schoolsubject->save();
             }
 

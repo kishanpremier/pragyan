@@ -16,8 +16,10 @@
         <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
         <link href="https://cdn.datatables.net/1.10.19/css/dataTables.jqueryui.min.css" rel="stylesheet">
 
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>
 
-        
         @yield('meta')
 
         <!-- Styles -->
@@ -73,7 +75,7 @@
 
                 <!-- Main content -->
                 <section class="content">
-                    @include('includes.partials.messages')
+                    {{--@include('includes.partials.messages')--}}
                     @yield('content')
                 </section><!-- /.content -->
             </div><!-- /.content-wrapper -->

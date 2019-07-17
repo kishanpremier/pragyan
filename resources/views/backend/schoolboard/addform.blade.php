@@ -30,21 +30,34 @@
 @toastr_js
 @toastr_render
 @section('before-scripts')
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-    <script>
-        $(document).ready(function () {
 
-            $('#board_Form').validate({ // initialize the plugin
+    <script src="http://127.0.0.1:8000/js/jquery.validate.js">
+        $().ready(function() {
+            // validate the comment form when it is submitted
+            $("#board_form").validate();
+        });
+
+        $(document).ready(function () {
+            $('#board_form').validate({ // initialize the plugin
                 rules: {
                     state_board_name: {
                         required: true
                     },
-
                 }
             });
         });
-    </script>
 
+        $('#board_form').bootstrapValidator({
+            fields: {
+                "checklist_name": {
+                    validators: {
+                        notEmpty: {
+                            message: 'The checklist name is required'
+                        }
+                    }
+                }
+            }
+
+        });
+    </script>
 @stop
