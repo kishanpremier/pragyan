@@ -42,13 +42,20 @@ class AuthController extends APIController
 
             $token = $passportToken->accessToken;
         } catch (\Exception $e) {
+            
             return $this->respondInternalError($e->getMessage());
         }
-
-        return $this->respond([
-            'message'   => trans('api.messages.login.success'),
-            'token'     => $token,
+            if($token != ''){
+                $loginStatus = true;
+            }else{
+                $loginStatus = false;
+            }
+         return response()->json([
+                    'status' => $loginStatus,
+                    'message'   => trans('api.messages.login.success'),
+                    'token'     => $token, 
         ]);
+         
     }
 
     /**
