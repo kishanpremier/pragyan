@@ -23,7 +23,7 @@
                      <input type="text" id="subject_name" name="subject_name"
                             class="form-control {{ $errors->has('subject_name') ? ' is-invalid' : '' }}"
                             @if(isset($schoolsubject))value="{{old('subject_name') ? old('subject_name') : ( ($schoolsubject->subject_name) ? $schoolsubject->subject_name : '' )}}"
-                            @endif required>
+                            @endif>
                      @if($errors->has('subject_name'))
                          <span id="invalid-feedback" role="alert">
                         <strong id="error" style="color: red">*{{ $errors->first('subject_name') }}</strong>
