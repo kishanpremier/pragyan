@@ -17,7 +17,9 @@
         @csrf
          @include('backend.subject1.form')
         <div class="box-footer">
-            <input type="submit" id="formbtn" class="btn btn-info pull-right" value="Update Class">
+            <div class="text-right">
+            <input style="margin-right: 15px" type="submit" id="formbtn" class="btn btn-info" value="Update Class">
+            </div>
         </div>
     </form>
 </div><!--box box-info-->

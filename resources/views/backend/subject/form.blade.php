@@ -4,7 +4,15 @@
                 <div class="col-sm-12">
                     <select name="subject_name" class="form-control {{ $errors->has('subject_name') ? ' is-invalid' : '' }}">
                         @foreach($val as $key)
-                            <option value="{{$key['id']}}">{{$key['subject_name']}}</option>
+                            @if(isset($SchoolclassEdit->id))
+                                @if($SchoolclassEdit->subject_id == $key['id'])
+                                    <option value="{{$key['id']}}" selected>{{$key['subject_name']}}</option>
+                                @else
+                                    <option value="{{$key['id']}}">{{$key['subject_name']}}</option>
+                                @endif
+                            @else
+                                <option value="{{$key['id']}}">{{$key['subject_name']}}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>

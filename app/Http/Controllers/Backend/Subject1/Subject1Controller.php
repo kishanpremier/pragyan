@@ -50,8 +50,8 @@ class Subject1Controller extends Controller
             }
             else{
                 $request->validate([
-                    'subject_name' => 'required|unique:subject',
-                    'school_name' => 'required|integer'
+                    'school_name' => 'required|integer',
+                    'subject_name' => 'required|unique:subject,subject_name,'.$request->id
                 ]);
             }
             $val = School::get();

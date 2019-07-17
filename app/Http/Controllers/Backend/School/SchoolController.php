@@ -40,7 +40,7 @@ class SchoolController extends Controller
         try {
 
             $request->validate([
-                'school_name' => 'required|unique:school',
+                'school_name' => 'required|unique:school,school_name,'.$request->id,
             ]);
 
             if ($request->id != '') {

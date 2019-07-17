@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend\Subject;
 
+use App\Models\School\School;
 use App\Models\School\Schoolclass;
 use App\Models\School\Subject;
 use Illuminate\Http\Request;
@@ -40,7 +41,7 @@ class SubjectController extends Controller {
         try {
 
             $request->validate([
-                'class_name' => 'required|unique:class',
+                'class_name' => 'required|unique:class,class_name,'.$request->id,
                 'subject_name' => 'required|integer',
             ]);
 
@@ -84,9 +85,10 @@ class SubjectController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        
+
+        $val = Subject::get();
         $SchoolclassEdit = Schoolclass::find($id);
-        return view('backend.subject.editform', compact('SchoolclassEdit'));
+        return view('backend.subject.editform', compact('SchoolclassEdit','val'));
         
     }
 
