@@ -67,5 +67,24 @@ class ChapterController extends Controller {
         return response()->json([
               'message' => $message]);
     }
+    
+     public function getchapterContent($id) {
+
+        $chapterContent = Chaptercontent::where('chapter_content.chapter_id', '=', $id)
+                ->get();
+        
+        if ($chapterContent != '') {
+            $chapterContentStatus = true;
+        } else {
+            $chapterContentStatus = false;
+        }
+
+        return response()->json([
+                    'status' => $chapterContentStatus,
+                    'data' => $chapterContent,
+                    'message' => 'School class']);
+        
+    }
+    
 
 }
