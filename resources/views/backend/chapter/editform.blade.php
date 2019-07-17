@@ -1,10 +1,8 @@
-
-<title>Chapter Dashboard</title>
 @extends('backend.layouts.app')
 
 @section('page-header')
 <h1>
-    Chapter DashBoard
+    Class DashBoard
     {{--<small>{{ trans('strings.backend.dashboard.classdashboard') }}</small>--}}
 </h1>
 @endsection
@@ -13,15 +11,13 @@
 
 <div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title">{{ trans('history.backend.chapter') }}</h3>
+        <h3 class="box-title">{{ trans('history.backend.editchapter') }}</h3>
     </div><!-- /.box-header -->
-    <form id="school_chapter_form" name='school_chapter_form'enctype="multipart/form-data" method="post" action="{{route('admin.schoolchapter.store')}}">
+    <form id="class_form" name="school_chapter_form" method="post" action="{{route('admin.schoolchapter.store')}}">
         @csrf
-
-        @include('backend.chapter.form')
-        
+         @include('backend.chapter.form')
         <div class="box-footer">
-            <input type="submit" id="formbtn" class="btn btn-info pull-right" value="Add New Chapter">
+            <input type="submit" id="formbtn" class="btn btn-info pull-right" value="Update Chapter">
         </div>
     </form>
 </div><!--box box-info-->
@@ -31,6 +27,24 @@
 @toastr_js
 @toastr_render
 @section('before-scripts')
+    <script>
+        $(document).ready(function() {
+            $('#subject').change(function () {
+                $.ajax({
+                    dataType: "json",
+                    type: "POST",
+                    url: "{{route('admin.dynamic.fetch')}}",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "value": $('#subject option:selected').val()
+                    },
+                    success: function (data) {
+                        $('#class').html(data);
+                    }
+                });
+            });
+        });
+    </script>
     <script>
         $(function () {
 
@@ -53,7 +67,6 @@
                     class_name: "Please Select Class Name Here",
                     subject_name: "Please Select Subject Name Here",
                     chapter_name: "Please Enter Chapter Name Here"
-
                 },
                 submitHandler: function (form) {
                     form.submit();
@@ -61,24 +74,4 @@
             });
         });
     </script>
-
-<script>
-    $(document).ready(function() {
-        $('#subject').change(function () {
-
-            $.ajax({
-                dataType: "json",
-                type: "POST",
-                url: "{{route('admin.dynamic.fetch')}}",
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "value": $('#subject option:selected').val()
-                },
-                success: function (data) {
-                    $('#class').html(data);
-                }
-            });
-        });
-    });
-</script>
 @stop

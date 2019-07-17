@@ -18,11 +18,16 @@ class DashboardController extends Controller
      * @return \Illuminate\View\View
      */
     public function index()
-    {
+    {   
+        $getTecharUserCount = User::where('users.user_type','=','1')
+                ->count();
+        $getparentUserCount = User::where('users.user_type','=','0')
+                ->count();
+        
         $settingData = Setting::first();
         $google_analytics = $settingData->google_analytics;
 
-        return view('backend.dashboard', compact('google_analytics', $google_analytics));
+        return view('backend.dashboard', compact('google_analytics', $google_analytics,'getTecharUserCount','getparentUserCount'));
     }
 
     /**

@@ -14,13 +14,15 @@
         <div class="box-header with-border">
             <h3 class="box-title">{{ trans('history.backend.schoolboard') }}</h3>
         </div><!-- /.box-header -->
-        <form id="board_form" method="post" action="{{route('admin.schoolboard.store')}}">
+        <form id="board_form" name="school_board_form" method="post" action="{{route('admin.schoolboard.store')}}">
             @csrf
 
             @include('backend.schoolboard.form')
 
             <div class="box-footer">
-                <input type="submit" id="formbtn" class="btn btn-info pull-right" value="Add New Class">
+                <div class="text-right">
+                    <input style="margin-right: 15px" type="submit" id="formbtn" class="btn btn-info" value="Add New StateBoard">
+                </div>
             </div>
         </form>
     </div><!--box box-info-->
@@ -30,21 +32,30 @@
 @toastr_js
 @toastr_render
 @section('before-scripts')
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
     <script>
-        $(document).ready(function () {
+        $(function () {
 
-            $('#board_Form').validate({ // initialize the plugin
+            // Initialize form validation on the registration form.
+            // It has the name attribute "registration"
+            $("form[name='school_board_form']").validate({
+
+                // Specify validation rules
                 rules: {
-                    state_board_name: {
-                        required: true
-                    },
+                    // The key name on the left side is the name attribute
+                    // of an input field. Validation rules are defined
+                    // on the right side
+                    state_board_name: "required"
 
+                },
+                // Specify validation error messages
+                messages: {
+                    state_board_name: "Please enter State Board name"
+
+                },
+                submitHandler: function (form) {
+                    form.submit();
                 }
             });
         });
     </script>
-
 @stop

@@ -864,3 +864,9 @@ ul.timeline.notification-list>li>.timeline-item>.timeline-header>span.comment-hl
 
 /*# sourceMappingURL=client-modules.min.css.map*/
 .schoolclass{margin:20px;}
+.col-md-2.bg-primary {
+    margin: 27px;
+    padding: 20px;
+    border-radius: 10px;
+}
+.error{color:red;}

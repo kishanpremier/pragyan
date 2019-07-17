@@ -43,15 +43,17 @@ class Subject1Controller extends Controller
             if($request->id == ''){
                 $request->validate([
 
-                    'subject_name' => 'required|unique:subject',
+                    'subject_name' => 'required',
+                    //|unique:subject
                     'subject_image' => 'required',
-                    'school_name' => 'required|integer'
+                    //'school_name' => 'required|integer'
                 ]);
             }
             else{
                 $request->validate([
-                    'school_name' => 'required|integer',
-                    'subject_name' => 'required|unique:subject,subject_name,'.$request->id
+                    //'school_name' => 'required|integer',
+                    'subject_name' => 'required'
+                    //|unique:subject,subject_name,'.$request->id
                 ]);
             }
             $val = School::get();
@@ -79,11 +81,6 @@ class Subject1Controller extends Controller
 
             if($request->file('subject_image') != null)
             {
-                /*
-                $file = $request->file('subject_image');
-                $pathfile = md5($file->getClientOriginalName(). time()).".".$ext;
-                $file = $request->file('subject_image')->storeAs('public/subjectimages',$pathfile);
-                */
 
                 $file = $request->file('subject_image');
                 $pathfile = md5($file->getClientOriginalName(). time()).".".$ext;
@@ -91,13 +88,13 @@ class Subject1Controller extends Controller
 
                 $Schoolsubject->subject_name = $request['subject_name'];
                 $Schoolsubject->subject_image = $pathfile;
-                $Schoolsubject->school_id = $request['school_name'];
+                //$Schoolsubject->school_id = $request['school_name'];
                 $Schoolsubject->save();
             }
             else
             {
                 $Schoolsubject->subject_name = $request['subject_name'];
-                $Schoolsubject->school_id = $request['school_name'];
+                //$Schoolsubject->school_id = $request['school_name'];
                 $Schoolsubject->save();
             }
 
@@ -162,11 +159,14 @@ class Subject1Controller extends Controller
     }
     public function delete($id){
         $res=Subject::where('id',$id)->get();
-        foreach ($res as $val)
-            $path = (base_path('public\\subjectimages\\'.$val['subject_image']));
+        foreach ($res as $val){
+            $path = public_path('\subjectimages\\'.$val['subject_image']);
+            break;
+        }
 
-        unlink(public_path('\subjectimages\\'.$val['subject_image']));
-
+        if (file_exists($path)){
+            unlink($path);
+        }
         $res=Subject::where('id',$id)->delete();
         if($res) {
             toastr()->error('', 'Subject has been Deleted', ['timeOut' => 5000]);

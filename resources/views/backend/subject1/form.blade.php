@@ -1,6 +1,6 @@
          <div class="box-body">
              <div class="form-group">
-                 <div class="col-sm-6">
+                 {{--<div class="col-sm-6">
                  <label for="school_name" class="col-sm-6 control-label"><b>School Name:</b></label>
                      <select name="school_name"class="form-control {{ $errors->has('school_name') ? ' is-invalid' : '' }}" required>
                          @foreach($val as $key)
@@ -16,33 +16,32 @@
                          @endforeach
                      </select>
                      <br />
-                 </div>
+                 </div>--}}
                  <div class="col-sm-6">
                      <label for="subject_name" class="col-sm-6 control-label"><b>Name:</b></label>
                      <input type="hidden" name="id" @if(isset($schoolsubject->id)) value="{{$schoolsubject->id}}" @endif>
                      <input type="text" id="subject_name" name="subject_name"
                             class="form-control {{ $errors->has('subject_name') ? ' is-invalid' : '' }}"
                             @if(isset($schoolsubject))value="{{old('subject_name') ? old('subject_name') : ( ($schoolsubject->subject_name) ? $schoolsubject->subject_name : '' )}}"
-                            @endif required>
+                            @endif>
                      @if($errors->has('subject_name'))
                          <span id="invalid-feedback" role="alert">
                         <strong id="error" style="color: red">*{{ $errors->first('subject_name') }}</strong>
                     </span>
                      @endif
-                 </div><br>
-             </div>
-             <br/>
-             <div class="form-group">
-                 <div class="col-sm-12">
-                     <label for="subject_image" class="col-sm-12 control-label"><b>Select Image:</b></label>
+                     <br />
+                 </div>
+                 <div class="col-sm-6">
+                     <label for="subject_image" class="col-sm-6 control-label"><b>Select Image:</b></label>
                      <input type="file" id="subject_image" onchange="readURL(this);" name="subject_image" class="form-control {{ $errors->has('subject_image') ? ' is-invalid' : '' }}" >
                      @if($errors->has('subject_image'))
-                     <span id="invalid-feedback" role="alert">
+                         <span id="invalid-feedback" role="alert">
                         <strong id="error" style="color: red">*{{ $errors->first('subject_image') }}</strong>
                     </span>
                      @endif
                  </div>
              </div>
+             <br/>
              <div class="form-group">
                  <div class="col-sm-12">
                      <img id="imgsubject" @if(isset($schoolsubject))src="{{asset('/subjectimages/').'/'.$schoolsubject['subject_image']}}" height="200" width="150" @endif>

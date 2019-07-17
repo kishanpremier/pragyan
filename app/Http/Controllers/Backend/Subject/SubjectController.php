@@ -41,7 +41,7 @@ class SubjectController extends Controller {
         try {
 
             $request->validate([
-                'class_name' => 'required|unique:class,class_name,'.$request->id,
+                'class_name' => 'required',
                 'subject_name' => 'required|integer',
             ]);
 
