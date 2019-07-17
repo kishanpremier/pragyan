@@ -13,11 +13,11 @@
     <div class="box-header with-border">
         <h3 class="box-title">{{ trans('history.backend.editchapter') }}</h3>
     </div><!-- /.box-header -->
-    <form id="class_form" name="school_class_form" method="post" action="{{route('admin.class.store')}}">
+    <form id="class_form" name="school_chapter_form" method="post" action="{{route('admin.schoolchapter.store')}}">
         @csrf
          @include('backend.chapter.form')
         <div class="box-footer">
-            <input type="submit" id="formbtn" class="btn btn-info pull-right" value="Update Class">
+            <input type="submit" id="formbtn" class="btn btn-info pull-right" value="Update Chapter">
         </div>
     </form>
 </div><!--box box-info-->
@@ -50,20 +50,23 @@
 
             // Initialize form validation on the registration form.
             // It has the name attribute "registration"
-            $("form[name='school_class_form']").validate({
+            $("form[name='school_chapter_form']").validate({
 
                 // Specify validation rules
                 rules: {
                     // The key name on the left side is the name attribute
                     // of an input field. Validation rules are defined
                     // on the right side
-                    class_name: "required"
+                    class_name: "required",
+                    subject_name: "required",
+                    chapter_name: "required",
 
                 },
                 // Specify validation error messages
                 messages: {
-                    class_name: "Please enter Class Name Here"
-
+                    class_name: "Please Select Class Name Here",
+                    subject_name: "Please Select Subject Name Here",
+                    chapter_name: "Please Enter Chapter Name Here"
                 },
                 submitHandler: function (form) {
                     form.submit();

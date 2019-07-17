@@ -15,13 +15,13 @@
     <div class="box-header with-border">
         <h3 class="box-title">{{ trans('history.backend.chapter') }}</h3>
     </div><!-- /.box-header -->
-    <form id="school_subject_form" enctype="multipart/form-data" method="post" action="{{route('admin.schoolchapter.store')}}">
+    <form id="school_chapter_form" name='school_chapter_form'enctype="multipart/form-data" method="post" action="{{route('admin.schoolchapter.store')}}">
         @csrf
 
         @include('backend.chapter.form')
         
         <div class="box-footer">
-            <input type="submit" id="formbtn" class="btn btn-info pull-right" value="Add New Subject">
+            <input type="submit" id="formbtn" class="btn btn-info pull-right" value="Add New Chapter">
         </div>
     </form>
 </div><!--box box-info-->
@@ -31,7 +31,36 @@
 @toastr_js
 @toastr_render
 @section('before-scripts')
+    <script>
+        $(function () {
 
+            // Initialize form validation on the registration form.
+            // It has the name attribute "registration"
+            $("form[name='school_chapter_form']").validate({
+
+                // Specify validation rules
+                rules: {
+                    // The key name on the left side is the name attribute
+                    // of an input field. Validation rules are defined
+                    // on the right side
+                    class_name: "required",
+                    subject_name: "required",
+                    chapter_name: "required",
+
+                },
+                // Specify validation error messages
+                messages: {
+                    class_name: "Please Select Class Name Here",
+                    subject_name: "Please Select Subject Name Here",
+                    chapter_name: "Please Enter Chapter Name Here"
+
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
 
 <script>
     $(document).ready(function() {

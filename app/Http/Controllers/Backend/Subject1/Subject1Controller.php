@@ -162,11 +162,14 @@ class Subject1Controller extends Controller
     }
     public function delete($id){
         $res=Subject::where('id',$id)->get();
-        foreach ($res as $val)
-            $path = (base_path('public\\subjectimages\\'.$val['subject_image']));
+        foreach ($res as $val){
+            $path = public_path('\subjectimages\\'.$val['subject_image']);
+            break;
+        }
 
-        unlink(public_path('\subjectimages\\'.$val['subject_image']));
-
+        if (file_exists($path)){
+            unlink($path);
+        }
         $res=Subject::where('id',$id)->delete();
         if($res) {
             toastr()->error('', 'Subject has been Deleted', ['timeOut' => 5000]);

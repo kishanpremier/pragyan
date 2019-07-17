@@ -20,6 +20,9 @@
                  <div class="col-sm-6">
                      <label for="class_name" class="col-sm-4 control-label"><b>Class Name:</b></label>
                      <select name="class_name" id="class" class="form-control {{ $errors->has('class_name') ? ' is-invalid' : '' }}">
+                         @if(isset($classdata))
+                             <option value="{{$classdata->id}}">{{$classdata->class_name}}</option>
+                         @endif
                          {{--@foreach($val1 as $key)
                              @if(isset($schoolsubject))
                                  @if($schoolsubject->school_id == $key['id'])

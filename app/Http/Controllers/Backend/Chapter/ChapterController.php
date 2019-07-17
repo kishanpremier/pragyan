@@ -95,7 +95,8 @@ class ChapterController extends Controller
     {
         $val = Subject::get();
         $data = Chapter::find($id);
-        return view('backend.chapter.editform', compact('data','val'));
+        $classdata = Schoolclass::find($data->class_id);
+        return view('backend.chapter.editform', compact('data','val','classdata'));
     }
 
     /**
