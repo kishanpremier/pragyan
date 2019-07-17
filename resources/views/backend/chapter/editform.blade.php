@@ -11,15 +11,13 @@
 
 <div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title">{{ trans('history.backend.subject') }}</h3>
+        <h3 class="box-title">{{ trans('history.backend.editchapter') }}</h3>
     </div><!-- /.box-header -->
     <form id="class_form" name="school_class_form" method="post" action="{{route('admin.class.store')}}">
         @csrf
-       
-        @include('backend.subject.form')
-        
+         @include('backend.chapter.form')
         <div class="box-footer">
-            <input type="submit" id="formbtn" class="btn btn-info pull-right" value="Add New Class">
+            <input type="submit" id="formbtn" class="btn btn-info pull-right" value="Update Class">
         </div>
     </form>
 </div><!--box box-info-->
@@ -29,7 +27,24 @@
 @toastr_js
 @toastr_render
 @section('before-scripts')
-
+    <script>
+        $(document).ready(function() {
+            $('#subject').change(function () {
+                $.ajax({
+                    dataType: "json",
+                    type: "POST",
+                    url: "{{route('admin.dynamic.fetch')}}",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "value": $('#subject option:selected').val()
+                    },
+                    success: function (data) {
+                        $('#class').html(data);
+                    }
+                });
+            });
+        });
+    </script>
     <script>
         $(function () {
 

@@ -14,7 +14,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">{{ trans('history.backend.schoolboard') }}</h3>
         </div><!-- /.box-header -->
-        <form id="board_form" method="post" action="{{route('admin.schoolboard.store')}}">
+        <form id="board_form" name="school_board_form" method="post" action="{{route('admin.schoolboard.store')}}">
             @csrf
 
             @include('backend.schoolboard.form')
@@ -30,34 +30,30 @@
 @toastr_js
 @toastr_render
 @section('before-scripts')
+    <script>
+        $(function () {
 
-    <script src="http://127.0.0.1:8000/js/jquery.validate.js">
-        $().ready(function() {
-            // validate the comment form when it is submitted
-            $("#board_form").validate();
-        });
+            // Initialize form validation on the registration form.
+            // It has the name attribute "registration"
+            $("form[name='school_board_form']").validate({
 
-        $(document).ready(function () {
-            $('#board_form').validate({ // initialize the plugin
+                // Specify validation rules
                 rules: {
-                    state_board_name: {
-                        required: true
-                    },
+                    // The key name on the left side is the name attribute
+                    // of an input field. Validation rules are defined
+                    // on the right side
+                    state_board_name: "required"
+
+                },
+                // Specify validation error messages
+                messages: {
+                    state_board_name: "Please enter State Board name"
+
+                },
+                submitHandler: function (form) {
+                    form.submit();
                 }
             });
-        });
-
-        $('#board_form').bootstrapValidator({
-            fields: {
-                "checklist_name": {
-                    validators: {
-                        notEmpty: {
-                            message: 'The checklist name is required'
-                        }
-                    }
-                }
-            }
-
         });
     </script>
 @stop

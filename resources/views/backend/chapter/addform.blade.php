@@ -15,7 +15,7 @@
     <div class="box-header with-border">
         <h3 class="box-title">{{ trans('history.backend.chapter') }}</h3>
     </div><!-- /.box-header -->
-    <form id="school_subject_form" enctype="multipart/form-data" method="post" action="{{--{{route('admin.subjectschool.store')}}--}}">
+    <form id="school_subject_form" enctype="multipart/form-data" method="post" action="{{route('admin.schoolchapter.store')}}">
         @csrf
 
         @include('backend.chapter.form')

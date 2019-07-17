@@ -13,7 +13,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">{{ trans('history.backend.edit') }}</h3>
         </div><!-- /.box-header -->
-        <form id="board_form" method="post" action="{{route('admin.schoolboard.store')}}">
+        <form id="board_form" name="school_board_form" method="post" action="{{route('admin.schoolboard.store')}}">
             @csrf
             @include('backend.schoolboard.form')
             <div class="box-footer">
@@ -28,6 +28,29 @@
 @toastr_render
 @section('before-scripts')
     <script>
-        $("#class_form").validate();
+        $(function () {
+
+            // Initialize form validation on the registration form.
+            // It has the name attribute "registration"
+            $("form[name='school_board_form']").validate({
+
+                // Specify validation rules
+                rules: {
+                    // The key name on the left side is the name attribute
+                    // of an input field. Validation rules are defined
+                    // on the right side
+                    state_board_name: "required"
+
+                },
+                // Specify validation error messages
+                messages: {
+                    state_board_name: "Please enter State Board name"
+
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                }
+            });
+        });
     </script>
 @stop
