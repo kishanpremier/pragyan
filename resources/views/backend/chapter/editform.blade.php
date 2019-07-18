@@ -1,3 +1,4 @@
+<title>Edit Chapter</title>
 @extends('backend.layouts.app')
 
 @section('page-header')
@@ -17,7 +18,9 @@
         @csrf
          @include('backend.chapter.form')
         <div class="box-footer">
-            <input type="submit" id="formbtn" class="btn btn-info pull-right" value="Update Chapter">
+            <div class="text-right">
+                <input style="margin-right: 15px" type="submit" id="formbtn" class="btn btn-info" value="Update Chapter">
+            </div>
         </div>
     </form>
 </div><!--box box-info-->

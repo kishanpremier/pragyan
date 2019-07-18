@@ -1,5 +1,5 @@
 
-<title>Chapter Dashboard</title>
+<title>Create Chapter</title>
 @extends('backend.layouts.app')
 
 @section('page-header')
@@ -15,13 +15,15 @@
     <div class="box-header with-border">
         <h3 class="box-title">{{ trans('history.backend.chapter') }}</h3>
     </div><!-- /.box-header -->
-    <form id="school_chapter_form" name='school_chapter_form'enctype="multipart/form-data" method="post" action="{{route('admin.schoolchapter.store')}}">
+    <form id="school_chapter_form" name='school_chapter_form' method="post" action="{{route('admin.schoolchapter.store')}}">
         @csrf
 
         @include('backend.chapter.form')
         
         <div class="box-footer">
-            <input type="submit" id="formbtn" class="btn btn-info pull-right" value="Add New Chapter">
+            <div class="text-right">
+                <input style="margin-right: 15px" type="submit" id="formbtn" class="btn btn-info" value="Add New Chapter">
+            </div>
         </div>
     </form>
 </div><!--box box-info-->

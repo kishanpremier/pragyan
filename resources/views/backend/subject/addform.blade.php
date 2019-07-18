@@ -1,3 +1,4 @@
+<title>Create Class</title>
 @extends('backend.layouts.app')
 
 @section('page-header')

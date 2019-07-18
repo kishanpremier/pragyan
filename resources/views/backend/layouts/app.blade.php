@@ -83,8 +83,9 @@ window.Laravel = {!! json_encode([ 'csrfToken' => csrf_token() ]) !!}
 
             {{ Html::script('js/backend.js') }}
             {{ Html::script('js/backend-custom.js') }}
-            <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
 
+            <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
             @yield('after-scripts')
         </body>
 

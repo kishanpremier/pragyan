@@ -44,19 +44,15 @@ class Subject1Controller extends Controller
                 $request->validate([
 
                     'subject_name' => 'required',
-                    //|unique:subject
                     'subject_image' => 'required',
-                    //'school_name' => 'required|integer'
                 ]);
             }
             else{
                 $request->validate([
-                    //'school_name' => 'required|integer',
                     'subject_name' => 'required'
-                    //|unique:subject,subject_name,'.$request->id
                 ]);
             }
-            $val = School::get();
+            //$val = School::get();
             if($request->file('subject_image') != null)
             {
                 $ext = $request->file('subject_image')->getClientOriginalExtension();
@@ -64,6 +60,7 @@ class Subject1Controller extends Controller
 
                 if ($size > 2000000) {
                     $errors1['size'] = "Size Should Be Less Than 2MB";
+                    return view('backend.subject1.editform')->with(compact('errors1','val'));
                 } elseif ($ext != "jpeg" && $ext != "png" && $ext != "jpg") {
                     $errors1['extension'] = "Invalid File Format";
                     if ($request->id == '')
@@ -81,6 +78,10 @@ class Subject1Controller extends Controller
 
             if($request->file('subject_image') != null)
             {
+                $path_to_delete = public_path('\subjectimages\\'.$request->image_name_to_delete);
+                if (file_exists($path_to_delete)){
+                    unlink($path_to_delete);
+                }
 
                 $file = $request->file('subject_image');
                 $pathfile = md5($file->getClientOriginalName(). time()).".".$ext;
@@ -88,13 +89,11 @@ class Subject1Controller extends Controller
 
                 $Schoolsubject->subject_name = $request['subject_name'];
                 $Schoolsubject->subject_image = $pathfile;
-                //$Schoolsubject->school_id = $request['school_name'];
                 $Schoolsubject->save();
             }
             else
             {
                 $Schoolsubject->subject_name = $request['subject_name'];
-                //$Schoolsubject->school_id = $request['school_name'];
                 $Schoolsubject->save();
             }
 
