@@ -55,7 +55,6 @@ class ChapterContentController extends Controller
      */
     public function store(Request $request)
     {
-
         try {
             if($request->id == ''){
                 $request->validate([
@@ -107,14 +106,14 @@ class ChapterContentController extends Controller
 
             if($request->file('content_type') != null)
             {
-                /*$path_to_delete = public_path('\chaptercontent\\'.$request->image_name_to_delete);
+                $path_to_delete = public_path('chaptercontent/'.$request->image_name_to_delete);
                 if (file_exists($path_to_delete)){
                     unlink($path_to_delete);
-                }*/
+                }
 
                 $file = $request->file('content_type');
                 $pathfile = md5($file->getClientOriginalName(). time()).".".$ext;
-                $file->move(public_path('chaptercontent'), $pathfile);
+                $file->move(public_path('chaptercontent/'), $pathfile);
 
                 $chaptercontentdata->subject_id = $request['subject_name'];
                 $chaptercontentdata->class_id = $request['class_name'];
@@ -246,7 +245,7 @@ class ChapterContentController extends Controller
     public function fetchchapter(Request $request)
     {
         $value = $request->get('value');
-        $data = Chapter::where('subject_id',$value)->get();
+        $data = Chapter::where('class_id',$value)->get();
         if($data != null){
             $output = '<option disabled selected>---SELECT CHAPTER---</option>';
             foreach($data as $row)

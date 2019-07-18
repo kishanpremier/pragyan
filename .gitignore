@@ -33,3 +33,4 @@ public/error.log
 output.txt
 .php_cs.cache
 public/subjectimages/*
+public/chaptercontent/*
