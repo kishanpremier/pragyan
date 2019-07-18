@@ -56,6 +56,7 @@
             <div class="form-group">
                 <div class="col-sm-6">
                     <label for="content_title" class="col-sm-6 control-label"><b>Content Title:</b></label>
+                    <input type="hidden" name="image_name_to_delete" @if(isset($chaptercontent->id)) value="{{$chaptercontent->content_type}}" @endif>
                     <input type="hidden" name="id" @if(isset($chaptercontent->id)) value="{{$chaptercontent->id}}" @endif>
                     <input type="text" id="content_title" name="content_title" class="form-control {{ $errors->has('content_title') ? ' is-invalid' : '' }}"
                            @if(isset($chaptercontent))value="{{old('content_title') ? old('content_title') : ( ($chaptercontent->content_title) ? $chaptercontent->content_title : '' )}}"@endif>

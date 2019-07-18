@@ -13,7 +13,7 @@
     <div class="box-header with-border">
         <h3 class="box-title">{{ trans('history.backend.chaptercontentedit') }}</h3>
     </div><!-- /.box-header -->
-    <form id="class_form" name="chapter_content_form" method="post" action="{{route('admin.schoolchaptercontent.store')}}">
+    <form id="class_form" name="chapter_content_form" enctype="multipart/form-data" method="post" action="{{route('admin.schoolchaptercontent.store')}}">
         @csrf
          @include('backend.chaptercontent.form')
         <div class="box-footer">
