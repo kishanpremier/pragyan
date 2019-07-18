@@ -1,5 +1,5 @@
 <html>
-</html><title>Chapter Listing</title>
+</html><title>Subject Listing</title>
 
 
 @extends('backend.layouts.app')
@@ -14,7 +14,7 @@
 @section('content')
 <div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title">{{ trans('history.backend.chapterlisting') }}</h3>
+        <h3 class="box-title">{{ trans('history.backend.subjectlisting') }}</h3>
     </div><!-- /.box-header -->
     <div class="box-body">
         <div class="table-responsive data-table-wrapper">

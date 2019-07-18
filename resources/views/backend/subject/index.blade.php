@@ -23,6 +23,7 @@
                 <thead>
                     <tr>
                         <th>Id</th>
+                        <th>Subject Name</th>
                         <th>Class Name</th>
                         <th>Action</th>
                     </tr>
@@ -31,6 +32,7 @@
                     @foreach($users as $k=> $SchoolclassData)
                     <tr>
                         <td>{{$SchoolclassData->id}}</td>
+                        <td>{{$SchoolclassData->subject_name}}</td>
                         <td>{{$SchoolclassData->class_name}}</td>
                         <td>
                         <a href="{{route('admin.class.edit',$SchoolclassData->id)}}"><i class="fa fa-pencil schoolclass" aria-hidden="true"></i></a>

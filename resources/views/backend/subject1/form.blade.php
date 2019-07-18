@@ -20,6 +20,7 @@
                  <div class="col-sm-6">
                      <label for="subject_name" class="col-sm-6 control-label"><b>Name:</b></label>
                      <input type="hidden" name="id" @if(isset($schoolsubject->id)) value="{{$schoolsubject->id}}" @endif>
+                     <input type="hidden" name="image_name_to_delete" @if(isset($schoolsubject->id)) value="{{$schoolsubject['subject_image']}}" @endif>
                      <input type="text" id="subject_name" name="subject_name"
                             class="form-control {{ $errors->has('subject_name') ? ' is-invalid' : '' }}"
                             @if(isset($schoolsubject))value="{{old('subject_name') ? old('subject_name') : ( ($schoolsubject->subject_name) ? $schoolsubject->subject_name : '' )}}"
@@ -33,18 +34,7 @@
                  </div>
                  <div class="col-sm-6">
                      <label for="subject_image" class="col-sm-6 control-label"><b>Select Image:</b></label>
-                     <input type="file" id="subject_image" onchange="readURL(this);" name="subject_image" class="form-control {{ $errors->has('subject_image') ? ' is-invalid' : '' }}" >
-                     @if($errors->has('subject_image'))
-                         <span id="invalid-feedback" role="alert">
-                        <strong id="error" style="color: red">*{{ $errors->first('subject_image') }}</strong>
-                    </span>
-                     @endif
-                 </div>
-             </div>
-             <br/>
-             <div class="form-group">
-                 <div class="col-sm-12">
-                     <img id="imgsubject" @if(isset($schoolsubject))src="{{asset('/subjectimages/').'/'.$schoolsubject['subject_image']}}" height="200" width="150" @endif>
+                     <input type="file" accept="image/*" id="subject_image" onchange="readURL(this);" name="subject_image" class="form-control {{ $errors->has('subject_image') ? ' is-invalid' : '' }}" >
                      @if(isset($errors1))
                          <span id="invalid-feedback" role="alert">
                             <strong id="error" style="color: red">*
@@ -54,6 +44,17 @@
                             </strong>
                         </span>
                      @endif
+                     @if($errors->has('subject_image'))
+                         <span id="invalid-feedback" role="alert">
+                        <strong id="error" style="color: red">{{ $errors->first('subject_image') }}</strong>
+                    </span>
+                     @endif
+                 </div>
+             </div>
+             <br/>
+             <div class="form-group">
+                 <div class="col-sm-12">
+                     <img id="imgsubject" @if(isset($schoolsubject))src="{{asset('/subjectimages/').'/'.$schoolsubject['subject_image']}}" height="200" width="150" @endif>
                  </div>
              </div>
         </div><!-- /.box-body -->

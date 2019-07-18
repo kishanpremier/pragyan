@@ -1,4 +1,4 @@
-<title>SchoolBoard Dashboard</title>
+<title>Create State Board</title>
 @extends('backend.layouts.app')
 
 @section('page-header')
