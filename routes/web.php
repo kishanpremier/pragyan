@@ -64,4 +64,12 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
     Route::get('schoolchapteredit/{id}','Chapter\ChapterController@edit')->name('schoolchapter.edit');
     Route::get('schoolchapterdelete/{id}','Chapter\ChapterController@delete')->name('schoolchapter.delete');
     Route::post('dynamic_dependent/fetch', 'Chapter\ChapterController@fetchclass')->name('dynamic.fetch');
+
+    //Route::get('schoolchaptercontentList','Chapter\ChapterController@index')->name('schoolchaptercontent.list');
+    Route::get('schoolchaptercontentcreate','ChapterContent\ChapterContentController@create')->name('schoolchaptercontent.create');
+    Route::post('schoolchaptercontentstore','ChapterContent\ChaptercontentController@store')->name('schoolchaptercontent.store');
+    //Route::get('schoolchapteredit/{id}','Chapter\ChapterController@edit')->name('schoolchaptercontent.edit');
+    //Route::get('schoolchapterdelete/{id}','Chapter\ChapterController@delete')->name('schoolchaptercontent.delete');
+    Route::post('dynamicclass_dependent/fetch', 'ChapterContent\ChapterContentController@fetchclass')->name('dynamicclass.fetch');
+    Route::post('dynamicchapter_dependent/fetch', 'ChapterContent\ChapterContentController@fetchchapter')->name('dynamicchapter.fetch');
 });

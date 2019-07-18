@@ -18,7 +18,17 @@ class ChapterController extends Controller
      */
     public function index()
     {
-        $chapter = Chapter::get();
+        $chapter = Chapter::query()
+                ->leftjoin('subject', 'subject.id', '=', 'chapter.subject_id')
+                ->leftJoin('class','class.id','=','chapter.class_id')
+                ->select([
+                    'chapter.id',
+                    'chapter.chapter_name',
+                    'subject.subject_name',
+                    'class.class_name'
+                ])
+                ->get();
+        //$chapter = Chapter::get();
         return view('backend.chapter.index', compact('chapter'));
     }
 

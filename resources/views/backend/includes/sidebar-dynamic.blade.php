@@ -120,6 +120,26 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="treeview"><a href="">
+                    <i class="fa fa-users"></i>
+                    <span>Chapter Content</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu" style="display: none;">
+                    <li class="  ">
+                        <a href="{{url('admin/schoolchaptercontentcreate')}}">
+                            <i class="fa "></i>
+                            <span>Add Chapter Content</span></a>
+                    </li>
+                    <li class="">
+                        <a href="{{url('admin/subjectschoolList')}}">
+                            <i class="fa "></i>
+                            <span>List Chapter Content</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </section><!-- /.sidebar -->
 </aside>

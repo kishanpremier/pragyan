@@ -17,20 +17,27 @@ return [
         'none_for_type'   => 'There is no history for this type.',
         'none_for_entity' => 'There is no history for this :entity.',
         'recent_history'  => 'Recent History',
+
         'editschool'  => 'Enter Details To Update School',
         'edit'  => 'Enter Details To Update Class',
         'editchapter'  => 'Enter Details To Update Chapter',
         'editsubject'=>'Enter Details To Update Subject',
-        'schoolboard'  => 'Enter Details To Add SchoolBoard',
+        'schoolboardedit'=>'Enter Details To Update State board',
+        'chaptercontentedit'=>'Enter Details To Update ChapterContent',
+
         'school'  => 'Enter Details To Add School',
         'subject'  => 'Enter Details To Add Class',
         'subject1'  => 'Enter Details To Add Subject',
         'chapter'  => 'Enter Details To Add Chapter',
+        'schoolboard'  => 'Enter Details To Add State Board',
+        'chaptercontent'  => 'Enter Details To Add ChapterContent',
 
         'listing'  => 'Class Listing',
         'subjectlisting'  => 'Subject Listing',
         'Schoollisting'  => 'School Listing',
-        'Schoolboardlisting'  => 'SchoolBoard Listing',
+        'Schoolboardlisting'  => 'State Board Listing',
+        'chapterlisting'=>'Chapter Listing',
+        'chaptercontentlisting'=>'ChapterContentListing',
 
         'roles' => [
             'created' => 'created role',

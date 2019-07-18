@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Backend\Subject;
 
-use App\Models\School\School;
 use App\Models\School\Schoolclass;
+use App\Repositories\BaseRepository;
 use App\Models\School\Subject;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,7 +16,14 @@ class SubjectController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $users = Schoolclass::get();
+        $users =  Schoolclass::query()
+            ->leftjoin('subject', 'subject.id', '=', 'class.subject_id')
+            ->select([
+                'class.id',
+                'class.class_name',
+                'subject.subject_name',
+            ])
+            ->get();
         return view('backend.subject.index', compact('users'));
     }
 

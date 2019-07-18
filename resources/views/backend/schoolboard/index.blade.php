@@ -1,6 +1,6 @@
 <html>
 
-</html><title>Board Listing</title>
+</html><title>State Board Listing</title>
 
 
 @extends('backend.layouts.app')

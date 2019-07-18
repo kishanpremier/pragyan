@@ -1,3 +1,4 @@
+<title>Edit State Board</title>
 @extends('backend.layouts.app')
 
 @section('page-header')
@@ -11,7 +12,7 @@
 
     <div class="box box-info">
         <div class="box-header with-border">
-            <h3 class="box-title">{{ trans('history.backend.edit') }}</h3>
+            <h3 class="box-title">{{ trans('history.backend.schoolboardedit') }}</h3>
         </div><!-- /.box-header -->
         <form id="board_form" name="school_board_form" method="post" action="{{route('admin.schoolboard.store')}}">
             @csrf
