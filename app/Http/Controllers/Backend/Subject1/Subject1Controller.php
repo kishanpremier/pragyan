@@ -78,7 +78,7 @@ class Subject1Controller extends Controller
 
             if($request->file('subject_image') != null)
             {
-                $path_to_delete = public_path('subjectimages/'.$request->image_name_to_delete);
+                $path_to_delete = public_path('\subjectimages\\'.$request->image_name_to_delete);
                 if (file_exists($path_to_delete)){
                     unlink($path_to_delete);
                 }
