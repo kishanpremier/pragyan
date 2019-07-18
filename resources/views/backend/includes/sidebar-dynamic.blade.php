@@ -133,7 +133,7 @@
                             <span>Add Chapter Content</span></a>
                     </li>
                     <li class="">
-                        <a href="{{url('admin/subjectschoolList')}}">
+                        <a href="{{url('admin/schoolchaptercontentList')}}">
                             <i class="fa "></i>
                             <span>List Chapter Content</span>
                         </a>

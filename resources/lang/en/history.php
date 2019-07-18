@@ -23,7 +23,7 @@ return [
         'editchapter'  => 'Enter Details To Update Chapter',
         'editsubject'=>'Enter Details To Update Subject',
         'schoolboardedit'=>'Enter Details To Update State board',
-        'chaptercontentedit'=>'Enter Details To Update ChapterContent',
+        'chaptercontentedit'=>'Enter Details To Update Chapter Content',
 
         'school'  => 'Enter Details To Add School',
         'subject'  => 'Enter Details To Add Class',

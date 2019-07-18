@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\ChapterContent;
 
 use App\Models\School\Chapter;
 use App\Models\School\Chaptercontent;
+use App\Models\School\School;
 use App\Models\School\Schoolclass;
 use App\Models\School\Subject;
 use Illuminate\Http\Request;
@@ -18,7 +19,20 @@ class ChapterContentController extends Controller
      */
     public function index()
     {
-        //
+        $chapter = Chaptercontent::query()
+            ->leftjoin('subject', 'subject.id', '=', 'chapter_content.subject_id')
+            ->leftJoin('class','class.id','=','chapter_content.class_id')
+            ->leftJoin('chapter','chapter.id','=','chapter_content.chapter_id')
+            ->select([
+                'subject.subject_name',
+                'chapter.chapter_name',
+                'class.class_name',
+                'chapter_content.id',
+                'chapter_content.content_title',
+                'chapter_content.content_short_desc'
+            ])
+            ->get();
+        return view('backend.chaptercontent.index', compact('chapter'));
     }
 
     /**
@@ -28,9 +42,9 @@ class ChapterContentController extends Controller
      */
     public function create()
     {
-        $val = Subject::get();
+        $subject = Subject::get();
         //$val1 = Schoolclass::get();
-        return view('backend.chaptercontent.addform')->with(compact('val'));
+        return view('backend.chaptercontent.addform')->with(compact('subject'));
     }
 
     /**
@@ -41,6 +55,7 @@ class ChapterContentController extends Controller
      */
     public function store(Request $request)
     {
+
         try {
             if($request->id == ''){
                 $request->validate([
@@ -102,7 +117,7 @@ class ChapterContentController extends Controller
                 $file->move(public_path('chaptercontent'), $pathfile);
 
                 $chaptercontentdata->subject_id = $request['subject_name'];
-                $chaptercontentdata->subject_id = $request['class_name'];
+                $chaptercontentdata->class_id = $request['class_name'];
                 $chaptercontentdata->chapter_id = $request['chapter_name'];
                 $chaptercontentdata->content_title =  $request['content_title'];
                 $chaptercontentdata->content_type = $pathfile;
@@ -113,7 +128,7 @@ class ChapterContentController extends Controller
             else
             {
                 $chaptercontentdata->subject_id = $request['subject_name'];
-                $chaptercontentdata->subject_id = $request['class_name'];
+                $chaptercontentdata->class_id = $request['class_name'];
                 $chaptercontentdata->chapter_id = $request['chapter_name'];
                 $chaptercontentdata->content_title =  $request['content_title'];
                 $chaptercontentdata->content_link = $request['video_link'];
@@ -132,7 +147,7 @@ class ChapterContentController extends Controller
             toastr()->warning('', 'Something went wrong', ['timeOut' => 5000]);
         }
 
-        return redirect()->route('admin.subjectschool.list');
+        return redirect()->route('admin.schoolchaptercontent.list');
     }
 
     /**
@@ -154,7 +169,19 @@ class ChapterContentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $chaptercontent = Chaptercontent::find($id);
+
+        $subject = Subject::get();
+        $subjectid = Subject::find($chaptercontent->subject_id);
+
+        $class = Schoolclass::get();
+        $classid = Schoolclass::find($chaptercontent->class_id);
+
+        $chapter = Chapter::get();
+        $chapterid = Chapter::find($chaptercontent->chapter_id);
+
+
+        return view('backend.chaptercontent.editform', compact('chaptercontent','subject','class','chapter','subjectid','classid','chapterid'));
     }
 
     /**
@@ -178,6 +205,23 @@ class ChapterContentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function delete($id){
+        $res=Chaptercontent::where('id',$id)->get();
+        foreach ($res as $val){
+            $path = public_path('\chaptercontent\\'.$val['content_type']);
+            break;
+        }
+
+        if (file_exists($path)){
+            unlink($path);
+        }
+        $res=Chaptercontent::where('id',$id)->delete();
+        if($res) {
+            toastr()->error('', 'Chapter Content has been Deleted', ['timeOut' => 5000]);
+            return redirect()->route('admin.schoolchaptercontent.list');
+        }
     }
 
     public function fetchclass(Request $request)
