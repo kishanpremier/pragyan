@@ -1,5 +1,5 @@
 <html>
-</html><title>Subject Listing</title>
+</html><title>Chapter Content Listing</title>
 
 
 @extends('backend.layouts.app')
@@ -14,7 +14,7 @@
 @section('content')
 <div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title">{{ trans('history.backend.subjectlisting') }}</h3>
+        <h3 class="box-title">{{ trans('history.backend.chaptercontentlisting') }}</h3>
     </div><!-- /.box-header -->
     <div class="box-body">
         <div class="table-responsive data-table-wrapper">
@@ -25,6 +25,8 @@
                         <th>Subject Name</th>
                         <th>Class Name</th>
                         <th>Chapter Name</th>
+                        <th>Content Title</th>
+                        <th>Content Description</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -35,9 +37,11 @@
                         <td>{{$chapter1->subject_name}}</td>
                         <td>{{$chapter1->class_name}}</td>
                         <td>{{$chapter1->chapter_name}}</td>
+                        <td>{{$chapter1->content_title}}</td>
+                        <td>{{$chapter1->content_short_desc}}</td>
                         <td>
-                            <a href="{{route('admin.schoolchapter.edit',$chapter1->id)}}"><i class="fa fa-pencil schoolclass" aria-hidden="true"></i></a>
-                            <a href="{{route('admin.schoolchapter.delete',$chapter1->id)}}"><i class="fa fa-trash schoolclass" aria-hidden="true"></i></a>
+                            <a href="{{route('admin.schoolchaptercontent.edit',$chapter1->id)}}"><i class="fa fa-pencil schoolclass" aria-hidden="true"></i></a>
+                            <a href="{{route('admin.schoolchaptercontent.delete',$chapter1->id)}}"><i class="fa fa-trash schoolclass" aria-hidden="true"></i></a>
                         </td>
                     </tr>
                     @endforeach

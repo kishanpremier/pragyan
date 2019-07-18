@@ -34,6 +34,23 @@
 @toastr_render
 @section('before-scripts')
     <script>
+        function readURL(input) {
+            var abc = $('#content_type').val();
+            var fileExtension = ['docx','xlsx','doc','pdf','jpg','jpeg','png','csv'];
+            var abc1 = abc.split('.').pop().toLowerCase();
+            if($.inArray(abc1,fileExtension) === 0)
+            {
+                $('#content_type-error').hide();
+            }
+            else
+            {
+                if (input.files && input.files[0]) {
+                    $('#content_type-error').hide();
+                }
+            }
+        }
+    </script>
+    <script>
         $(function () {
             $("form[name='chapter_content_form']").validate({
                 rules: {
@@ -41,13 +58,13 @@
                     subject_name: "required",
                     chapter_name: "required",
                     content_title: "required",
-                    content_type:{
-                        "required" : function(){
-                            return $("#video_link").is(':empty');
-                        }
+                    content_type: {
+                        required: true,
+                        extension: "docx|xlsx|doc|pdf|jpg|jpeg|png|csv",
+                        size: 500000
                     },
                     video_link: {
-                        "required" : function(){
+                        required: function(){
                             return $("#content_type").is(':empty');
                         }
                     },
@@ -59,7 +76,9 @@
                     chapter_name: "Please Select Chapter Name Here",
                     content_title: "PLease Enter Content Title Here",
                     content_type: {
-                        required: "Please Upload Proper Document"
+                        required: "Please Upload Proper Document",
+                        extension: "Please Select From docx|xlsx|doc|pdf|jpg|jpeg|png|csv Format",
+                        size: "Please Select File Less Than 5MB Size"
                     },
                     video_link: {
                         required: "Please Enter Proper Video Link"

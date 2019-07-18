@@ -86,7 +86,6 @@
                     accept: "image/jpg,image/jpeg,image/png,image/gif",
                     size: 200000
                 }
-               
             },
             // Specify validation error messages
             messages: {
