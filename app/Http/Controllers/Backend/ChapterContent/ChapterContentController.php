@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Backend\ChapterContent;
 
 use App\Models\School\Chapter;
 use App\Models\School\Chaptercontent;
-use App\Models\School\School;
 use App\Models\School\Schoolclass;
 use App\Models\School\Subject;
 use Illuminate\Http\Request;
@@ -78,6 +77,20 @@ class ChapterContentController extends Controller
                 ]);
             }
 
+            $validate = preg_match('/^(https|http):\/\/(?:www\.)?youtube.com\/embed\/[A-z0-9]+$/',$request->video_link);
+            if(!$validate)
+            {
+                $invalid_url = "This Link Is Invalid";
+                if ($request->id == '') {
+                    $subject = Subject::get();
+                    return view('backend.chaptercontent.addform')->with(compact('invalid_url','subject'));
+                }
+                else{
+                    $subject = Subject::get();
+                    return view('backend.chaptercontent.editform')->with(compact('invalid_url','subject'));
+                }
+            }
+
             if($request->file('content_type') != null)
             {
                 $ext = $request->file('content_type')->getClientOriginalExtension();
@@ -85,15 +98,21 @@ class ChapterContentController extends Controller
 
                 if ($size > 5000000) {
                     $errors1['size'] = "Size Should Be Less Than 5MB";
-                    return view('backend.chaptercontent.addform')->with(compact('errors1','val'));
+                    $subject = Subject::get();
+                    return view('backend.chaptercontent.addform')->with(compact('errors1','subject'));
                 }
                 elseif ($ext != "jpeg" && $ext != "png" && $ext != "jpg" && $ext != "pdf" && $ext != "docx" && $ext != "doc" && $ext != "xlsx" && $ext != "csv")
                 {
                     $errors1['extension'] = "Invalid File Format";
-                    if ($request->id == '')
-                        return view('backend.chaptercontent.addform')->with(compact('errors1','val'));
-                    else
-                        return view('backend.chaptercontent.addform')->with(compact('errors1','val'));
+                    if ($request->id == ''){
+                        $subject = Subject::get();
+                        return view('backend.chaptercontent.addform')->with(compact('errors1','subject'));
+                    }
+                    else{
+                        $subject = Subject::get();
+                        return view('backend.chaptercontent.addform')->with(compact('errors1','subject'));
+                    }
+
                 }
             }
 
@@ -106,14 +125,18 @@ class ChapterContentController extends Controller
 
             if($request->file('content_type') != null)
             {
-                $path_to_delete = public_path('chaptercontent/'.$request->image_name_to_delete);
-                if (file_exists($path_to_delete)){
-                    unlink($path_to_delete);
+                if($request->id != ''){
+                    /*$path_to_delete = public_path('chaptercontent\\'.$request->image_name_to_delete);*/
+                    $path_to_delete = public_path('chaptercontent//'.$request->image_name_to_delete);
+                    if (file_exists($path_to_delete)){
+                        unlink($path_to_delete);
+                    }
                 }
+
 
                 $file = $request->file('content_type');
                 $pathfile = md5($file->getClientOriginalName(). time()).".".$ext;
-                $file->move(public_path('chaptercontent/'), $pathfile);
+                $file->move(public_path('chaptercontent'), $pathfile);
 
                 $chaptercontentdata->subject_id = $request['subject_name'];
                 $chaptercontentdata->class_id = $request['class_name'];
@@ -209,7 +232,8 @@ class ChapterContentController extends Controller
     public function delete($id){
         $res=Chaptercontent::where('id',$id)->get();
         foreach ($res as $val){
-            $path = public_path('\chaptercontent\\'.$val['content_type']);
+            $path = public_path('chaptercontent//'.$val['content_type']);
+            //$path = public_path('\chaptercontent\\'.$val['content_type']);
             break;
         }
 

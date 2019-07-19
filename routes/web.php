@@ -52,11 +52,11 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
     Route::get('schoolboardedit/{id}','Board\BoardController@edit')->name('schoolboard.edit');
     Route::get('schoolboarddelete/{id}','Board\BoardController@delete')->name('schoolboard.delete');
 
-    Route::get('subjectschoolList','Subject1\Subject1Controller@index')->name('subjectschool.list');
-    Route::get('schoolsubjectcreate','Subject1\Subject1Controller@create')->name('subjectschool.create');
-    Route::post('schoolsubjectstore','Subject1\Subject1Controller@store')->name('subjectschool.store');
-    Route::get('schoolsubjectedit/{id}','Subject1\Subject1Controller@edit')->name('subjectschool.edit');
-    Route::get('schoolsubjectdelete/{id}','Subject1\Subject1Controller@delete')->name('subjectschool.delete');
+    Route::get('subjectschoolList','PragyanSubject\PragyanSubjectController@index')->name('subjectschool.list');
+    Route::get('schoolsubjectcreate','PragyanSubject\PragyanSubjectController@create')->name('subjectschool.create');
+    Route::post('schoolsubjectstore','PragyanSubject\PragyanSubjectController@store')->name('subjectschool.store');
+    Route::get('schoolsubjectedit/{id}','PragyanSubject\PragyanSubjectController@edit')->name('subjectschool.edit');
+    Route::get('schoolsubjectdelete/{id}','PragyanSubject\PragyanSubjectController@delete')->name('subjectschool.delete');
 
     Route::get('schoolchapterList','Chapter\ChapterController@index')->name('schoolchapter.list');
     Route::get('schoolchaptercreate','Chapter\ChapterController@create')->name('schoolchapter.create');
