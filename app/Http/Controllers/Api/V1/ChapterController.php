@@ -9,30 +9,13 @@ use App\Http\Controllers\Controller;
 
 class ChapterController extends Controller {
 
-    public function chapter(Request $request) {
-
-        try {
-
-            $request->validate([
-                'chapter_name' => 'required',
-            ]);
-
-            $Chapter = new Chapter();
-
-            $Chapter->class_id = $request['class_id'];
-            $Chapter->subject_id = $request['subject_id'];
-            $Chapter->chapter_name = $request['chapter_name'];
-
-            $Chapter->save();
-            
-            $message = 'chapter has been created';
-        } catch (Exception $e) {
-
-            $message = 'Something went wrong';
-        }
+    public function getchapter($id) {
+        
+       $getChapter = Chapter::where('chapter.class_id','=',$id)
+               ->get();
 
         return response()->json([
-              'message' => $message]);
+              'data' => $getChapter]);
         
     }
     
