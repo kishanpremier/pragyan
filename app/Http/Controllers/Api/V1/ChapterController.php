@@ -13,8 +13,13 @@ class ChapterController extends Controller {
         
        $getChapter = Chapter::where('chapter.class_id','=',$id)
                ->get();
-
+        if ($getChapter != '') {
+            $getChapterStatus = true;
+        } else {
+            $getChapterStatus = false;
+        }
         return response()->json([
+               'status'=>$getChapterStatus,
               'data' => $getChapter]);
         
     }

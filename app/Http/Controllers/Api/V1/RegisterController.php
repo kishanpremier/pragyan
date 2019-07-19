@@ -34,6 +34,7 @@ class RegisterController extends APIController {
      * @return \Illuminate\Http\JsonResponse
      */
     public function register(Request $request) {
+
         $validation = Validator::make($request->all(), [
                     'user_type' => 'required',
                     'age' => 'required',
@@ -85,8 +86,8 @@ class RegisterController extends APIController {
     }
 
     public function update(Request $request, $id) {
-        
-        
+
+
         try {
 
             $request->validate([
@@ -101,7 +102,6 @@ class RegisterController extends APIController {
                 'email' => 'required|email|unique:users',
                 'password' => 'required|min:4',
                 'password_confirmation' => 'required|same:password',
-                
             ]);
 
             $userUpdate = User::findOrFail($id);
@@ -137,10 +137,9 @@ class RegisterController extends APIController {
                     'message' => $message,
         ]);
     }
-    
-    public function updateAuthUserPassword(Request $request,$id)
-    {
-   
+
+    public function updateAuthUserPassword(Request $request, $id) {
+
         $this->validate($request, [
             'current' => 'required',
             'password' => 'required|confirmed',
@@ -148,16 +147,15 @@ class RegisterController extends APIController {
         ]);
 
         $user = User::find($id);
+        if (Hash::check($request->current, $user->password)) {
+            $user->password = bcrypt($request->password);
+            $user->save();
 
-        if (!Hash::check($request->current, $user->password)) {
-            return response()->json(['current'=> ['Current password does not match']], 422);
+            return response()->json(['message' => 'password change successfully']);
+        }else{
+            return response()->json(['errors' => ['current' => ['Current password does not match']]], 422);
         }
-        
-        $user->password = bcrypt($request->password);
-        
-        $user->save();
 
-        return response()->json(['message' => 'password change successfully']);
     }
 
     public function stateBoard() {
@@ -207,8 +205,8 @@ class RegisterController extends APIController {
                     'data' => $Schoolclass,
                     'message' => 'School class']);
     }
-    
-     public function getschoolClass() {
+
+    public function getschoolClass() {
 
         $Schoolclass = Schoolclass::get();
 
@@ -223,7 +221,6 @@ class RegisterController extends APIController {
                     'data' => $Schoolclass,
                     'message' => 'School class']);
     }
-    
 
     public function subject() {
 
@@ -239,6 +236,11 @@ class RegisterController extends APIController {
                     'status' => $subjectStatus,
                     'data' => $subject,
                     'message' => 'Subject']);
+    }
+    
+    public function videoCount(Request $request){
+        
+        dd('hello'); exit;
     }
 
 }
