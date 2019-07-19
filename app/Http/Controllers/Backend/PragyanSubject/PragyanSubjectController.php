@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Subject1;
+namespace App\Http\Controllers\Backend\PragyanSubject;
 
-use App\Models\School\Subject;
-use App\Models\School\School;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\School\Subject;
+use App\Models\School\School;
 
-class Subject1Controller extends Controller
+class PragyanSubjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class Subject1Controller extends Controller
     public function index()
     {
         $schoolsubject = Subject::get();
-        return view('backend.subject1.index', compact('schoolsubject'));
+        return view('backend.pragyansubject.index', compact('schoolsubject'));
     }
 
     /**
@@ -28,7 +28,7 @@ class Subject1Controller extends Controller
     public function create()
     {
         $val = School::get();
-        return view('backend.subject1.addform')->with(compact('val'));
+        return view('backend.pragyansubject.addform')->with(compact('val'));
     }
 
     /**
@@ -39,6 +39,7 @@ class Subject1Controller extends Controller
      */
     public function store(Request $request)
     {
+
         try {
             if($request->id == ''){
                 $request->validate([
@@ -52,7 +53,6 @@ class Subject1Controller extends Controller
                     'subject_name' => 'required'
                 ]);
             }
-            //$val = School::get();
             if($request->file('subject_image') != null)
             {
                 $ext = $request->file('subject_image')->getClientOriginalExtension();
@@ -60,13 +60,13 @@ class Subject1Controller extends Controller
 
                 if ($size > 2000000) {
                     $errors1['size'] = "Size Should Be Less Than 2MB";
-                    return view('backend.subject1.editform')->with(compact('errors1','val'));
+                    return view('backend.pragyansubject.editform')->with(compact('errors1','val'));
                 } elseif ($ext != "jpeg" && $ext != "png" && $ext != "jpg") {
                     $errors1['extension'] = "Invalid File Format";
                     if ($request->id == '')
-                        return view('backend.subject1.addform')->with(compact('errors1','val'));
+                        return view('backend.pragyansubject.addform')->with(compact('errors1','val'));
                     else
-                        return view('backend.subject1.editform')->with(compact('errors1','val'));
+                        return view('backend.pragyansubject.editform')->with(compact('errors1','val'));
                 }
             }
             if ($request->id != '') {
@@ -78,9 +78,13 @@ class Subject1Controller extends Controller
 
             if($request->file('subject_image') != null)
             {
-                $path_to_delete = public_path('\subjectimages\\'.$request->image_name_to_delete);
-                if (file_exists($path_to_delete)){
-                    unlink($path_to_delete);
+                if($request->id != '')
+                {
+                    //$path_to_delete = public_path('\subjectimages\\'.$request->image_name_to_delete);
+                    $path_to_delete = public_path('subjectimages//'.$request->image_name_to_delete);
+                    if (file_exists($path_to_delete)){
+                        unlink($path_to_delete);
+                    }
                 }
 
                 $file = $request->file('subject_image');
@@ -110,6 +114,7 @@ class Subject1Controller extends Controller
 
         return redirect()->route('admin.subjectschool.list');
     }
+
     /**
      * Display the specified resource.
      *
@@ -131,7 +136,7 @@ class Subject1Controller extends Controller
     {
         $val = School::get();
         $schoolsubject = Subject::find($id);
-        return view('backend.subject1.editform', compact('schoolsubject','val'));
+        return view('backend.pragyansubject.editform', compact('schoolsubject','val'));
     }
 
     /**
@@ -159,7 +164,8 @@ class Subject1Controller extends Controller
     public function delete($id){
         $res=Subject::where('id',$id)->get();
         foreach ($res as $val){
-            $path = public_path('\subjectimages\\'.$val['subject_image']);
+            /*$path = public_path('\subjectimages\\'.$val['subject_image']);*/
+            $path = public_path('subjectimages//'.$val['subject_image']);
             break;
         }
 
