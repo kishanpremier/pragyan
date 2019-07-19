@@ -33,7 +33,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
      * Note: Administrator has all permissions so you do not have to specify the administrator role everywhere.
      */
     includeRouteFiles(__DIR__.'/Backend/');
-    
+
     Route::get('classlist','Subject\SubjectController@index')->name('class.list');
     Route::get('create','Subject\SubjectController@create')->name('class.create');
     Route::post('store','Subject\SubjectController@store')->name('class.store');
@@ -67,9 +67,16 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
 
     Route::get('schoolchaptercontentList','ChapterContent\ChapterContentController@index')->name('schoolchaptercontent.list');
     Route::get('schoolchaptercontentcreate','ChapterContent\ChapterContentController@create')->name('schoolchaptercontent.create');
-    Route::post('schoolchaptercontentstore','ChapterContent\ChaptercontentController@store')->name('schoolchaptercontent.store');
-    Route::get('schoolchaptercontentedit/{id}','ChapterContent\ChaptercontentController@edit')->name('schoolchaptercontent.edit');
-    Route::get('schoolchaptercontentdelete/{id}','ChapterContent\ChaptercontentController@delete')->name('schoolchaptercontent.delete');
+    Route::post('schoolchaptercontentstore','ChapterContent\ChapterContentController@store')->name('schoolchaptercontent.store');
+    Route::get('schoolchaptercontentedit/{id}','ChapterContent\ChapterContentController@edit')->name('schoolchaptercontent.edit');
+    Route::get('schoolchaptercontentdelete/{id}','ChapterContent\ChapterContentController@delete')->name('schoolchaptercontent.delete');
     Route::post('dynamicclass_dependent/fetch', 'ChapterContent\ChapterContentController@fetchclass')->name('dynamicclass.fetch');
     Route::post('dynamicchapter_dependent/fetch', 'ChapterContent\ChapterContentController@fetchchapter')->name('dynamicchapter.fetch');
+
+    Route::get('bannerList','PragyanBanner\PragyanBannerController@index')->name('banner.list');
+    Route::get('bannercreate','PragyanBanner\PragyanBannerController@create')->name('banner.create');
+    Route::post('bannerstore','PragyanBanner\PragyanBannerController@store')->name('banner.store');
+    //Route::get('schoolchapteredit/{id}','Chapter\ChapterController@edit')->name('schoolchapter.edit');
+    //Route::get('schoolchapterdelete/{id}','Chapter\ChapterController@delete')->name('schoolchapter.delete');
+    //Route::post('dynamic_dependent/fetch', 'Chapter\ChapterController@fetchclass')->name('dynamic.fetch');
 });

@@ -38,11 +38,11 @@
         var abc = $('#subject_image').val();
         var fileExtension = ['jpeg', 'jpg', 'png'];
         var abc1 = abc.split('.').pop().toLowerCase();
-        if($.inArray(abc1,fileExtension) === 0)
+        var reader = new FileReader();
+        if($.inArray(abc1,fileExtension) !== -1)
         {
             $('#subject_image-error').hide();
             if (input.files && input.files[0]) {
-                var reader = new FileReader();
                 reader.onload = function (e) {
                     $('#imgsubject')
                         .attr('src', e.target.result)
@@ -55,7 +55,6 @@
         else
         {
             if (input.files && input.files[0]) {
-                var reader = new FileReader();
                 reader.onload = function (e) {
                     $('#imgsubject')
                         .attr('src', '#')
@@ -70,30 +69,23 @@
     <script>
 
     $(function () {
-    
-        // Initialize form validation on the registration form.
-        // It has the name attribute "registration"
         $("form[name='school_subject_form']").validate({
-        
-            // Specify validation rules
             rules: {
-                // The key name on the left side is the name attribute
-                // of an input field. Validation rules are defined
-                // on the right side
                 subject_name: "required",
                 subject_image: {
                     required: true,
+                    extension: "png|jpeg|jpg",
                     accept: "image/jpg,image/jpeg,image/png,image/gif",
-                    size: 200000
+                    /*size: 200000*/
                 }
             },
-            // Specify validation error messages
             messages: {
                 subject_name: "Please enter your subject name",
                 subject_image: {
                     required: "Please Select Proper Image To Upload",
+                    extension: "Please Select 'jpeg', 'jpg', 'png' File To Upload",
                     accept: "Please Select 'jpeg', 'jpg', 'png' File To Upload",
-                    size: "Please Select Proper Image Upto 2MB"
+                    /*size: "Please Select Proper Image Upto 2MB"*/
                 }
             },
             submitHandler: function (form) {

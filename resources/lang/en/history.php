@@ -31,6 +31,7 @@ return [
         'chapter'  => 'Enter Details To Add Chapter',
         'schoolboard'  => 'Enter Details To Add State Board',
         'chaptercontent'  => 'Enter Details To Add ChapterContent',
+        'banner'=>'Enter Details To Add New Banner',
 
         'listing'  => 'Class Listing',
         'subjectlisting'  => 'Subject Listing',

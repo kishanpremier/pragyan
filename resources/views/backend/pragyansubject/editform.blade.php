@@ -36,7 +36,8 @@
         var abc = $('#subject_image').val();
         var fileExtension = ['jpeg', 'jpg', 'png'];
         var abc1 = abc.split('.').pop().toLowerCase();
-        if($.inArray(abc1,fileExtension) === 0)
+
+        if($.inArray(abc1,fileExtension) !== -1)
         {
             $('#subject_image-error').hide();
             if (input.files && input.files[0]) {

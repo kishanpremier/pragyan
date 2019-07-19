@@ -25,7 +25,25 @@
                             </li>--}}
                             <!--            <li class="header">{{ trans('menus.backend.sidebar.system') }}</li>-->
                             <!--            {{renderMenuItems(getMenuItems()) }}-->
-
+            {{--<li class="treeview"><a href="">
+                    <i class="fa fa-users"></i>
+                    <span>Home</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu" style="display: none;">
+                    <li class="  ">
+                        <a href="{{url('admin/bannercreate')}}">
+                            <i class="fa "></i>
+                            <span>Add Banner Image</span></a>
+                    </li>
+                    <li class="">
+                        <a href="{{url('admin/classlist')}}">
+                            <i class="fa "></i>
+                            <span>List Banner Image</span>
+                        </a>
+                    </li>
+                    </li>
+                </ul>--}}
                             <li class="treeview"><a href="">
                                     <i class="fa fa-users"></i> 
                                     <span>Class</span>
