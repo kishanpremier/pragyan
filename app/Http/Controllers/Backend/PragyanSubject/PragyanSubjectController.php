@@ -60,7 +60,10 @@ class PragyanSubjectController extends Controller
 
                 if ($size > 2000000) {
                     $errors1['size'] = "Size Should Be Less Than 2MB";
-                    return view('backend.pragyansubject.editform')->with(compact('errors1','val'));
+                    if ($request->id == '')
+                        return view('backend.pragyansubject.addform')->with(compact('errors1','val'));
+                    else
+                        return view('backend.pragyansubject.editform')->with(compact('errors1','val'));
                 } elseif ($ext != "jpeg" && $ext != "png" && $ext != "jpg") {
                     $errors1['extension'] = "Invalid File Format";
                     if ($request->id == '')
