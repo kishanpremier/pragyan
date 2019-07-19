@@ -115,8 +115,6 @@ class PragyanBannerController extends Controller
                 }
             }
 
-
-
             $banner->doc_type = $request['doctype'];
             $banner->image_name = $pathfile;
             $banner->document = $pathfile1;
@@ -133,7 +131,7 @@ class PragyanBannerController extends Controller
         {
             toastr()->warning('', 'Something went wrong', ['timeOut' => 5000]);
         }
-        return redirect()->route('admin.banner.list');
+        return redirect()->route('admin.class.list');
     }
 
     /**
