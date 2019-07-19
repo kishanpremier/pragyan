@@ -38,6 +38,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        
+        'user_type',
+        'age',
+        'gender',
+        'mobile',
+        'state',
+        'district',
         'first_name',
         'last_name',
         'email',
@@ -46,6 +53,7 @@ class User extends Authenticatable
         'confirmed',
         'created_by',
         'updated_by',
+        'deleted_at',
     ];
 
     /**
