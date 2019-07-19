@@ -63,6 +63,7 @@ class AuthController extends APIController {
         }
         return response()->json([
                     'status' => $loginStatus,
+                    'user'=> $user,
                     'message' => $message,
                     'token' => $token,
         ]);
