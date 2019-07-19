@@ -6,7 +6,7 @@
                      <select name="subject_name" id="subject" class="form-control {{ $errors->has('subject_name') ? ' is-invalid' : '' }}" required>
                          @foreach($val as $key)
                              @if(isset($data))
-                                 @if($data->id == $key['id'])
+                                 @if($data->subject_id == $key['id'])
                                      <option value="{{$key['id']}}" selected>{{$key['subject_name']}}</option>
                                  @else
                                      <option value="{{$key['id']}}">{{$key['subject_name']}}</option>

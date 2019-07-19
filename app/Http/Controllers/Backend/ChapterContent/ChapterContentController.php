@@ -62,7 +62,7 @@ class ChapterContentController extends Controller
                     'chapter_name' => 'required|integer',
                     'content_title' => 'required',
                     'content_type' => 'required',
-                    'video_link' => 'required',
+                    'video_link' => 'required|url',
                     'content_description' => 'required'
                 ]);
             }
