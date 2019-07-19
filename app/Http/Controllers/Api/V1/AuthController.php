@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 
-class AuthController extends APIController
-{
+class AuthController extends APIController {
+
     /**
      * Log the user in.
      *
@@ -15,11 +15,11 @@ class AuthController extends APIController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(Request $request)
-    {
+    public function login(Request $request) {
+
         $validation = Validator::make($request->all(), [
-            'email'    => 'required|email',
-            'password' => 'required|min:4',
+                    'email' => 'required|email',
+                    'password' => 'required|min:4',
         ]);
 
         if ($validation->fails()) {
@@ -30,32 +30,42 @@ class AuthController extends APIController
 
         try {
             if (!Auth::attempt($credentials)) {
-                return $this->throwValidation(trans('api.messages.login.failed'));
+
+                    return response()->json([
+                            'message' => trans('api.messages.login.failed'),
+                            'status_code' => 422,
+                ]);
             }
-
             $user = $request->user();
-
+            
+            if($user->user_type == 0 || $user->user_type == 1){
             $passportToken = $user->createToken('API Access Token');
 
             // Save generated token
             $passportToken->token->save();
-
             $token = $passportToken->accessToken;
-        } catch (\Exception $e) {
+            }else{
+                $token = '';
+            }
             
+            
+        } catch (\Exception $e) {
+
             return $this->respondInternalError($e->getMessage());
         }
-            if($token != ''){
-                $loginStatus = true;
-            }else{
-                $loginStatus = false;
-            }
-         return response()->json([
+        if ($token != '') {
+            $message = trans('api.messages.login.success');
+            $loginStatus = true;
+        } else {
+            
+            $message = trans('api.messages.login.failed');
+            $loginStatus = false;
+        }
+        return response()->json([
                     'status' => $loginStatus,
-                    'message'   => trans('api.messages.login.success'),
-                    'token'     => $token, 
+                    'message' => $message,
+                    'token' => $token,
         ]);
-         
     }
 
     /**
@@ -63,8 +73,7 @@ class AuthController extends APIController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me()
-    {
+    public function me() {
         return response()->json($this->guard()->user());
     }
 
@@ -73,8 +82,7 @@ class AuthController extends APIController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logout(Request $request)
-    {
+    public function logout(Request $request) {
         try {
             $request->user()->token()->revoke();
         } catch (\Exception $e) {
@@ -82,7 +90,8 @@ class AuthController extends APIController
         }
 
         return $this->respond([
-            'message'   => trans('api.messages.logout.success'),
+                    'message' => trans('api.messages.logout.success'),
         ]);
     }
+
 }

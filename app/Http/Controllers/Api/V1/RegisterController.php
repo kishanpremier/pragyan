@@ -6,6 +6,8 @@ use App\Models\School\School;
 use App\Models\School\Schoolboard;
 use App\Models\School\Schoolclass;
 use App\Models\School\Subject;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Access\User\User;
 use App\Repositories\Frontend\Access\User\UserRepository;
 use Config;
 use Illuminate\Http\Request;
@@ -72,6 +74,92 @@ class RegisterController extends APIController {
         ]);
     }
 
+    public function edit($id) {
+
+        $userEdit = User::find($id);
+
+        return response()->json([
+                    'message' => 'get user information',
+                    'data' => $userEdit,
+        ]);
+    }
+
+    public function update(Request $request, $id) {
+        
+        
+        try {
+
+            $request->validate([
+                'user_type' => 'required',
+                'age' => 'required',
+                'gender' => 'required',
+                'mobile' => 'required',
+                'state' => 'required',
+                'district' => 'required',
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'email' => 'required|email|unique:users',
+                'password' => 'required|min:4',
+                'password_confirmation' => 'required|same:password',
+                
+            ]);
+
+            $userUpdate = User::findOrFail($id);
+
+            $userUpdate->first_name = $data['first_name'];
+            $userUpdate->last_name = $data['last_name'];
+            $userUpdate->email = $data['email'];
+            $userUpdate->user_type = $data['user_type'];
+            $userUpdate->age = $data['age'];
+            $userUpdate->gender = $data['gender'];
+            $userUpdate->mobile = $data['mobile'];
+            $userUpdate->state = $data['state'];
+            $userUpdate->district = $data['district'];
+            $userUpdate->classes = $data['classes'];
+            $userUpdate->subject = $data['subject'];
+            $userUpdate->schoolcode = $data['schoolcode'];
+            $userUpdate->school_name = $data['school_name'];
+            $userUpdate->state_board = $data['state_board'];
+
+            $userUpdate->confirmation_code = md5(uniqid(mt_rand(), true));
+            $userUpdate->status = 1;
+            $userUpdate->password = $provider ? null : bcrypt($data['password']);
+            $userUpdate->is_term_accept = $data['is_term_accept'];
+
+            $userUpdate->save();
+
+            $message = 'user has been updated';
+        } catch (Exception $e) {
+
+            $message = 'Something went wrong';
+        }
+        return $this->respondCreated([
+                    'message' => $message,
+        ]);
+    }
+    
+    public function updateAuthUserPassword(Request $request,$id)
+    {
+   
+        $this->validate($request, [
+            'current' => 'required',
+            'password' => 'required|confirmed',
+            'password_confirmation' => 'required'
+        ]);
+
+        $user = User::find($id);
+
+        if (!Hash::check($request->current, $user->password)) {
+            return response()->json(['current'=> ['Current password does not match']], 422);
+        }
+        
+        $user->password = bcrypt($request->password);
+        
+        $user->save();
+
+        return response()->json(['message' => 'password change successfully']);
+    }
+
     public function stateBoard() {
 
         $Schoolboard = Schoolboard::get();
@@ -107,7 +195,7 @@ class RegisterController extends APIController {
 
         $Schoolclass = Schoolclass::where('class.subject_id', '=', $id)
                 ->get();
-        
+
         if ($Schoolclass != '') {
             $SchoolclassStatus = true;
         } else {
@@ -118,13 +206,29 @@ class RegisterController extends APIController {
                     'status' => $SchoolclassStatus,
                     'data' => $Schoolclass,
                     'message' => 'School class']);
-        
     }
+    
+     public function getschoolClass() {
+
+        $Schoolclass = Schoolclass::get();
+
+        if ($Schoolclass != '') {
+            $SchoolclassStatus = true;
+        } else {
+            $SchoolclassStatus = false;
+        }
+
+        return response()->json([
+                    'status' => $SchoolclassStatus,
+                    'data' => $Schoolclass,
+                    'message' => 'School class']);
+    }
+    
 
     public function subject() {
 
         $subject = Subject::get();
-      
+
         if ($subject != '') {
             $subjectStatus = true;
         } else {

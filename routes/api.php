@@ -16,14 +16,18 @@
     Route::group(['prefix' => 'auth', 'middleware' => ['guest']], function () {
         Route::post('register', 'RegisterController@register');
         Route::post('login', 'AuthController@login');
+        
+        Route::post('user/changepassword/{id}','RegisterController@updateAuthUserPassword');
         // Password Reset
         Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
-        
+        Route::get('user/edit/{id}', 'RegisterController@edit');
+        Route::get('user/update/{id}', 'RegisterController@update');
         Route::get('stateborad', 'RegisterController@stateBoard');
         Route::get('school', 'RegisterController@school');
         Route::get('schoolclass/{id}', 'RegisterController@schoolClass');
+        Route::get('schoolclass', 'RegisterController@getschoolClass');
         Route::get('subject', 'RegisterController@subject');
-        Route::post('chapter', 'ChapterController@chapter');
+        Route::get('getchapter/{id}', 'ChapterController@getchapter');
         Route::post('chaptercontent', 'ChapterController@chapterContent');
         Route::get('getchapterContent/{id}', 'ChapterController@getchapterContent');
         
