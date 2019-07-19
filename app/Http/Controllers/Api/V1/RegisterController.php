@@ -71,6 +71,7 @@ class RegisterController extends APIController {
 
         return $this->respondCreated([
                     'message' => trans('api.messages.registeration.success'),
+                    'user' => $user,
                     'token' => $token,
         ]);
     }
@@ -240,7 +241,7 @@ class RegisterController extends APIController {
     
     public function videoCount(Request $request){
         
-        dd('hello'); exit;
+        dd($request); exit;
     }
 
 }
