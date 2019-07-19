@@ -88,6 +88,11 @@
                             <strong id="error" style="color: red">*{{ $errors->first('video_link') }}</strong>
                         </span>
                     @endif
+                    @if(isset($invalid_url))
+                        <span id="invalid-feedback" role="alert">
+                            <strong id="error" style="color: red">{{$invalid_url}}</strong>
+                        </span>
+                    @endif
                     <br/>
                 </div>
             </div>
