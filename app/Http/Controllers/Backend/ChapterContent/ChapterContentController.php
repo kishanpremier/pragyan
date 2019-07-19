@@ -72,12 +72,13 @@ class ChapterContentController extends Controller
                     'class_name' => 'required|integer',
                     'chapter_name' => 'required|integer',
                     'content_title' => 'required',
-                    'video_link' => 'required',
+                    'video_link' => 'required|url',
                     'content_description' => 'required'
                 ]);
             }
 
-            $validate = preg_match('/^(https|http):\/\/(?:www\.)?youtube.com\/embed\/[A-z0-9]+$/',$request->video_link);
+            /*$validate = preg_match('/^(https|http):\/\/(?:www\.)?youtube.com\/embed\/[A-z0-9]+$/',$request->video_link);
+            dd($validate);
             if(!$validate)
             {
                 $invalid_url = "This Link Is Invalid";
@@ -89,7 +90,7 @@ class ChapterContentController extends Controller
                     $subject = Subject::get();
                     return view('backend.chaptercontent.editform')->with(compact('invalid_url','subject'));
                 }
-            }
+            }*/
 
             if($request->file('content_type') != null)
             {

@@ -64,6 +64,7 @@
                         size: 500000
                     },
                     video_link: {
+                        url: true,
                         required: function(){
                             return $("#content_type").is(':empty');
                         }
@@ -81,6 +82,7 @@
                         size: "Please Select File Less Than 5MB Size"
                     },
                     video_link: {
+                        url: "Only You Tube Video Link Allowed",
                         required: "Please Enter Proper Video Link"
                     },
                     content_description: "Please Enter Proper Description"
