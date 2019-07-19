@@ -31,7 +31,7 @@
         Route::post('chaptercontent', 'ChapterController@chapterContent');
         Route::get('getchapterContent/{id}', 'ChapterController@getchapterContent');
         
-        Route::get('videoCount', 'RegisterController@videoCount');
+        Route::post('videoCount', 'RegisterController@videoCount');
         
     });
 

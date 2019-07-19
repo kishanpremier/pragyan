@@ -8,6 +8,7 @@ use App\Models\School\Schoolclass;
 use App\Models\School\Subject;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Access\User\User;
+use App\Models\School\videocount;
 use App\Repositories\Frontend\Access\User\UserRepository;
 use Config;
 use Illuminate\Http\Request;
@@ -153,10 +154,9 @@ class RegisterController extends APIController {
             $user->save();
 
             return response()->json(['message' => 'password change successfully']);
-        }else{
+        } else {
             return response()->json(['errors' => ['current' => ['Current password does not match']]], 422);
         }
-
     }
 
     public function stateBoard() {
@@ -238,10 +238,31 @@ class RegisterController extends APIController {
                     'data' => $subject,
                     'message' => 'Subject']);
     }
-    
-    public function videoCount(Request $request){
-        
-        dd($request); exit;
+
+    public function videoCount(Request $request) {
+        try {
+
+            $videocount = new videocount();
+            $videocount->user_id = $request['user_id'];
+            $videocount->chapter_content_id  = $request['content_id'];
+            $videocount->count = 1;
+
+            $save = $videocount->save();
+
+            if ($save != '') {
+                $countStatus = true;
+            } else {
+                $countStatus = false;
+            }
+            
+        } catch (Exception $e) {
+
+            toastr()->warning('', 'Something went wrong', ['timeOut' => 5000]);
+        }
+
+        return response()->json([
+                    'status' => $countStatus,
+                    'message' => 'video count']);
     }
 
 }
