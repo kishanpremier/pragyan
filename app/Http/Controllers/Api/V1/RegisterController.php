@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Models\School\Banner;
 use App\Models\School\School;
 use App\Models\School\Schoolboard;
 use App\Models\School\Schoolclass;
@@ -244,7 +245,7 @@ class RegisterController extends APIController {
 
             $videocount = new videocount();
             $videocount->user_id = $request['user_id'];
-            $videocount->chapter_content_id  = $request['content_id'];
+            $videocount->chapter_content_id = $request['content_id'];
             $videocount->count = 1;
 
             $save = $videocount->save();
@@ -254,7 +255,6 @@ class RegisterController extends APIController {
             } else {
                 $countStatus = false;
             }
-            
         } catch (Exception $e) {
 
             toastr()->warning('', 'Something went wrong', ['timeOut' => 5000]);
@@ -263,6 +263,21 @@ class RegisterController extends APIController {
         return response()->json([
                     'status' => $countStatus,
                     'message' => 'video count']);
+    }
+
+    public function getbanner() {
+
+        $getBanner = Banner::get();
+        if ($getBanner != '') {
+            $getBannerStatus = true;
+        } else {
+            $getBannerStatus = false;
+        }
+
+        return response()->json([
+                    'status' => $getBannerStatus,
+                    'data' => $getBanner,
+                    'message' => 'Slider banner']);
     }
 
 }
