@@ -24,40 +24,41 @@
                     <tr>
                         <th>Id</th>
                         <th>Teacher Name</th>
-                        <th>Video Link</th>
-                        <th>Video Count</th>
-
+                        <th>Content Link</th>
+                        <th>Content Count</th>
                     </tr>
                     </thead>
                     <tbody>
-
+                    <?php $i=0;?>
                     @forelse($videoCount as $k=> $val)
+                        <?php $i++;?>
                         @forelse($val as $l=> $val1)
+                        <?php $dataCount = count($val1); ?>
+                        @if($dataCount > 1)
                             @forelse($val1 as $j=> $val2)
-                        <tr>
-                            <td>
-                                {{$val2->id}}
-                            </td>
-                            <td>
-                                {{$val2->first_name}} {{$val2->last_name}}
-                            </td>
-                            <td>
-                                {{$val2->content_link}}
-                            </td>
-                            <td>
-                                {{$val2->content_title}} ({{$val2->count}})
-                            </td>
-                        </tr>
-                    @empty
-                    @endforelse
+                                <tr>
+                                    <td>
+                                        {{$i}}
+                                    </td>
+                                    <td>
+                                        {{$val2->first_name}} {{$val2->last_name}}
+                                    </td>
+                                    <td>
+                                        {{$val2->content_link}}
+                                    </td>
+                                    <td>
+                                        {{$val2->content_title}} ({{$dataCount}})
+                                    </td>
+                                </tr>
+                                @break
+                            @empty
+                            @endforelse
+                        @endif
                         @empty
                         @endforelse
                     @empty
                     @endforelse
-
-
                     </tbody>
-
                 </table>
             </div>
         </div><!-- /.box-body -->
@@ -82,7 +83,12 @@
     <script>
 
         $(document).ready(function() {
-            $('#example').DataTable();
+            $('#example').DataTable( {
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            } );
         } );
 
     </script>
