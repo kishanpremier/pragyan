@@ -15,7 +15,8 @@ class PragyanBannerController extends Controller
      */
     public function index()
     {
-        return view('backend.pragyanbanner.index');
+        $bannerdata = Banner::get();
+        return view('backend.pragyanbanner.index')->with(compact('bannerdata'));
     }
 
     /**
@@ -39,6 +40,7 @@ class PragyanBannerController extends Controller
         try {
             if($request->video_url == null){
                 $request->validate([
+                    'title' => 'required',
                     'doctype' => 'required|integer',
                     'banner_image_other' => 'required',
                     'banner_image' => 'required'
@@ -46,6 +48,7 @@ class PragyanBannerController extends Controller
             }
             else{
                 $request->validate([
+                    'title' => 'required',
                     'doctype' => 'required|integer',
                     'banner_image' => 'required',
                     'video_url' => 'required'
@@ -71,7 +74,10 @@ class PragyanBannerController extends Controller
                 if ($size > 2000000)
                 {
                     $errors1['size'] = "Size Should Be Less Than 2MB";
-                    return view('backend.pragyanbanner.addform')->with(compact('errors1'));
+                    if ($request->id == '')
+                        return view('backend.pragyanbanner.addform')->with(compact('errors1'));
+                    else
+                        return view('backend.pragyanbanner.addform')->with(compact('errors1'));
                 }
                 elseif($ext != "jpeg" && $ext != "png" && $ext != "jpg")
                 {
@@ -109,14 +115,21 @@ class PragyanBannerController extends Controller
                 }
                 else
                 {
+                    if($request->id != '')
+                    {
+                        //$path_to_delete = public_path('\subjectimages\\'.$request->image_name_to_delete);
+                        $path_to_delete = public_path('banner//'.$request->image_name_to_delete);
+                        if (file_exists($path_to_delete)){
+                            unlink($path_to_delete);
+                        }
+                    }
                     $file = $request->file('banner_image_other');
                     $pathfile1 = md5($file->getClientOriginalName() . time()) . "." . $ext;
                     $file->move(public_path('banner'), $pathfile1);
                 }
             }
 
-
-
+            $banner->title = $request['title'];
             $banner->doc_type = $request['doctype'];
             $banner->image_name = $pathfile;
             $banner->document = $pathfile1;
@@ -155,7 +168,10 @@ class PragyanBannerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $da = Banner::where('id',$id)->get();
+        foreach ($da as $data)
+            return view('backend.pragyanbanner.editform')->with(compact('data'));
+
     }
 
     /**
@@ -179,5 +195,27 @@ class PragyanBannerController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function delete($id)
+    {
+        $res = Banner::where('id', $id)->get();
+        foreach ($res as $val) {
+            $path = public_path('banner//' . $val['image_name']);
+            $document = public_path('banner//' . $val['document']);
+            break;
+        }
+
+        if (file_exists($path)) {
+            unlink($path);
+        }
+        if (file_exists($document)) {
+            unlink($document);
+        }
+        $res = Banner::where('id', $id)->delete();
+        if ($res) {
+            toastr()->error('', 'Banner has been Deleted', ['timeOut' => 5000]);
+            return redirect()->route('admin.banner.list');
+        }
     }
 }

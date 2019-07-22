@@ -72,15 +72,14 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
     Route::post('dynamicclass_dependent/fetch', 'ChapterContent\ChapterContentController@fetchclass')->name('dynamicclass.fetch');
     Route::post('dynamicchapter_dependent/fetch', 'ChapterContent\ChapterContentController@fetchchapter')->name('dynamicchapter.fetch');
 
-    Route::get('bannerList', 'PragyanBanner\PragyanBannerController@index')->name('banner.list');
-    Route::get('bannercreate', 'PragyanBanner\PragyanBannerController@create')->name('banner.create');
-    Route::post('bannerstore', 'PragyanBanner\PragyanBannerController@store')->name('banner.store');
-    //Route::get('schoolchapteredit/{id}','Chapter\ChapterController@edit')->name('schoolchapter.edit');
-    //Route::get('schoolchapterdelete/{id}','Chapter\ChapterController@delete')->name('schoolchapter.delete');
-    //Route::post('dynamic_dependent/fetch', 'Chapter\ChapterController@fetchclass')->name('dynamic.fetch');
-
     /* Teacher Route */
     
     Route::get('teacher', 'School\TeacherController@index')->name('teacher.list');
     
+    Route::get('bannerList','PragyanBanner\PragyanBannerController@index')->name('banner.list');
+    Route::get('bannercreate','PragyanBanner\PragyanBannerController@create')->name('banner.create');
+    Route::post('bannerstore','PragyanBanner\PragyanBannerController@store')->name('banner.store');
+    Route::get('banneredit/{id}','PragyanBanner\PragyanBannerController@edit')->name('banner.edit');
+    Route::get('bannerdelete/{id}','PragyanBanner\PragyanBannerController@delete')->name('banner.delete');
+
 });
