@@ -33,6 +33,11 @@
         
         Route::post('videoCount', 'RegisterController@videoCount');
         
+        
+        /* banner route */
+        Route::get('banner', 'RegisterController@getbanner');
+        
+        
     });
 
     Route::group(['middleware' => ['auth:api']], function () {
