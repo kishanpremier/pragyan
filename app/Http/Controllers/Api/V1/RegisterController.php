@@ -268,6 +268,7 @@ class RegisterController extends APIController {
     public function getbanner() {
 
         $getBanner = Banner::get();
+        
         if ($getBanner != '') {
             $getBannerStatus = true;
         } else {
