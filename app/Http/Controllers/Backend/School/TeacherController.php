@@ -29,7 +29,9 @@ class TeacherController extends Controller {
             array_push($videoCount, [$data->id => $teacherListWithVideocount]);
         
         }
-        dd($videoCount);
+
+        return view('backend.teacher.index')->with(compact('videoCount'));
+
     }
 
     /**

@@ -1,3 +1,4 @@
+
         <div class="box-body">
              <div class="form-group">
                  <div class="col-sm-12">
@@ -46,13 +47,18 @@
                 <br/><br/><br/>
                 <label for="banner_image" class="col-sm-12 control-label"><b>Upload Image:</b></label>
                 <div class="col-sm-12">
-                    <input type="file" id="banner_image" name="banner_image" class="form-control {{ $errors->has('banner_image') ? ' is-invalid' : '' }}"
+                    <input type="file" id="banner_image" onchange="readURL(this)" name="banner_image" class="form-control {{ $errors->has('banner_image') ? ' is-invalid' : '' }}"
                            @if(isset($data))value="{{old('banner_image') ? old('banner_image') : ( ($data->banner_image) ? $data->banner_image : '' )}}"@endif>
                 @if($errors->has('banner_image'))
                 <span id="invalid-feedback" role="alert">
                     <strong id="error" style="color: red">*{{ $errors->first('banner_image') }}</strong>
                 </span>
                 @endif
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <img id="imgsubject" @if(isset($data))src="{{asset('/banner/').'/'.$data->image_name}}" height="200" width="150" @endif>
                 </div>
             </div>
             <div class="form-group">
@@ -72,7 +78,7 @@
                 <br/><br/><br/>
                 <div class="col-sm-12" id="banner_image_other_id" style="display: none;">
                     <label for="banner_image_other" class="col-sm-12 control-label"><b>Upload Image or Document:</b></label>
-                    <input type="file" id="banner_image_other" name="banner_image_other" class="form-control {{ $errors->has('banner_image_other') ? ' is-invalid' : '' }}"
+                    <input type="file" id="banner_image_other" onchange="readURLother(this)" name="banner_image_other" class="form-control {{ $errors->has('banner_image_other') ? ' is-invalid' : '' }}"
                            @if(isset($data))value="{{old('banner_image_other') ? old('banner_image_other') : ( ($data->banner_image_other) ? $data->banner_image_other : '' )}}"@endif>
                     @if($errors->has('banner_image_other'))
                         <span id="invalid-feedback" role="alert">

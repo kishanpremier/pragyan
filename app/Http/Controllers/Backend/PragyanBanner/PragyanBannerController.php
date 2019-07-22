@@ -38,22 +38,39 @@ class PragyanBannerController extends Controller
     public function store(Request $request)
     {
         try {
-            if($request->video_url == null){
-                $request->validate([
-                    'title' => 'required',
-                    'doctype' => 'required|integer',
-                    'banner_image_other' => 'required',
-                    'banner_image' => 'required'
-                ]);
+            if($request->id == ''){
+                if($request->video_url == null){
+                    $request->validate([
+                        'title' => 'required',
+                        'doctype' => 'required|integer',
+                        'banner_image_other' => 'required',
+                        'banner_image' => 'required'
+                    ]);
+                }
+                else{
+                    $request->validate([
+                        'title' => 'required',
+                        'doctype' => 'required|integer',
+                        'banner_image' => 'required',
+                        'video_url' => 'required'
+                    ]);
+                }
             }
             else{
-                $request->validate([
-                    'title' => 'required',
-                    'doctype' => 'required|integer',
-                    'banner_image' => 'required',
-                    'video_url' => 'required'
-                ]);
+                if($request->video_url == null){
+                    $request->validate([
+                        'title' => 'required',
+                        'doctype' => 'required|integer',
+                    ]);
+                }
+                else{
+                    $request->validate([
+                        'title' => 'required',
+                        'doctype' => 'required|integer',
+                    ]);
+                }
             }
+
             /*===================Object For Storing===================================================*/
             if ($request->id != '')
             {
@@ -115,14 +132,6 @@ class PragyanBannerController extends Controller
                 }
                 else
                 {
-                    if($request->id != '')
-                    {
-                        //$path_to_delete = public_path('\subjectimages\\'.$request->image_name_to_delete);
-                        $path_to_delete = public_path('banner//'.$request->image_name_to_delete);
-                        if (file_exists($path_to_delete)){
-                            unlink($path_to_delete);
-                        }
-                    }
                     $file = $request->file('banner_image_other');
                     $pathfile1 = md5($file->getClientOriginalName() . time()) . "." . $ext;
                     $file->move(public_path('banner'), $pathfile1);
@@ -202,16 +211,19 @@ class PragyanBannerController extends Controller
         $res = Banner::where('id', $id)->get();
         foreach ($res as $val) {
             $path = public_path('banner//' . $val['image_name']);
-            $document = public_path('banner//' . $val['document']);
+            if(isset($val['document'])){
+                $document = public_path('banner//' . $val['document']);
+                if (file_exists($document)) {
+                    unlink($document);
+                }
+            }
             break;
         }
 
         if (file_exists($path)) {
             unlink($path);
         }
-        if (file_exists($document)) {
-            unlink($document);
-        }
+
         $res = Banner::where('id', $id)->delete();
         if ($res) {
             toastr()->error('', 'Banner has been Deleted', ['timeOut' => 5000]);
