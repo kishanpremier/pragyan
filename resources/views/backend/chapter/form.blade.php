@@ -4,6 +4,7 @@
                  <div class="col-sm-6">
                     <label for="subject_name" class="col-sm-4 control-label"><b>Subject Name:</b></label>
                      <select name="subject_name" id="subject" class="form-control {{ $errors->has('subject_name') ? ' is-invalid' : '' }}" required>
+                         <option selected disabled>----SELECT SUBJECT----</option>
                          @foreach($val as $key)
                              @if(isset($data))
                                  @if($data->subject_id == $key['id'])

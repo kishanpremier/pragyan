@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\School;
 
 use App\Models\Access\User\User;
 use App\Models\School\videocount;
+use App\Models\School\Chaptercontent;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -23,13 +24,23 @@ class TeacherController extends Controller {
                 ->get();
 
         foreach ($teacherList as $data) {
-
             $teacherListWithVideocount = videocount::where('video_count.user_id','=',$data->id)
+                ->leftJoin('chapter_content','chapter_content.id','=','video_count.chapter_content_id')
+                ->leftJoin('users','users.id','=','video_count.user_id')
                     ->get();
             array_push($videoCount, [$data->id => $teacherListWithVideocount]);
-        
         }
 
+        /*foreach($videoCount as $val){
+            foreach ($val as $val1) {
+                foreach($val1 as $data){
+                    if($data->chapter_content_id  == )
+                    {
+
+                    }
+                }
+            }
+        }*/
         return view('backend.teacher.index')->with(compact('videoCount'));
 
     }

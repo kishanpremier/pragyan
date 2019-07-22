@@ -210,8 +210,15 @@ class PragyanBannerController extends Controller
     {
         $res = Banner::where('id', $id)->get();
         foreach ($res as $val) {
-            $path = public_path('banner//' . $val['image_name']);
-            if(isset($val['document'])){
+            if($val['image_name'] != "" || $val['image_name'] != null)
+            {
+                $path = public_path('banner//' . $val['image_name']);
+                if (file_exists($path)) {
+                    unlink($path);
+                }
+            }
+            if($val['document'] != "" || $val['document'] != null)
+            {
                 $document = public_path('banner//' . $val['document']);
                 if (file_exists($document)) {
                     unlink($document);
@@ -219,11 +226,6 @@ class PragyanBannerController extends Controller
             }
             break;
         }
-
-        if (file_exists($path)) {
-            unlink($path);
-        }
-
         $res = Banner::where('id', $id)->delete();
         if ($res) {
             toastr()->error('', 'Banner has been Deleted', ['timeOut' => 5000]);

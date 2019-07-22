@@ -63,17 +63,7 @@
 
         if($.inArray(abc1,fileExtension) !== -1)
         {
-            $('#banner_image-error').hide();
-            /*if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#imgsubject')
-                        .attr('src', e.target.result)
-                        .width(150)
-                        .height(200);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }*/
+            $('#banner_image_other-error').hide();
         }
     }
 </script>

@@ -1,4 +1,3 @@
-@dd($videoCount);
 <html>
 
 </html><title>Video Count Listing</title>
@@ -16,7 +15,7 @@
 @section('content')
     <div class="box box-info">
         <div class="box-header with-border">
-            <h3 class="box-title">{{ trans('history.backend.Schoolboardlisting') }}</h3>
+            <h3 class="box-title">{{ trans('history.backend.videocount') }}</h3>
         </div><!-- /.box-header -->
         <div class="box-body">
             <div class="table-responsive data-table-wrapper">
@@ -24,22 +23,38 @@
                     <thead>
                     <tr>
                         <th>Id</th>
-                        <th>StateBoard Name</th>
-                        <th>Action</th>
+                        <th>Teacher Name</th>
+                        <th>Video Link</th>
+                        <th>Video Count</th>
+
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($videoCount as $k=> $SchoolBoardData)
-                        <tr>
-                            <td>{{$SchoolBoardData->id}}</td>
-                            <td>{{$SchoolBoardData->state_board_name}}</td>
-                            <td>
-                                <a href="{{route('admin.schoolboard.edit',$SchoolBoardData->id)}}" style=""><i class="fa fa-pencil schoolclass" aria-hidden="true"></i></a>
-                                <a href="{{route('admin.schoolboard.delete',$SchoolBoardData->id)}}"><i class="fa fa-trash schoolclass" aria-hidden="true"></i></a>
-                            </td>
 
+                    @forelse($videoCount as $k=> $val)
+                        @forelse($val as $l=> $val1)
+                            @forelse($val1 as $j=> $val2)
+                        <tr>
+                            <td>
+                                {{$val2->id}}
+                            </td>
+                            <td>
+                                {{$val2->first_name}} {{$val2->last_name}}
+                            </td>
+                            <td>
+                                {{$val2->content_link}}
+                            </td>
+                            <td>
+                                {{$val2->content_title}} ({{$val2->count}})
+                            </td>
                         </tr>
-                    @endforeach
+                    @empty
+                    @endforelse
+                        @empty
+                        @endforelse
+                    @empty
+                    @endforelse
+
 
                     </tbody>
 
