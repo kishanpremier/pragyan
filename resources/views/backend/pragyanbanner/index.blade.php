@@ -22,22 +22,20 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Subject Name</th>
-                        <th>Class Name</th>
-                        <th>Chapter Name</th>
+                        <th>Document Type</th>
+                        <th>Video Link</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($chapter as $k=> $chapter1)
+                    @foreach($bannerdata as $k=> $bannerdata1)
                     <tr>
-                        <td>{{$chapter1->id}}</td>
-                        <td>{{$chapter1->subject_name}}</td>
-                        <td>{{$chapter1->class_name}}</td>
-                        <td>{{$chapter1->chapter_name}}</td>
+                        <td>{{$bannerdata1->id}}</td>
+                        <td>@if($bannerdata1->doc_type == 1 || $bannerdata1->doc_type == 3) File @else Video @endif</td>
+                        <td>{{$bannerdata1->video_link}}</td>
                         <td>
-                            <a href="{{route('admin.schoolchapter.edit',$chapter1->id)}}"><i class="fa fa-pencil schoolclass" aria-hidden="true"></i></a>
-                            <a href="{{route('admin.schoolchapter.delete',$chapter1->id)}}"><i class="fa fa-trash schoolclass" aria-hidden="true"></i></a>
+                            <a href="{{route('admin.banner.edit',$bannerdata1->id)}}"><i class="fa fa-pencil schoolclass" aria-hidden="true"></i></a>
+                            <a href="{{route('admin.banner.delete',$bannerdata1->id)}}"><i class="fa fa-trash schoolclass" aria-hidden="true"></i></a>
                         </td>
                     </tr>
                     @endforeach

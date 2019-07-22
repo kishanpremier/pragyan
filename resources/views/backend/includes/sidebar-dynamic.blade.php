@@ -36,9 +36,8 @@
                             <i class="fa "></i>
                             <span>Add Banner Image</span></a>
                     </li>
-                    {{--{{url('admin/classlist')}}--}}
                     <li class="">
-                        <a href="#">
+                        <a href="{{url('admin/bannerList')}}">
                             <i class="fa "></i>
                             <span>List Banner Image</span>
                         </a>
