@@ -22,8 +22,7 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Document Type</th>
-                        <th>Video Link</th>
+                        <th>Banner Title</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -31,8 +30,7 @@
                     @foreach($bannerdata as $k=> $bannerdata1)
                     <tr>
                         <td>{{$bannerdata1->id}}</td>
-                        <td>@if($bannerdata1->doc_type == 1 || $bannerdata1->doc_type == 3) File @else Video @endif</td>
-                        <td>{{$bannerdata1->video_link}}</td>
+                        <td>{{$bannerdata1->title}}</td>
                         <td>
                             <a href="{{route('admin.banner.edit',$bannerdata1->id)}}"><i class="fa fa-pencil schoolclass" aria-hidden="true"></i></a>
                             <a href="{{route('admin.banner.delete',$bannerdata1->id)}}"><i class="fa fa-trash schoolclass" aria-hidden="true"></i></a>

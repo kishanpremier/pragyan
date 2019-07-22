@@ -40,6 +40,7 @@ return [
         'Schoolboardlisting'  => 'State Board Listing',
         'chapterlisting'=>'Chapter Listing',
         'bannerlisting'=>'Banner Listing',
+        'videocount' => 'Video Count Listing',
         'chaptercontentlisting'=>'ChapterContent Listing',
 
         'roles' => [
