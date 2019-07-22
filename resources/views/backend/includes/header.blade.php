@@ -12,9 +12,9 @@
                  $settings = settings();
             @endphp
             @if($settings->logo)
-                <img height="48" width="226" class="navbar-brand" src="{{route('frontend.auth.login')}}/img/site_logo/{{$settings->logo}}">
+                <img height="48" width="226" class="navbar-brand" src="{{asset('img/ic_logo.png')}}">
             @else --}}
-                Pragyan
+               <img  class="navbar-brand" src="{{asset('img/ic_logo_small.png')}}">
            {{--  @endif --}}
         </span>
     </a>
