@@ -1,7 +1,8 @@
+
         <div class="box-body">
              <div class="form-group">
                  <div class="col-sm-12">
-                    <label for="doctype" class="col-sm-12 control-label"><b>Document Type:</b></label>
+                    <label for="doctype" class="control-label"><b>Document Type:</b></label>
                      <select name="doctype" id="doctype" class="form-control {{ $errors->has('doctype') ? ' is-invalid' : '' }}" required>
                          <option selected disabled value="0">---SELECT TYPE---</option>
                          @if(isset($data))
@@ -29,7 +30,7 @@
                  </div>
              </div>
             <div class="form-group">
-                <br/><br/><br/>
+                
                 <label for="title" class="col-sm-12 control-label"><b>Banner Title:</b></label>
                 <div class="col-sm-12">
                     <input type="hidden" name="id" @if(isset($data->id)) value="{{$data->id}}" @endif>
@@ -43,10 +44,10 @@
                 </div>
             </div>
             <div class="form-group">
-                <br/><br/><br/>
+               
                 <label for="banner_image" class="col-sm-12 control-label"><b>Upload Image:</b></label>
                 <div class="col-sm-12">
-                    <input type="file" id="banner_image" name="banner_image" class="form-control {{ $errors->has('banner_image') ? ' is-invalid' : '' }}"
+                    <input type="file" id="banner_image" onchange="readURL(this)" name="banner_image" class="form-control {{ $errors->has('banner_image') ? ' is-invalid' : '' }}"
                            @if(isset($data))value="{{old('banner_image') ? old('banner_image') : ( ($data->banner_image) ? $data->banner_image : '' )}}"@endif>
                 @if($errors->has('banner_image'))
                 <span id="invalid-feedback" role="alert">
@@ -56,9 +57,15 @@
                 </div>
             </div>
             <div class="form-group">
-                <br/><br/><br/>
+
+                <div class="col-sm-12">
+                    <img id="imgsubject" @if(isset($data))src="{{asset('/banner/').'/'.$data->image_name}}" height="200" width="150" @endif>
+                </div>
+            </div>
+            <div class="form-group">
+
                 <div class="col-sm-12" id="video_url_id" style="display: none;">
-                    <label for="video_url" class="col-sm-12 control-label"><b>Video URL:</b></label>
+                    <label for="video_url" class="control-label"><b>Video URL:</b></label>
                     <input type="text" id="video_url" name="video_url" class="form-control {{ $errors->has('video_url') ? ' is-invalid' : '' }}"
                            @if(isset($data))value="{{old('video_url') ? old('video_url') : ( ($data->video_url) ? $data->video_url : '' )}}"@endif>
                     @if($errors->has('video_url'))
@@ -72,7 +79,7 @@
                 <br/><br/><br/>
                 <div class="col-sm-12" id="banner_image_other_id" style="display: none;">
                     <label for="banner_image_other" class="col-sm-12 control-label"><b>Upload Image or Document:</b></label>
-                    <input type="file" id="banner_image_other" name="banner_image_other" class="form-control {{ $errors->has('banner_image_other') ? ' is-invalid' : '' }}"
+                    <input type="file" id="banner_image_other" onchange="readURLother(this)" name="banner_image_other" class="form-control {{ $errors->has('banner_image_other') ? ' is-invalid' : '' }}"
                            @if(isset($data))value="{{old('banner_image_other') ? old('banner_image_other') : ( ($data->banner_image_other) ? $data->banner_image_other : '' )}}"@endif>
                     @if($errors->has('banner_image_other'))
                         <span id="invalid-feedback" role="alert">

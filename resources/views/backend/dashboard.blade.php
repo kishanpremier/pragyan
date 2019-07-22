@@ -16,10 +16,16 @@
             </div><!-- /.box tools -->
         </div><!-- /.box-header -->
         <div class="box-body">
-            <div class="col-md-2 bg-primary">
-                <p><center><h3><b>Teacher</b></h3></center></p>
-            <p><center><h3>{{$getTecharUserCount}}</h3></center></p>
-            </div>
+            <a href="{{route('admin.teacher.list')}}">
+                <div class="col-md-2 bg-primary">
+                    <p>
+                        <center><h3><b>Teacher</b></h3></center>
+                    </p>
+                    <p>
+                        <center><h3>{{$getTecharUserCount}}</h3></center>
+                    </p>
+                </div>
+            </a>
             <div class="col-md-2 bg-primary">
                 <p><center><h3><b>Parent</b></h3></center></p>
             <p><center><h3>{{$getparentUserCount}}</h3></center></p>

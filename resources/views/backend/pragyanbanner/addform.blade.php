@@ -32,7 +32,51 @@
 @jquery
 @toastr_js
 @toastr_render
-@section('before-scripts')
+@section('before-scripts')banner_image_other-error
+    <script>
+        function readURL(input) {
+            var abc = $('#banner_image').val();
+            var fileExtension = ['jpeg', 'jpg', 'png'];
+            var abc1 = abc.split('.').pop().toLowerCase();
+
+            if($.inArray(abc1,fileExtension) !== -1)
+            {
+                $('#banner_image-error').hide();
+                /*if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#imgsubject')
+                            .attr('src', e.target.result)
+                            .width(150)
+                            .height(200);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }*/
+            }
+        }
+    </script>
+<script>
+    function readURLother(input) {
+        var abc = $('#banner_image_other').val();
+        var fileExtension = ['jpeg', 'jpg', 'png','docx','pdf','xlsx','csv'];
+        var abc1 = abc.split('.').pop().toLowerCase();
+
+        if($.inArray(abc1,fileExtension) !== -1)
+        {
+            $('#banner_image-error').hide();
+            /*if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#imgsubject')
+                        .attr('src', e.target.result)
+                        .width(150)
+                        .height(200);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }*/
+        }
+    }
+</script>
     <script>
         $(document).ready(function()
         {
