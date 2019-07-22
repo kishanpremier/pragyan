@@ -1,9 +1,9 @@
-<title>Edit Chapter</title>
+<title>Edit Banner</title>
 @extends('backend.layouts.app')
 
 @section('page-header')
 <h1>
-    Class DashBoard
+    Banner DashBoard
     {{--<small>{{ trans('strings.backend.dashboard.classdashboard') }}</small>--}}
 </h1>
 @endsection
@@ -14,12 +14,12 @@
     <div class="box-header with-border">
         <h3 class="box-title">{{ trans('history.backend.editchapter') }}</h3>
     </div><!-- /.box-header -->
-    <form id="class_form" name="school_chapter_form" method="post" action="{{route('admin.schoolchapter.store')}}">
+    <form id="class_form" name="banner_form" enctype="multipart/form-data" method="post" action="{{route('admin.banner.store')}}">
         @csrf
-         @include('backend.chapter.form')
+         @include('backend.pragyanbanner.form')
         <div class="box-footer">
             <div class="text-right">
-                <input style="margin-right: 15px" type="submit" id="formbtn" class="btn btn-info" value="Update Chapter">
+                <input style="margin-right: 15px" type="submit" id="formbtn" class="btn btn-info" value="Update Banner">
             </div>
         </div>
     </form>
@@ -31,20 +31,35 @@
 @toastr_render
 @section('before-scripts')
     <script>
-        $(document).ready(function() {
-            $('#subject').change(function () {
-                $.ajax({
-                    dataType: "json",
-                    type: "POST",
-                    url: "{{route('admin.dynamic.fetch')}}",
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        "value": $('#subject option:selected').val()
-                    },
-                    success: function (data) {
-                        $('#class').html(data);
-                    }
-                });
+        $(document).ready(function()
+        {
+            var random = $("#doctype").val();
+            if(random !== 0)
+            {
+
+                if(random == 1 || random == 3)
+                {
+                    $('#video_url_id').attr('style','display: none');
+                    $('#banner_image_other_id').attr('style','display: show');
+                }
+                else if(random === 2)
+                {
+                    $("#banner_image_other_id").attr('style','display: none');
+                    $('#video_url_id').attr('style','display: show');
+                }
+            }
+            $("#doctype").change(function()
+            {
+                if($(this).val() == 1 || $(this).val() == 3)
+                {
+                    $('#video_url_id').attr('style','display: none');
+                    $('#banner_image_other_id').attr('style','display: show');
+                }
+                else if($(this).val() == 2)
+                {
+                    $("#banner_image_other_id").attr('style','display: none');
+                    $('#video_url_id').attr('style','display: show');
+                }
             });
         });
     </script>
@@ -53,23 +68,36 @@
 
             // Initialize form validation on the registration form.
             // It has the name attribute "registration"
-            $("form[name='school_chapter_form']").validate({
-
-                // Specify validation rules
+            $("form[name='banner_form']").validate({
                 rules: {
-                    // The key name on the left side is the name attribute
-                    // of an input field. Validation rules are defined
-                    // on the right side
-                    class_name: "required",
-                    subject_name: "required",
-                    chapter_name: "required",
-
+                    doctype: "required",
+                    banner_image: {
+                        required: true,
+                        extension: "jpg|jpeg|png",
+                        size: 500000
+                    },
+                    video_url: "required",
+                    banner_image_other: {
+                        required: true,
+                        extension: "docx|xlsx|doc|pdf|jpg|jpeg|png|csv",
+                        size: 500000
+                    },
                 },
-                // Specify validation error messages
                 messages: {
-                    class_name: "Please Select Class Name Here",
-                    subject_name: "Please Select Subject Name Here",
-                    chapter_name: "Please Enter Chapter Name Here"
+                    doctype: "Please Select Document Type Here",
+                    banner_image: {
+                        required: "Please Upload Proper Document",
+                        extension: "Please Select From jpg|jpeg|png Format",
+                        size: "Please Select File Less Than 5MB Size"
+                    },
+                    video_url: "Please Enter Video Url Here",
+                    banner_image_other: {
+                        required: "Please Upload Proper Document",
+                        extension: "Please Select From docx|xlsx|doc|pdf|jpg|jpeg|png|csv Format",
+                        size: "Please Select File Less Than 5MB Size"
+                    },
+
+
                 },
                 submitHandler: function (form) {
                     form.submit();

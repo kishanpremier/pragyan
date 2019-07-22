@@ -20,6 +20,7 @@ return [
 
         'editschool'  => 'Enter Details To Update School',
         'edit'  => 'Enter Details To Update Class',
+        'editbanner'  => 'Enter Details To Update Banner',
         'editchapter'  => 'Enter Details To Update Chapter',
         'editsubject'=>'Enter Details To Update Subject',
         'schoolboardedit'=>'Enter Details To Update State board',
@@ -38,7 +39,7 @@ return [
         'Schoollisting'  => 'School Listing',
         'Schoolboardlisting'  => 'State Board Listing',
         'chapterlisting'=>'Chapter Listing',
-        'chaptercontentlisting'=>'ChapterContentListing',
+        'chaptercontentlisting'=>'ChapterContent Listing',
 
         'roles' => [
             'created' => 'created role',

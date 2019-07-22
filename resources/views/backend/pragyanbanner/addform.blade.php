@@ -56,6 +56,7 @@
             $("form[name='banner_form']").validate({
                 rules: {
                     doctype: "required",
+                    title: "required",
                     banner_image: {
                         required: true,
                         extension: "jpg|jpeg|png",
@@ -70,6 +71,7 @@
                 },
                 messages: {
                     doctype: "Please Select Document Type Here",
+                    title: "Please Enter Banner Title Here",
                     banner_image: {
                         required: "Please Upload Proper Document",
                         extension: "Please Select From jpg|jpeg|png Format",
