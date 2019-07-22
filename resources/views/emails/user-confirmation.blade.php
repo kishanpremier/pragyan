@@ -51,11 +51,6 @@
                             If you’re having trouble clicking the "Confirm Account" button, copy and paste the URL below into your web browser: 
                     </p>
 
-                    <p class="small" style="line-height: 24px; margin-bottom:20px;">
-                        <a href="{{ $confirmation_url }}" target="_blank" class="lap">
-                            {{ $confirmation_url}}
-                        </a>
-                    </p>
 
                     @include('emails.layouts.footer')
                 </td>
