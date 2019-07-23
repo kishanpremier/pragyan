@@ -31,18 +31,6 @@ class TeacherController extends Controller {
             array_push($videoCount, [$data->id => $teacherListWithVideocount]);
         }
 
-
-
-//        foreach($videoCount as $val){
-//            foreach ($val as $val1) {
-//                foreach($val1 as $data){
-//                    if($data->chapter_content_id  == $data->chapter_content_id)
-//                    {
-//
-//                    }
-//                }
-//            }
-//        }
         return view('backend.teacher.index')->with(compact('videoCount'));
 
     }

@@ -82,4 +82,14 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
     Route::get('banneredit/{id}','PragyanBanner\PragyanBannerController@edit')->name('banner.edit');
     Route::get('bannerdelete/{id}','PragyanBanner\PragyanBannerController@delete')->name('banner.delete');
 
+    /*
+
+
+    Route::get('banneredit/{id}','PragyanBanner\PragyanBannerController@edit')->name('banner.edit');
+    */
+
+    Route::get('notifyList','Notification\NotificationController@index')->name('notify.list');
+    Route::get('notifycreate','Notification\NotificationController@create')->name('notify.create');
+    Route::post('notifystore','Notification\NotificationController@store')->name('notify.store');
+    Route::get('notifydelete/{id}','Notification\NotificationController@delete')->name('notify.delete');
 });

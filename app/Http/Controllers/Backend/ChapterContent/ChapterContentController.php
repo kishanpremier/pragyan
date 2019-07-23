@@ -99,8 +99,14 @@ class ChapterContentController extends Controller
 
                 if ($size > 5000000) {
                     $errors1['size'] = "Size Should Be Less Than 5MB";
-                    $subject = Subject::get();
-                    return view('backend.chaptercontent.addform')->with(compact('errors1','subject'));
+                    if ($request->id == ''){
+                        $subject = Subject::get();
+                        return view('backend.chaptercontent.addform')->with(compact('errors1','subject'));
+                    }
+                    else{
+                        $subject = Subject::get();
+                        return view('backend.chaptercontent.addform')->with(compact('errors1','subject'));
+                    }
                 }
                 elseif ($ext != "jpeg" && $ext != "png" && $ext != "jpg" && $ext != "pdf" && $ext != "docx" && $ext != "doc" && $ext != "xlsx" && $ext != "csv")
                 {
@@ -113,7 +119,6 @@ class ChapterContentController extends Controller
                         $subject = Subject::get();
                         return view('backend.chaptercontent.addform')->with(compact('errors1','subject'));
                     }
-
                 }
             }
 

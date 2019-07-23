@@ -1,3 +1,4 @@
+<title>DashBoard</title>
 @extends('backend.layouts.app')
 
 @section('page-header')
