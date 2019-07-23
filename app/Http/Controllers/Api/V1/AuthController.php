@@ -27,7 +27,7 @@ class AuthController extends APIController {
         }
 
         $credentials = $request->only(['email', 'password']);
-        
+       
         try {
             if (!Auth::attempt($credentials)) {
 
@@ -38,16 +38,13 @@ class AuthController extends APIController {
             }
             $user = $request->user();
             
-            if($user->user_type == 1 || $user->user_type == 0){
+       
             $passportToken = $user->createToken('API Access Token');
 
             // Save generated token
             $passportToken->token->save();
             $token = $passportToken->accessToken;
-            }else{
-                $token = '';
-            }
-            
+          
             
         } catch (\Exception $e) {
 

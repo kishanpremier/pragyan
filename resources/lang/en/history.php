@@ -27,6 +27,7 @@ return [
         'chaptercontentedit'=>'Enter Details To Update Chapter Content',
 
         'school'  => 'Enter Details To Add School',
+        'notification' => 'Enter Details To Add Notification',
         'subject'  => 'Enter Details To Add Class',
         'subject1'  => 'Enter Details To Add Subject',
         'chapter'  => 'Enter Details To Add Chapter',
@@ -41,6 +42,8 @@ return [
         'chapterlisting'=>'Chapter Listing',
         'bannerlisting'=>'Banner Listing',
         'videocount' => 'Video Count Listing',
+        'videocountparent'=>'Parent Video Count Listing',
+        'notifylisting' => 'Notification Listing',
         'chaptercontentlisting'=>'ChapterContent Listing',
 
         'roles' => [

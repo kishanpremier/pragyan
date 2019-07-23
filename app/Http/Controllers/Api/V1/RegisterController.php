@@ -151,7 +151,7 @@ class RegisterController extends APIController {
 
         $user = User::find($id);
         if (Hash::check($request->current, $user->password)) {
-            $user->password = bcrypt($request->password);
+            $user->password =$request->password;
             $user->save();
 
             return response()->json(['message' => 'password change successfully']);
@@ -268,6 +268,7 @@ class RegisterController extends APIController {
     public function getbanner() {
 
         $getBanner = Banner::get();
+        
         if ($getBanner != '') {
             $getBannerStatus = true;
         } else {

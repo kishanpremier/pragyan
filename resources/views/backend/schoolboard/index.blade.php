@@ -6,29 +6,29 @@
 @extends('backend.layouts.app')
 
 @section('page-header')
-    <h1>
-        Board Listing
-        {{--<small>{{ trans('strings.backend.dashboard.classdashboard') }}</small>--}}
+<h1>
+    Board Listing
+    {{--<small>{{ trans('strings.backend.dashboard.classdashboard') }}</small>--}}
     </h1>
 @endsection
 
 @section('content')
-    <div class="box box-info">
-        <div class="box-header with-border">
-            <h3 class="box-title">{{ trans('history.backend.Schoolboardlisting') }}</h3>
-        </div><!-- /.box-header -->
-        <div class="box-body">
-            <div class="table-responsive data-table-wrapper">
-                <table id="example" class="display" style="width:100%">
+    <div class="box box-inf    o">
+        <div class="box-header with-borde        r">
+            <h3 class="box-title">{{ trans('history.backend.Schoolboardlisting') }}</    h3>
+        </div><!-- /.box-header     -->
+        <div class="box-bod        y">
+            <div class="table-responsive data-table-wrappe            r">
+    <table id="example" class="display" style="width:100%">
                     <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>StateBoard Name</th>
-                        <th>Action</th>
-                    </tr>
+                        <tr>
+                            <th>Id</th>
+                            <th>StateBoard Name</th>
+                            <th>Action</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    @foreach($Schoolboard as $k=> $SchoolBoardData)
+                        @foreach($Schoolboard as $k=> $SchoolBoardData)
                         <tr>
                             <td>{{$SchoolBoardData->id}}</td>
                             <td>{{$SchoolBoardData->state_board_name}}</td>
@@ -38,17 +38,17 @@
                             </td>
 
                         </tr>
-                    @endforeach
+                        @endforeach
 
                     </tbody>
 
                 </table>
-            </div>
-        </div><!-- /.box-body -->
-        <div class="box-footer">
-
         </div>
-    </div><!--box box-info-->
+    </div><!-- /.box-body -->
+    <div class="box-footer">
+
+    </div>
+</div><!--box box-info-->
 @endsection
 @jquery
 @toastr_js
@@ -60,14 +60,23 @@
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 </html>
 @section('after-scripts')
-    {{-- For DataTables --}}
-    {{ Html::script('js/dataTable.js') }}
+{{-- For DataTables --}}
+{{ Html::script('js/dataTable.js') }}
 
-    <script>
+<script>
 
-        $(document).ready(function() {
-            $('#example').DataTable();
-        } );
+$(document).ready(function () {
+    $('#example').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: 'State Board'
+            }
 
-    </script>
+        ]
+    });
+});
+
+</script>
 @endsection

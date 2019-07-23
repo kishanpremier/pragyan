@@ -158,6 +158,25 @@
                     </li>
                 </ul>
             </li>
+            <li class="treeview"><a href="">
+                    <i class="fa fa-users"></i>
+                    <span>Notification</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu" style="display: none;">
+                    <li class="  ">
+                        <a href="{{url('admin/notifycreate')}}">
+                            <i class="fa "></i>
+                            <span>Add Notification</span></a>
+                    </li>
+                    <li class="">
+                        <a href="#{{--{{url('admin/notifyList')}}--}}">
+                            <i class="fa "></i>
+                            <span>List Notification</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </section><!-- /.sidebar -->
 </aside>

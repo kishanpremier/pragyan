@@ -1,13 +1,13 @@
 <html>
 
-</html><title>Video Count Listing</title>
+</html><title>Parent Video Count Listing</title>
 
 
 @extends('backend.layouts.app')
 
 @section('page-header')
     <h1>
-        Video Count Listing
+        Parent Video Count Listing
         {{--<small>{{ trans('strings.backend.dashboard.classdashboard') }}</small>--}}
     </h1>
 @endsection
@@ -15,7 +15,7 @@
 @section('content')
     <div class="box box-info">
         <div class="box-header with-border">
-            <h3 class="box-title">{{ trans('history.backend.videocount') }}</h3>
+            <h3 class="box-title">{{ trans('history.backend.videocountparent') }}</h3>
         </div><!-- /.box-header -->
         <div class="box-body">
             <div class="table-responsive data-table-wrapper">
@@ -23,7 +23,7 @@
                     <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Teacher Name</th>
+                        <th>Parent Name</th>
                         <th>Content Link</th>
                         <th>Content Count</th>
                     </tr>
