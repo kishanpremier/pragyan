@@ -66,7 +66,16 @@
 <script>
 
 $(document).ready(function() {
-    $('#example').DataTable();
+    $('#example').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: 'Chapter'
+            }
+
+        ]
+    });
 } );
 
 </script>
