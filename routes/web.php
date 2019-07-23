@@ -33,6 +33,8 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
      */
     includeRouteFiles(__DIR__ . '/Backend/');
 
+    Route::get('users', 'DashboardController@users')->name('users');
+
     Route::get('classlist', 'Subject\SubjectController@index')->name('class.list');
     Route::get('create', 'Subject\SubjectController@create')->name('class.create');
     Route::post('store', 'Subject\SubjectController@store')->name('class.store');

@@ -94,7 +94,7 @@ class PragyanBannerController extends Controller
                     if ($request->id == '')
                         return view('backend.pragyanbanner.addform')->with(compact('errors1'));
                     else
-                        return view('backend.pragyanbanner.addform')->with(compact('errors1'));
+                        return view('backend.pragyanbanner.editform')->with(compact('errors1'));
                 }
                 elseif($ext != "jpeg" && $ext != "png" && $ext != "jpg")
                 {
@@ -102,7 +102,7 @@ class PragyanBannerController extends Controller
                     if ($request->id == '')
                         return view('backend.pragyanbanner.addform')->with(compact('errors1'));
                     else
-                        return view('backend.pragyanbanner.addform')->with(compact('errors1'));
+                        return view('backend.pragyanbanner.editform')->with(compact('errors1'));
                 }
                 else
                 {
@@ -119,16 +119,19 @@ class PragyanBannerController extends Controller
 
                 if ($size > 2000000)
                 {
-                    $errors1['size'] = "Size Should Be Less Than 2MB";
-                    return view('backend.pragyanbanner.addform')->with(compact('errors1'));
+                    $errors2['size'] = "Size Should Be Less Than 2MB";
+                    if ($request->id == '')
+                        return view('backend.pragyanbanner.addform')->with(compact('errors2'));
+                    else
+                        return view('backend.pragyanbanner.editform')->with(compact('errors2'));
                 }
                 elseif($ext != "jpeg" && $ext != "png" && $ext != "jpg" && $ext != "pdf"  && $ext != "docx"  && $ext != "xlsx"  && $ext != "doc"  && $ext != "csv")
                 {
-                    $errors1['extension'] = "Invalid File Format";
+                    $errors2['extension'] = "Invalid File Format";
                     if ($request->id == '')
-                        return view('backend.pragyanbanner.addform')->with(compact('errors1'));
+                        return view('backend.pragyanbanner.addform')->with(compact('errors2'));
                     else
-                        return view('backend.pragyanbanner.addform')->with(compact('errors1'));
+                        return view('backend.pragyanbanner.editform')->with(compact('errors2'));
                 }
                 else
                 {
@@ -138,12 +141,35 @@ class PragyanBannerController extends Controller
                 }
             }
 
-            $banner->title = $request['title'];
-            $banner->doc_type = $request['doctype'];
-            $banner->image_name = $pathfile;
-            $banner->document = $pathfile1;
-            $banner->video_link = $request['video_url'];
-            $banner->save();
+            if($pathfile != null && $pathfile1 != null){
+                $banner->title = $request['title'];
+                $banner->doc_type = $request['doctype'];
+                $banner->image_name = $pathfile;
+                $banner->document = $pathfile1;
+                $banner->video_link = $request['video_url'];
+                $banner->save();
+            }
+            elseif($pathfile != null && $pathfile1 == null){
+                $banner->title = $request['title'];
+                $banner->doc_type = $request['doctype'];
+                $banner->image_name = $pathfile;
+                $banner->video_link = $request['video_url'];
+                $banner->save();
+            }
+            elseif($pathfile == null && $pathfile1 != null){
+                $banner->title = $request['title'];
+                $banner->doc_type = $request['doctype'];
+                $banner->document = $pathfile1;
+                $banner->video_link = $request['video_url'];
+                $banner->save();
+            }
+            else{
+                $banner->title = $request['title'];
+                $banner->doc_type = $request['doctype'];
+                $banner->video_link = $request['video_url'];
+                $banner->save();
+            }
+
 
             if ($request->id != '') {
                 toastr()->success('', 'Banner has been updated', ['timeOut' => 5000]);

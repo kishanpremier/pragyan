@@ -82,4 +82,9 @@ class DashboardController extends Controller
             die;
         }
     }
+    public function users()
+    {
+        $user = User::get();
+        return view('backend.user.index', compact('user'));
+    }
 }

@@ -22,6 +22,17 @@
                     <strong id="error" style="color: red">*{{ $errors->first('notify_image') }}</strong>
                 </span>
             @endif
+            @if(isset($errors1))
+                <span id="invalid-feedback" role="alert">
+                    <strong id="error" style="color: red">
+                        @if(isset($errors1['extension']))
+                            {{$errors1['extension']}}
+                        @else
+                            {{$errors1['size']}}
+                        @endif
+                    </strong>
+                </span>
+            @endif
         </div>
     </div>
     <div class="form-group">
