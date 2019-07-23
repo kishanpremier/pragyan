@@ -39,7 +39,7 @@
             </a>
             <div class="col-md-2 bg-primary">
                <p><center><h3><b>Content count</b></h3></center></p>
-            <p><center><h3>0</h3></center></p>
+            <p><center><h3>{{$getvideocount}}</h3></center></p>
             </div>
              
             
