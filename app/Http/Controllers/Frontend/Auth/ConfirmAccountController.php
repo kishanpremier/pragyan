@@ -36,7 +36,7 @@ class ConfirmAccountController extends Controller
     {
         $this->user->confirmAccount($token);
 
-        return redirect()->route('frontend.auth.login')->withFlashSuccess(trans('exceptions.frontend.auth.confirmation.success'));
+        return view('frontend.auth.accountConfirmed')->withFlashSuccess(trans('exceptions.frontend.auth.confirmation.success'));
     }
 
     /**

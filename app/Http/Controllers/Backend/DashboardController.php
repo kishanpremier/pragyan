@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Access\Permission\Permission;
 use App\Models\Access\Role\Role;
 use App\Models\Access\User\User;
+use App\Models\School\videocount;
 use App\Models\Settings\Setting;
 use Illuminate\Http\Request;
 
@@ -24,10 +25,11 @@ class DashboardController extends Controller
         $getparentUserCount = User::where('users.user_type','=','0')
                 ->count();
         
+         $getvideocount = videocount::count();
         $settingData = Setting::first();
         $google_analytics = $settingData->google_analytics;
 
-        return view('backend.dashboard', compact('google_analytics', $google_analytics,'getTecharUserCount','getparentUserCount'));
+        return view('backend.dashboard', compact('google_analytics', $google_analytics,'getTecharUserCount','getparentUserCount','getvideocount'));
     }
 
     /**
