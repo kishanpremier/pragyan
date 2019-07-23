@@ -67,12 +67,21 @@
                     @endif
                 </div>
                 <div class="col-sm-6">
-                    <label for="content_type" class="col-sm-6 control-label"><b>Content Type:</b></label>
+                    <label for="content_type" class="col-sm-6 control-label"><b>Upload File :</b></label>
                     <input type="file" id="content_type" onchange="readURL(this);" name="content_type" class="form-control {{ $errors->has('content_type') ? ' is-invalid' : '' }}"
                            @if(isset($chaptercontent))value="{{old('content_type') ? old('content_type') : ( ($chaptercontent->content_type) ? $chaptercontent->content_type : '' )}}"@endif>
                     @if($errors->has('content_type'))
                         <span id="invalid-feedback" role="alert">
                             <strong id="error" style="color: red">*{{ $errors->first('content_type') }}</strong>
+                        </span>
+                    @endif
+                    @if(isset($errors1))
+                        <span id="invalid-feedback" role="alert">
+                            <strong id="error" style="color: red">
+                                @foreach($errors1 as $val)
+                                    {{$val}}<br/>
+                                @endforeach
+                            </strong>
                         </span>
                     @endif
                     <br/>

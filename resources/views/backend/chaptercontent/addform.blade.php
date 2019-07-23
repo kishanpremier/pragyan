@@ -65,9 +65,7 @@
                     },
                     video_link: {
                         url: true,
-                        required: function(){
-                            return $("#content_type").is(':empty');
-                        }
+                        required: "false"
                     },
                     content_description: "required"
                 },
@@ -83,7 +81,6 @@
                     },
                     video_link: {
                         url: "Only You Tube Video Link Allowed",
-                        required: "Please Enter Proper Video Link"
                     },
                     content_description: "Please Enter Proper Description"
                 },

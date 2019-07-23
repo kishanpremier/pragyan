@@ -46,8 +46,8 @@
                      @endif
                      @if($errors->has('subject_image'))
                          <span id="invalid-feedback" role="alert">
-                        <strong id="error" style="color: red">{{ $errors->first('subject_image') }}</strong>
-                    </span>
+                            <strong id="error" style="color: red">{{ $errors->first('subject_image') }}</strong>
+                         </span>
                      @endif
                  </div>
              </div>
