@@ -787,7 +787,6 @@ textarea.form-control { max-width: 100%; min-height: 50px; }
 .navbar-nav>.user-menu>.dropdown-menu>.user-footer { border-top: 1px solid #ddd; }
 /*Datatable CSS*/
 .data-table-wrapper .table>tbody>tr>td,.data-table-wrapper .table>tbody>tr>th, .data-table-wrapper .table>tfoot>tr>td, .data-table-wrapper .table>tfoot>tr>th, .data-table-wrapper .table>thead>tr>td, .data-table-wrapper .table>thead>tr>th { vertical-align: middle; }
-.data-table-wrapper .dt-buttons { display: none; }
 .data-table-wrapper .dataTables_wrapper .dataTables_filter { position: relative; }
 .data-table-wrapper div.dataTables_wrapper div.dataTables_filter label { margin-bottom: 10px; }
 .data-table-wrapper .dataTables_wrapper table.dataTable thead th { padding-right: 30px; white-space: nowrap; position: relative; }
