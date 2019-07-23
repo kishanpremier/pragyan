@@ -1,23 +1,22 @@
 <?php
 
-
 /*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+  |--------------------------------------------------------------------------
+  | API Routes
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register API routes for your application. These
+  | routes are loaded by the RouteServiceProvider within a group which
+  | is assigned the "api" middleware group. Enjoy building your API!
+  |
+ */
 
-    Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], function () {
+Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], function () {
     Route::group(['prefix' => 'auth', 'middleware' => ['guest']], function () {
         Route::post('register', 'RegisterController@register');
         Route::post('login', 'AuthController@login');
-        
-        Route::post('user/changepassword/{id}','RegisterController@updateAuthUserPassword');
+
+        Route::post('user/changepassword/{id}', 'RegisterController@updateAuthUserPassword');
         // Password Reset
         Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
         Route::get('user/edit/{id}', 'RegisterController@edit');
@@ -30,20 +29,31 @@
         Route::get('getchapter/{id}', 'ChapterController@getchapter');
         Route::post('chaptercontent', 'ChapterController@chapterContent');
         Route::get('getchapterContent/{id}', 'ChapterController@getchapterContent');
-        
+
         Route::post('videoCount', 'RegisterController@videoCount');
-        
-        
+
+
         /* banner route */
         Route::get('banner', 'RegisterController@getbanner');
-        
-        
+
+        /* send OTP */
+
+        Route::post('sendOtp', [
+            'middleware' => 'checkSession',
+            'uses' => 'RegisterController@sendOtp'
+        ]);
+
+        Route::post('verifyOtp', [
+            'middleware' => 'checkSession',
+            'uses' => 'RegisterController@verifyOtp'
+        ]);
+
     });
 
     Route::group(['middleware' => ['auth:api']], function () {
         Route::group(['prefix' => 'auth'], function () {
             Route::post('logout', 'AuthController@logout');
-             Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset');
+            Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset');
         });
         // Users
         Route::resource('users', 'UsersController', ['except' => ['create', 'edit']]);
@@ -72,9 +82,7 @@
 
         // Blogs
         Route::resource('blogs', 'BlogsController', ['except' => ['create', 'edit']]);
-        
+
         // Chapter
-     
-        
     });
 });
