@@ -45,6 +45,7 @@ return [
         'videocountparent'=>'Parent Video Count Listing',
         'notifylisting' => 'Notification Listing',
         'chaptercontentlisting'=>'ChapterContent Listing',
+        'user'=> 'User Listing',
 
         'roles' => [
             'created' => 'created role',

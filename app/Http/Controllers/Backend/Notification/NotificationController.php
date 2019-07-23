@@ -61,7 +61,7 @@ class NotificationController extends Controller
                         return view('backend.notify.addform')->with(compact('errors1'));
                     }
                     else{
-                        return view('backend.notify.addform')->with(compact('errors1'));
+                        return view('backend.notify.editform')->with(compact('errors1'));
                     }
                 }
                 elseif ($ext != "jpeg" && $ext != "png" && $ext != "jpg")
@@ -71,7 +71,7 @@ class NotificationController extends Controller
                         return view('backend.notify.addform')->with(compact('errors1'));
                     }
                     else{
-                        return view('backend.notify.addform')->with(compact('errors1'));
+                        return view('backend.notify.editform')->with(compact('errors1'));
                     }
                 }
                 $file = $request->file('notify_image');

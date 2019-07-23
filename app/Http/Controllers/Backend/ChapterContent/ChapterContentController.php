@@ -62,7 +62,6 @@ class ChapterContentController extends Controller
                     'chapter_name' => 'required|integer',
                     'content_title' => 'required',
                     'content_type' => 'required',
-                    'video_link' => 'required|url',
                     'content_description' => 'required'
                 ]);
             }
@@ -72,7 +71,6 @@ class ChapterContentController extends Controller
                     'class_name' => 'required|integer',
                     'chapter_name' => 'required|integer',
                     'content_title' => 'required',
-                    'video_link' => 'required|url',
                     'content_description' => 'required'
                 ]);
             }
@@ -105,7 +103,7 @@ class ChapterContentController extends Controller
                     }
                     else{
                         $subject = Subject::get();
-                        return view('backend.chaptercontent.addform')->with(compact('errors1','subject'));
+                        return view('backend.chaptercontent.editform')->with(compact('errors1','subject'));
                     }
                 }
                 elseif ($ext != "jpeg" && $ext != "png" && $ext != "jpg" && $ext != "pdf" && $ext != "docx" && $ext != "doc" && $ext != "xlsx" && $ext != "csv")
@@ -117,7 +115,7 @@ class ChapterContentController extends Controller
                     }
                     else{
                         $subject = Subject::get();
-                        return view('backend.chaptercontent.addform')->with(compact('errors1','subject'));
+                        return view('backend.chaptercontent.editform')->with(compact('errors1','subject'));
                     }
                 }
             }

@@ -12,6 +12,10 @@ use App\Models\Access\User\User;
 use App\Models\School\videocount;
 use App\Repositories\Frontend\Access\User\UserRepository;
 use Config;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
+use Auth;
+use App\Mail\SendOtp;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -151,7 +155,7 @@ class RegisterController extends APIController {
 
         $user = User::find($id);
         if (Hash::check($request->current, $user->password)) {
-            $user->password =$request->password;
+            $user->password = $request->password;
             $user->save();
 
             return response()->json(['message' => 'password change successfully']);
@@ -268,7 +272,7 @@ class RegisterController extends APIController {
     public function getbanner() {
 
         $getBanner = Banner::get();
-        
+
         if ($getBanner != '') {
             $getBannerStatus = true;
         } else {
@@ -279,6 +283,112 @@ class RegisterController extends APIController {
                     'status' => $getBannerStatus,
                     'data' => $getBanner,
                     'message' => 'Slider banner']);
+    }
+
+    public function sendOtp(Request $request) {
+
+
+        $response = array();
+        $userEmail = $request->email;
+
+        $users = User::where('email', $userEmail)->first();
+
+        if ($users == '') {
+            $response['error'] = 1;
+            $response['message'] = 'Invalid email-id';
+            $response['loggedIn'] = 1;
+        } else {
+
+            $otp = rand(100000, 999999);
+
+            $emailResponse = $this->sendSMS($otp, $userEmail);
+
+            if ($emailResponse['error']) {
+                $response['error'] = 1;
+                $response['message'] = $emailResponse['message'];
+                
+            } else {
+
+                Session::put('OTP', $otp);
+               
+                $response['error'] = 0;
+                $response['message'] = 'Your OTP is created.';
+                $response['OTP'] = $otp;
+                
+            }
+        }
+        
+        if($response['error'] == 0) {
+            $responseStatus = true;
+        } else {
+            $responseStatus = false;
+        }
+        
+          return response()->json([
+                    'status' => $responseStatus,
+                    'data' => $response,
+                    'message' => 'Your OTP is created']);
+        
+    }
+
+    public function verifyOtp(Request $request) {
+        
+        $response = array();
+
+        $enteredOtp = $request->input('otp');
+        $userEmail = $request->email;
+
+        if ($userEmail == "" || $userEmail == null) {
+            $response['error'] = 1;
+            $response['message'] = 'You are logged out, Login again.';
+            $response['loggedIn'] = 0;
+        } else {
+            $OTP = $request->session()->get('OTP');
+            
+            if ($OTP == $enteredOtp) {
+
+                // Updating user's status "isVerified" as 1.
+
+                User::where('email', $userEmail)->update(['isVerified' => 1]);
+
+                //Removing Session variable
+                Session::forget('OTP');
+
+                $response['error'] = 0;
+                $response['isVerified'] = 1;
+                $response['loggedIn'] = 1;
+                $response['message'] = "Your email is Verified.";
+            } else {
+                $response['error'] = 1;
+                $response['isVerified'] = 0;
+                $response['loggedIn'] = 1;
+                $response['message'] = "OTP does not match.";
+            }
+        }
+          if($response['error'] == 0) {
+            $responseStatus = true;
+        } else {
+            $responseStatus = false;
+        }
+        
+          return response()->json([
+                    'status' => $responseStatus,
+                    'data' => $response,
+                    'message' => $response['message']]);
+    }
+
+    public function sendSMS($otp, $email) {
+
+        $isError = 0;
+        $errorMessage = true;
+
+        if ($otp != '') {
+            Mail::to($email)->send(new SendOtp($otp));
+            return array('error' => 0);
+            
+        } else {
+            
+        }
     }
 
 }

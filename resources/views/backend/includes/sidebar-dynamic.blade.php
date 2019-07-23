@@ -11,6 +11,12 @@
                     <span>{{ trans('menus.backend.sidebar.dashboard') }}</span>
                 </a>
             </li>
+            <li class="{{ active_class(Active::checkUriPattern('admin/users')) }}">
+                <a href="{{ route('admin.users') }}">
+                    <i class="fa fa-users"></i>
+                    <span>Users</span>
+                </a>
+            </li>
             {{--<li>
                 <a href="#">
             <i class="fa fa-dashboard"></i>
