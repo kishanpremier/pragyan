@@ -42,16 +42,6 @@
             if($.inArray(abc1,fileExtension) !== -1)
             {
                 $('#banner_image-error').hide();
-                /*if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        $('#imgsubject')
-                            .attr('src', e.target.result)
-                            .width(150)
-                            .height(200);
-                    };
-                    reader.readAsDataURL(input.files[0]);
-                }*/
             }
         }
     </script>
@@ -117,8 +107,6 @@
                         extension: "Please Select From docx|xlsx|doc|pdf|jpg|jpeg|png|csv Format",
                         size: "Please Select File Less Than 5MB Size"
                     },
-
-
                 },
                 submitHandler: function (form) {
                     form.submit();

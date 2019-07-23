@@ -15,8 +15,10 @@ class NotificationController extends Controller
      */
     public function index()
     {
+        /*
         $val = Notification::get();
         return view('backend.notify.index')->with(compact('val'));
+        */
     }
 
     /**
@@ -146,6 +148,6 @@ class NotificationController extends Controller
     }
     public  function  delete($id)
     {
-        $val = Notification::where('id',$id)->get();
+
     }
 }

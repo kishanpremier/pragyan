@@ -27,10 +27,16 @@
                     </p>
                 </div>
             </a>
-            <div class="col-md-2 bg-primary">
-                <p><center><h3><b>Parent</b></h3></center></p>
-            <p><center><h3>{{$getparentUserCount}}</h3></center></p>
-            </div>
+            <a href="{{route('admin.parent.list')}}">
+                <div class="col-md-2 bg-primary">
+                    <p>
+                    <center><h3><b>Parent</b></h3></center>
+                    </p>
+                    <p>
+                    <center><h3>{{$getparentUserCount}}</h3></center>
+                    </p>
+                </div>
+            </a>
             <div class="col-md-2 bg-primary">
                <p><center><h3><b>Content count</b></h3></center></p>
             <p><center><h3>0</h3></center></p>

@@ -2,36 +2,34 @@
 
 namespace App\Http\Controllers\Backend\School;
 
+use Illuminate\Http\Request;
 use App\Models\Access\User\User;
 use App\Models\School\videocount;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class TeacherController extends Controller {
-
+class ParentController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    //
-    public function index() {
-        
+    public function index()
+    {
         $videoCount= [];
 
-        $teacherList = User::where('users.user_type', '=', 1)
-                ->get();
+        $parentList = User::where('users.user_type', '=', 0)
+            ->get();
 
-        foreach ($teacherList as $data) {
-            $teacherListWithVideocount = videocount::where('video_count.user_id','=',$data->id)
+        foreach ($parentList as $data) {
+            $parentListWithVideocount = videocount::where('video_count.user_id','=',$data->id)
                 ->leftJoin('chapter_content','chapter_content.id','=','video_count.chapter_content_id')
                 ->leftJoin('users','users.id','=','video_count.user_id')
-                    ->get();
-            array_push($videoCount, [$data->id => $teacherListWithVideocount]);
+                ->get();
+            array_push($videoCount, [$data->id => $parentListWithVideocount]);
         }
 
-        return view('backend.teacher.index')->with(compact('videoCount'));
-
+        return view('backend.parent.index')->with(compact('videoCount'));
     }
 
     /**
@@ -39,7 +37,8 @@ class TeacherController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
+    public function create()
+    {
         //
     }
 
@@ -49,7 +48,8 @@ class TeacherController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         //
     }
 
@@ -59,7 +59,8 @@ class TeacherController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) {
+    public function show($id)
+    {
         //
     }
 
@@ -69,7 +70,8 @@ class TeacherController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
+    public function edit($id)
+    {
         //
     }
 
@@ -80,7 +82,8 @@ class TeacherController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         //
     }
 
@@ -90,8 +93,8 @@ class TeacherController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
         //
     }
-
 }

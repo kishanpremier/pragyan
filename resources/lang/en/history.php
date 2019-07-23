@@ -42,6 +42,7 @@ return [
         'chapterlisting'=>'Chapter Listing',
         'bannerlisting'=>'Banner Listing',
         'videocount' => 'Video Count Listing',
+        'videocountparent'=>'Parent Video Count Listing',
         'notifylisting' => 'Notification Listing',
         'chaptercontentlisting'=>'ChapterContent Listing',
 
