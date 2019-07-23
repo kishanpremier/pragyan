@@ -34,3 +34,5 @@ output.txt
 .php_cs.cache
 public/subjectimages/*
 public/chaptercontent/*
+public/banner/*
+public/notify/*
