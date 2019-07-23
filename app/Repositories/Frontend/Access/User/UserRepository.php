@@ -13,6 +13,7 @@ use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Crypt;
 
 /**
  * Class UserRepository.
@@ -88,7 +89,8 @@ class UserRepository extends BaseRepository
      * @return static
      */
     public function create(array $data, $provider = false)
-    {
+    {   
+       
         $user = self::MODEL;
         $user = new $user();
         $user->first_name = $data['first_name'];
@@ -108,9 +110,9 @@ class UserRepository extends BaseRepository
         
         $user->confirmation_code = md5(uniqid(mt_rand(), true));
         $user->status = 1;
-        $user->password = $provider ? null : bcrypt($data['password']);
+        $user->password = $data['password'];
         $user->is_term_accept = $data['is_term_accept'];
-
+        
         // If users require approval, confirmed is false regardless of account type
         if (config('access.users.requires_approval')) {
             $user->confirmed = 0; // No confirm e-mail sent, that defeats the purpose of manual approval
