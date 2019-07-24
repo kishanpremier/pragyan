@@ -59,12 +59,14 @@
                     notify_image: {
                         required: false,
                         extension: "jpg|jpeg|png",
+                        filesize : 2048,
                     },
                 },
                 messages: {
                     title: "Please enter Title Here",
                     notify_description: "Please Enter Notification Here",
                     notify_image:{
+                        filesize:" file size must be less than 2 MB.",
                         extension: "Please Select From jpg|jpeg|png Format",
                     },
                 },
