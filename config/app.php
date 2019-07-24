@@ -173,6 +173,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Yoeunes\Toastr\ToastrServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Edujugon\PushNotification\Providers\PushNotificationServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -203,6 +204,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Bvipul\Generator\Provider\CrudGeneratorServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
+        
     ],
 
     /*
@@ -251,6 +253,7 @@ return [
         'Validator'    => Illuminate\Support\Facades\Validator::class,
         'View'         => Illuminate\Support\Facades\View::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+           'PushNotification' => Edujugon\PushNotification\Facades\PushNotification::class,
         /*
          * Third Party Aliases
          */

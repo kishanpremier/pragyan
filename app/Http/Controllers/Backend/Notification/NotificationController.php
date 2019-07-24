@@ -5,20 +5,20 @@ namespace App\Http\Controllers\Backend\Notification;
 use App\Models\School\Notification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Edujugon\PushNotification\PushNotification;
 
-class NotificationController extends Controller
-{
+class NotificationController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         /*
-        $val = Notification::get();
-        return view('backend.notify.index')->with(compact('val'));
-        */
+          $val = Notification::get();
+          return view('backend.notify.index')->with(compact('val'));
+         */
     }
 
     /**
@@ -26,8 +26,7 @@ class NotificationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         return view('backend.notify.addform');
     }
 
@@ -37,69 +36,46 @@ class NotificationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        try{
-            $request->validate([
-                'title' => 'required',
-                'notify_description' => 'required',
-            ]);
-
-            if ($request->id != '') {
-                $notify = Notification::findOrFail($request->id);
-            } else {
-                $notify = new Notification();
-            }
-
-            if($request->file('notify_image') != null)
-            {
-                $ext = $request->file('notify_image')->getClientOriginalExtension();
-                $size = $request->file('notify_image')->getSize();
-                if ($size > 2000000) {
-                    $errors1['size'] = "Size Should Be Less Than 2MB";
-                    if ($request->id == ''){
-                        return view('backend.notify.addform')->with(compact('errors1'));
-                    }
-                    else{
-                        return view('backend.notify.editform')->with(compact('errors1'));
-                    }
-                }
-                elseif ($ext != "jpeg" && $ext != "png" && $ext != "jpg")
-                {
-                    $errors1['extension'] = "Invalid File Format";
-                    if ($request->id == ''){
-                        return view('backend.notify.addform')->with(compact('errors1'));
-                    }
-                    else{
-                        return view('backend.notify.editform')->with(compact('errors1'));
-                    }
-                }
-                $file = $request->file('notify_image');
-                $pathfile = md5($file->getClientOriginalName(). time()).".".$ext;
-                $file->move(public_path('notify'), $pathfile);
-
-                $notify->title = $request['title'];
-                $notify->desc = $request['notify_description'];
-                $notify->image = $pathfile;
-                $notify->save();
-            }
-            else{
-                $notify->title = $request['title'];
-                $notify->desc = $request['notify_description'];
-                $notify->save();
-            }
-
-            if ($request->id != '') {
-                toastr()->success('', 'Notification has been updated', ['timeOut' => 5000]);
-            } else {
-                toastr()->success('', 'Notification has been created', ['timeOut' => 5000]);
-            }
+    public function store(Request $request) {
+        
+        $push = new PushNotification;
+        if ($request->file('notify_image') != null) {
+        $file = $request->file('notify_image');
+           $ext = $request->file('notify_image')->getClientOriginalExtension();
+        $pathfile = md5($file->getClientOriginalName() . time()) . ".". $ext;
+        $file->move(public_path('notify'), $pathfile);
+        $image = $pathfile;
+        }else{
+            $image = '';
         }
-        catch (Exception $e)
-        {
-            toastr()->warning('', 'Something went wrong', ['timeOut' => 5000]);
-        }
+        
+        $title = $request['title'];
+        $desc = $request['notify_description'];
+        
+            
+        
+            
+        
+        $push->setMessage([
+                    'notification' => [
+                        'title' => $title,
+                        'body' => $desc,
+                        'image'=>$image,
+                        'sound' => 'default'
+                    ]
+                ])
+                ->setApiKey('AIzaSyAKj0dRf11kbgU7McEEUdEHRAPN5Eixbpk')
+                ->setDevicesToken('epflMlR3u24:APA91bGg2qilg1ikx_1Gtoz7A31uZi69Cp1E1NmKSGDVHATfmCwS1KqQ2UzHwjRBuOLjfpxBDcn4af89SsfSlHNFDVsrUleXeigrIU0EdBp_LBHjUJSUoKGt16a4eQ7p6M8ULTvrjqg-')
+                ->send()
+                ->getFeedback();
+       
+       //dd($push->send());
+       
+       toastr()->success('', 'Notification has been created', ['timeOut' => 5000]);
         return redirect()->route('admin.notify.create');
+        
+        
+        
     }
 
     /**
@@ -108,8 +84,7 @@ class NotificationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
@@ -119,8 +94,7 @@ class NotificationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         //
     }
 
@@ -131,8 +105,7 @@ class NotificationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
@@ -142,12 +115,12 @@ class NotificationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
-    public  function  delete($id)
-    {
 
+    public function delete($id) {
+        
     }
+
 }
