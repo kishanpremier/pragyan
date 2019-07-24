@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Notification;
 use App\Models\School\Notification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Edujugon\PushNotification\PushNotification;
 
 class NotificationController extends Controller
 {
@@ -39,67 +40,82 @@ class NotificationController extends Controller
      */
     public function store(Request $request)
     {
-        try{
-            $request->validate([
-                'title' => 'required',
-                'notify_description' => 'required',
-            ]);
+        $push = new PushNotification;
+        
+        $push->setMessage([
+        'notification' => [
+                'title'=>'This is the title',
+                'body'=>'This is the message',
+                'sound' => 'default'
+                ]
+      
+        ])
+        ->setApiKey('AIzaSyAKj0dRf11kbgU7McEEUdEHRAPN5Eixbpk')
+        ->setDevicesToken('epflMlR3u24:APA91bGg2qilg1ikx_1Gtoz7A31uZi69Cp1E1NmKSGDVHATfmCwS1KqQ2UzHwjRBuOLjfpxBDcn4af89SsfSlHNFDVsrUleXeigrIU0EdBp_LBHjUJSUoKGt16a4eQ7p6M8ULTvrjqg-')
+        ->send()
+        ->getFeedback();
 
-            if ($request->id != '') {
-                $notify = Notification::findOrFail($request->id);
-            } else {
-                $notify = new Notification();
-            }
-
-            if($request->file('notify_image') != null)
-            {
-                $ext = $request->file('notify_image')->getClientOriginalExtension();
-                $size = $request->file('notify_image')->getSize();
-                if ($size > 2000000) {
-                    $errors1['size'] = "Size Should Be Less Than 2MB";
-                    if ($request->id == ''){
-                        return view('backend.notify.addform')->with(compact('errors1'));
-                    }
-                    else{
-                        return view('backend.notify.editform')->with(compact('errors1'));
-                    }
-                }
-                elseif ($ext != "jpeg" && $ext != "png" && $ext != "jpg")
-                {
-                    $errors1['extension'] = "Invalid File Format";
-                    if ($request->id == ''){
-                        return view('backend.notify.addform')->with(compact('errors1'));
-                    }
-                    else{
-                        return view('backend.notify.editform')->with(compact('errors1'));
-                    }
-                }
-                $file = $request->file('notify_image');
-                $pathfile = md5($file->getClientOriginalName(). time()).".".$ext;
-                $file->move(public_path('notify'), $pathfile);
-
-                $notify->title = $request['title'];
-                $notify->desc = $request['notify_description'];
-                $notify->image = $pathfile;
-                $notify->save();
-            }
-            else{
-                $notify->title = $request['title'];
-                $notify->desc = $request['notify_description'];
-                $notify->save();
-            }
-
-            if ($request->id != '') {
-                toastr()->success('', 'Notification has been updated', ['timeOut' => 5000]);
-            } else {
-                toastr()->success('', 'Notification has been created', ['timeOut' => 5000]);
-            }
-        }
-        catch (Exception $e)
-        {
-            toastr()->warning('', 'Something went wrong', ['timeOut' => 5000]);
-        }
-        return redirect()->route('admin.notify.create');
+//        try{
+//            $request->validate([
+//                'title' => 'required',
+//                'notify_description' => 'required',
+//            ]);
+//
+//            if ($request->id != '') {
+//                $notify = Notification::findOrFail($request->id);
+//            } else {
+//                $notify = new Notification();
+//            }
+//
+//            if($request->file('notify_image') != null)
+//            {
+//                $ext = $request->file('notify_image')->getClientOriginalExtension();
+//                $size = $request->file('notify_image')->getSize();
+//                if ($size > 2000000) {
+//                    $errors1['size'] = "Size Should Be Less Than 2MB";
+//                    if ($request->id == ''){
+//                        return view('backend.notify.addform')->with(compact('errors1'));
+//                    }
+//                    else{
+//                        return view('backend.notify.editform')->with(compact('errors1'));
+//                    }
+//                }
+//                elseif ($ext != "jpeg" && $ext != "png" && $ext != "jpg")
+//                {
+//                    $errors1['extension'] = "Invalid File Format";
+//                    if ($request->id == ''){
+//                        return view('backend.notify.addform')->with(compact('errors1'));
+//                    }
+//                    else{
+//                        return view('backend.notify.editform')->with(compact('errors1'));
+//                    }
+//                }
+//                $file = $request->file('notify_image');
+//                $pathfile = md5($file->getClientOriginalName(). time()).".".$ext;
+//                $file->move(public_path('notify'), $pathfile);
+//
+//                $notify->title = $request['title'];
+//                $notify->desc = $request['notify_description'];
+//                $notify->image = $pathfile;
+//                $notify->save();
+//            }
+//            else{
+//                $notify->title = $request['title'];
+//                $notify->desc = $request['notify_description'];
+//                $notify->save();
+//            }
+//
+//            if ($request->id != '') {
+//                toastr()->success('', 'Notification has been updated', ['timeOut' => 5000]);
+//            } else {
+//                toastr()->success('', 'Notification has been created', ['timeOut' => 5000]);
+//            }
+//        }
+//        catch (Exception $e)
+//        {
+//            toastr()->warning('', 'Something went wrong', ['timeOut' => 5000]);
+//        }
+//        return redirect()->route('admin.notify.create');
     }
 
     /**

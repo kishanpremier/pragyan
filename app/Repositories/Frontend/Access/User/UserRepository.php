@@ -107,6 +107,7 @@ class UserRepository extends BaseRepository
         $user->schoolcode = $data['schoolcode'];
         $user->school_name = $data['school_name'];
         $user->state_board = $data['state_board'];
+        $user->device_token = $data['device_token'];
         
         $user->confirmation_code = md5(uniqid(mt_rand(), true));
         $user->status = 1;

@@ -49,6 +49,7 @@ class User extends Authenticatable
         'last_name',
         'email',
         'status',
+        'device_token',
         'confirmation_code',
         'confirmed',
         'created_by',
