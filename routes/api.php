@@ -20,7 +20,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         // Password Reset
         Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
         Route::get('user/edit/{id}', 'RegisterController@edit');
-        Route::get('user/update/{id}', 'RegisterController@update');
+        Route::post('user/update/{id}', 'RegisterController@update');
         Route::get('stateborad', 'RegisterController@stateBoard');
         Route::get('school', 'RegisterController@school');
         Route::get('schoolclass/{id}', 'RegisterController@schoolClass');

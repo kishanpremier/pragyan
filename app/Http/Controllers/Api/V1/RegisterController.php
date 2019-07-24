@@ -94,7 +94,6 @@ class RegisterController extends APIController {
 
     public function update(Request $request, $id) {
 
-
         try {
 
             $request->validate([
@@ -107,31 +106,29 @@ class RegisterController extends APIController {
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'email' => 'required|email|unique:users',
-                'password' => 'required|min:4',
-                'password_confirmation' => 'required|same:password',
+                
             ]);
 
             $userUpdate = User::findOrFail($id);
 
-            $userUpdate->first_name = $data['first_name'];
-            $userUpdate->last_name = $data['last_name'];
-            $userUpdate->email = $data['email'];
-            $userUpdate->user_type = $data['user_type'];
-            $userUpdate->age = $data['age'];
-            $userUpdate->gender = $data['gender'];
-            $userUpdate->mobile = $data['mobile'];
-            $userUpdate->state = $data['state'];
-            $userUpdate->district = $data['district'];
-            $userUpdate->classes = $data['classes'];
-            $userUpdate->subject = $data['subject'];
-            $userUpdate->schoolcode = $data['schoolcode'];
-            $userUpdate->school_name = $data['school_name'];
-            $userUpdate->state_board = $data['state_board'];
+            $userUpdate->first_name = $request['first_name'];
+            $userUpdate->last_name = $request['last_name'];
+            $userUpdate->email = $request['email'];
+            $userUpdate->user_type = $request['user_type'];
+            $userUpdate->age = $request['age'];
+            $userUpdate->gender = $request['gender'];
+            $userUpdate->mobile = $request['mobile'];
+            $userUpdate->state = $request['state'];
+            $userUpdate->district = $request['district'];
+            $userUpdate->classes = $request['classes'];
+            $userUpdate->subject = $request['subject'];
+            $userUpdate->schoolcode = $request['schoolcode'];
+            $userUpdate->school_name = $request['school_name'];
+            $userUpdate->state_board = $request['state_board'];
 
             $userUpdate->confirmation_code = md5(uniqid(mt_rand(), true));
             $userUpdate->status = 1;
-            $userUpdate->password = $provider ? null : bcrypt($data['password']);
-            $userUpdate->is_term_accept = $data['is_term_accept'];
+            $userUpdate->is_term_accept = $request['is_term_accept'];
 
             $userUpdate->save();
 
