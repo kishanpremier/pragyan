@@ -56,9 +56,10 @@ class ResetPasswordController extends Controller
         if (!$token) {
             return redirect()->route('frontend.auth.password.email');
         }
-
+        
         $user = $this->user->findByPasswordResetToken($token);
-//&& app()->make('auth.password.broker')->tokenExists($user, $token)
+
+        //&& app()->make('auth.password.broker')->tokenExists($user, $token)
         if ($user) {
             return view('frontend.auth.passwords.reset')
                 ->withToken($token)
@@ -106,23 +107,5 @@ class ResetPasswordController extends Controller
     protected function sendResetResponse($request, $response)
     {
         return redirect()->route(homeRoute())->withFlashSuccess(trans($response));
-    }
-
-    public function reset(Request $request){
-
-        $validator = Validator::make($request->all(), [
-            'password' => 'required|min:8',
-            'email' => 'required',
-            'password_confirmation|min:8'
-        ]);
-        if($validator->fails()){
-            return view('frontend.auth.passwords.reset')->withErrors($validator);
-        }
-        else{
-
-        }
-
-
-        //Hash::make($request->password);
     }
 }
