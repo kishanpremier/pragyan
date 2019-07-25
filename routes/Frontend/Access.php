@@ -6,6 +6,7 @@
  */
 Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
 
+    Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset');
     /*
      * These routes require the user to be logged in
      */

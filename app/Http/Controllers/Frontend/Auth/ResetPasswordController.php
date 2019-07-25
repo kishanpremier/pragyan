@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Frontend\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\Frontend\Access\User\UserRepository;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 
@@ -55,8 +57,8 @@ class ResetPasswordController extends Controller
         }
 
         $user = $this->user->findByPasswordResetToken($token);
-
-        if ($user && app()->make('auth.password.broker')->tokenExists($user, $token)) {
+        //$val = app()->make('auth.password.broker')->tokenExists($user, $token);
+        if ($user) {
             return view('frontend.auth.passwords.reset')
                 ->withToken($token)
                 ->withEmail($user->email);
@@ -103,5 +105,23 @@ class ResetPasswordController extends Controller
     protected function sendResetResponse($request, $response)
     {
         return redirect()->route(homeRoute())->withFlashSuccess(trans($response));
+    }
+
+    public function reset(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|min:8',
+            'email' => 'required',
+            'password_confirmation|min:8'
+        ]);
+        if($validator->fails()){
+            return view('frontend.auth.passwords.reset')->withErrors($validator);
+        }
+        else{
+
+        }
+
+
+        //Hash::make($request->password);
     }
 }
