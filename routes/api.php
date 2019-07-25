@@ -53,6 +53,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::group(['prefix' => 'auth'], function () {
             Route::post('logout', 'AuthController@logout');
             Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset');
+            Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset.form');
         });
         // Users
         Route::resource('users', 'UsersController', ['except' => ['create', 'edit']]);
