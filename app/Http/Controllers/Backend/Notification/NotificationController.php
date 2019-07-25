@@ -39,13 +39,22 @@ class NotificationController extends Controller {
     public function store(Request $request) {
         
         $push = new PushNotification;
-        if ($request->file('notify_image') != null) {
-        $file = $request->file('notify_image');
-           $ext = $request->file('notify_image')->getClientOriginalExtension();
-        $pathfile = md5($file->getClientOriginalName() . time()) . ".". $ext;
-        $file->move(public_path('notify'), $pathfile);
-        $image = $pathfile;
-        }else{
+        if ($request->file('notify_image') != null)
+        {
+            $size = $request->file('notify_image')->getSize();
+            if($size > 2000000){
+                $errors1['size'] = "Size Should Be Less Than 2MB";
+                return view('backend.notify.addform')->with(compact('errors1'));
+            }
+
+            $file = $request->file('notify_image');
+            $ext = $request->file('notify_image')->getClientOriginalExtension();
+            $pathfile = md5($file->getClientOriginalName() . time()) . "." . $ext;
+            $file->move(public_path('notify'), $pathfile);
+            $image = $pathfile;
+        }
+        else
+        {
             $image = '';
         }
         
