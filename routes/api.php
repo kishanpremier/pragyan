@@ -15,7 +15,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
     Route::group(['prefix' => 'auth', 'middleware' => ['guest']], function () {
         Route::post('register', 'RegisterController@register');
         Route::post('login', 'AuthController@login');
-
+        
         Route::post('user/changepassword/{id}', 'RegisterController@updateAuthUserPassword');
         // Password Reset
         Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
@@ -47,7 +47,6 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
             'middleware' => 'checkSession',
             'uses' => 'RegisterController@verifyOtp'
         ]);
-
     });
 
     Route::group(['middleware' => ['auth:api']], function () {

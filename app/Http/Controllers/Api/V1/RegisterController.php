@@ -61,7 +61,7 @@ class RegisterController extends APIController {
         }
 
         $user = $this->repository->create($request->all());
-
+        
         if (!Config::get('api.register.release_token')) {
             return $this->respondCreated([
                         'message' => trans('api.messages.registeration.success'),
@@ -305,8 +305,9 @@ class RegisterController extends APIController {
                 $response['message'] = $emailResponse['message'];
                 
             } else {
-
-                Session::put('OTP', $otp);
+                
+               User::where('email', $userEmail)->update(['otp' => $otp]);
+              //  Session::put('OTP', $otp);
                
                 $response['error'] = 0;
                 $response['message'] = 'Your OTP is created.';
@@ -333,23 +334,24 @@ class RegisterController extends APIController {
         $response = array();
 
         $enteredOtp = $request->input('otp');
+     
         $userEmail = $request->email;
-
+        $usersEmailId = User::where('email', $userEmail)->first();
+         
         if ($userEmail == "" || $userEmail == null) {
             $response['error'] = 1;
             $response['message'] = 'You are logged out, Login again.';
             $response['loggedIn'] = 0;
         } else {
-            $OTP = $request->session()->get('OTP');
+            $OTP = $usersEmailId->otp;
             
             if ($OTP == $enteredOtp) {
-
-                // Updating user's status "isVerified" as 1.
+                     // Updating user's status "isVerified" as 1.
 
                 User::where('email', $userEmail)->update(['isVerified' => 1]);
 
                 //Removing Session variable
-                Session::forget('OTP');
+             //   Session::forget('OTP');
 
                 $response['error'] = 0;
                 $response['isVerified'] = 1;
