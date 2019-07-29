@@ -100,14 +100,14 @@ class PasswordResetAPIController extends Controller
         $user->save();
         $passwordReset->delete();
         $user->notify(new PasswordResetSuccess($passwordReset));
-        
+      
         if($user != ''){
             $status = true;
         }else{
             $status = false;
         }
         return response()->json([
-                'message' => $status,
+                'status' => $status,
                 'message' => $user
         ], 404);
         
