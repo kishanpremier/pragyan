@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models\School;
-
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
 class ContentRating extends Model

@@ -73,8 +73,8 @@ class ChapterController extends Controller {
                     'message' => 'School class']);
     }
 
-    public function rating() {
-        dd('hello'); exit;
+    public function rating(Request $request) {
+
         try {
 
             $request->validate([
