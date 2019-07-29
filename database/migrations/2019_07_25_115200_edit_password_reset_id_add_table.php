@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOTPCreateTable extends Migration
+class EditPasswordResetIdAddTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateOTPCreateTable extends Migration
      */
     public function up()
     {
-         Schema::table('users', function (Blueprint $table) {
-            $table->string('otp')->nullable();
+       Schema::table('password_resets', function (Blueprint $table) {
+           $table->increments('id');
         });
-       
     }
 
     /**
@@ -26,6 +25,6 @@ class CreateOTPCreateTable extends Migration
      */
     public function down()
     {
-      
+          Schema::dropIfExists('password_resets');
     }
 }

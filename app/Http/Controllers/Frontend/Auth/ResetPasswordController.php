@@ -37,7 +37,7 @@ class ResetPasswordController extends Controller
      */
     public function redirectPath()
     {
-      //  return route('frontend.index');
+        return route('frontend.index');
     }
 
     /**
@@ -57,8 +57,7 @@ class ResetPasswordController extends Controller
 
         $user = $this->user->findByPasswordResetToken($token);
 
-        //&& app()->make('auth.password.broker')->tokenExists($user, $token)
-        if ($user) {
+        if ($user && app()->make('auth.password.broker')->tokenExists($user, $token)) {
             return view('frontend.auth.passwords.reset')
                 ->withToken($token)
                 ->withEmail($user->email);
