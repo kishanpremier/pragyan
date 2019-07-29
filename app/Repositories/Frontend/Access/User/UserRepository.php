@@ -336,11 +336,20 @@ class UserRepository extends BaseRepository
     public function findByPasswordResetToken($token)
     {
         foreach (DB::table(config('auth.passwords.users.table'))->get() as $row) {
-            if (password_verify($token, $row->token)) {
-                return $this->findByEmail($row->email);
+            /*if( strlen($row->token) == 60 ){
+                if (password_verify($token, $row->token)) {
+                    return $this->findByEmail($row->email);
+                }
             }
+            else
+            {
+                if (password_verify($token, Hash::make($row->token))) {
+                    return $this->findByEmail($row->email);
+            }*/
+                if (password_verify($token, $row->token)) {
+                    return $this->findByEmail($row->email);
+                }
         }
-
         return false;
     }
 }

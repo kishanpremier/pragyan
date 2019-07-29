@@ -81,9 +81,10 @@ class AuthController extends APIController {
      * @return \Illuminate\Http\JsonResponse
      */
     public function logout(Request $request) {
+
         try {
             $request->user()->token()->revoke();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->respondInternalError($e->getMessage());
         }
 

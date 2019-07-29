@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend\Auth;
 use App\Http\Controllers\Controller;
 use App\Repositories\Frontend\Access\User\UserRepository;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 /**

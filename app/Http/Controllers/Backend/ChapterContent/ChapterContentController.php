@@ -130,7 +130,6 @@ class ChapterContentController extends Controller
             if($request->file('content_type') != null)
             {
                 if($request->id != ''){
-                    /*$path_to_delete = public_path('chaptercontent\\'.$request->image_name_to_delete);*/
                     $path_to_delete = public_path('chaptercontent//'.$request->image_name_to_delete);
                     if (file_exists($path_to_delete)){
                         unlink($path_to_delete);
@@ -237,7 +236,6 @@ class ChapterContentController extends Controller
         $res=Chaptercontent::where('id',$id)->get();
         foreach ($res as $val){
             $path = public_path('chaptercontent//'.$val['content_type']);
-            //$path = public_path('\chaptercontent\\'.$val['content_type']);
             break;
         }
 

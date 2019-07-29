@@ -166,26 +166,26 @@
                             <td align="center">
                                 <table border="0" width="40" align="center" cellpadding="0" cellspacing="0" bgcolor="eeeeee">
                                     <tr>
-                                        <td align="center" style=""
+                                        {{--<td align="center" style=""
                                             class="main-header">
-                                            <!-- section text ======-->    
-                                            <div class="brand">{{ env('APP_SHORT_NAME', 'LAP') }}</div>
+                                            <!-- section text ======-->
+                                            <div class="brand">{{ env('APP_SHORT_NAME', '') }}</div>
                                         
                                             <div class="tagline">
-                                                {{ app_name() }}
+                                                <img src="{{config('app.icon')}}">
                                             </div>
+                                        </td>--}}
+                                        <td>
+                                            <img src="{{config('app.icon')}}">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="20" style="font-size: 20px; line-height: 20px;">&nbsp;
+                                            @yield('content')
                                         </td>
                                     </tr>
                                 </table>
                             </td>
-                        </tr>
-
-                        <tr>
-                            <td height="20" style="font-size: 20px; line-height: 20px;">&nbsp;</td>
-                        </tr>
-
-                        <tr>
-                            @yield('content')
                         </tr>
                     </table>
                 </td>
