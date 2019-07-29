@@ -336,7 +336,7 @@ class UserRepository extends BaseRepository
     public function findByPasswordResetToken($token)
     {
         foreach (DB::table(config('auth.passwords.users.table'))->get() as $row) {
-            if ($token == $row->token) {
+            if (password_verify($token, $row->token)) {
                 return $this->findByEmail($row->email);
             }
         }

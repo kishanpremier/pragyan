@@ -15,10 +15,14 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
     Route::group(['prefix' => 'auth', 'middleware' => ['guest']], function () {
         Route::post('register', 'RegisterController@register');
         Route::post('login', 'AuthController@login');
-        
+
+        Route::post('password/email', 'PasswordResetAPIController@create');
+        Route::get('find/{token}', 'PasswordResetAPIController@find');
+        Route::post('reset', 'PasswordResetAPIController@reset');
+
         Route::post('user/changepassword/{id}', 'RegisterController@updateAuthUserPassword');
         // Password Reset
-        Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
+       // Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
         Route::get('user/edit/{id}', 'RegisterController@edit');
         Route::post('user/update/{id}', 'RegisterController@update');
         Route::get('stateborad', 'RegisterController@stateBoard');
@@ -29,6 +33,8 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::get('getchapter/{id}', 'ChapterController@getchapter');
         Route::post('chaptercontent', 'ChapterController@chapterContent');
         Route::get('getchapterContent/{id}', 'ChapterController@getchapterContent');
+        
+        Route::post('rating', 'ChapterController@rating');
 
         Route::post('videoCount', 'RegisterController@videoCount');
 

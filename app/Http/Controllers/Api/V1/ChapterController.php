@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Api\V1;
-use App\Models\School\Chaptercontent;
 
+use App\Models\School\Chaptercontent;
+use App\Models\School\ContentRating;
 use App\Models\School\Chapter;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,22 +11,21 @@ use App\Http\Controllers\Controller;
 class ChapterController extends Controller {
 
     public function getchapter($id) {
-        
-       $getChapter = Chapter::where('chapter.class_id','=',$id)
-               ->get();
+
+        $getChapter = Chapter::where('chapter.class_id', '=', $id)
+                ->get();
         if ($getChapter != '') {
             $getChapterStatus = true;
         } else {
             $getChapterStatus = false;
         }
         return response()->json([
-               'status'=>$getChapterStatus,
-              'data' => $getChapter]);
-        
+                    'status' => $getChapterStatus,
+                    'data' => $getChapter]);
     }
-    
-       public function chapterContent(Request $request) {
-           
+
+    public function chapterContent(Request $request) {
+
         try {
 
             $request->validate([
@@ -51,16 +51,16 @@ class ChapterController extends Controller {
             $message = 'Something went wrong';
         }
 
-        
+
         return response()->json([
-              'message' => $message]);
+                    'message' => $message]);
     }
-    
-     public function getchapterContent($id) {
+
+    public function getchapterContent($id) {
 
         $chapterContent = Chaptercontent::where('chapter_content.chapter_id', '=', $id)
                 ->get();
-        
+
         if ($chapterContent != '') {
             $chapterContentStatus = true;
         } else {
@@ -71,8 +71,30 @@ class ChapterController extends Controller {
                     'status' => $chapterContentStatus,
                     'data' => $chapterContent,
                     'message' => 'School class']);
-        
     }
-    
+
+    public function rating() {
+        dd('hello'); exit;
+        try {
+
+            $request->validate([
+                'content_id' => 'required',
+                'rating' => 'required',
+            ]);
+
+            $ContentRating = new ContentRating();
+            $ContentRating->content_id = $request['content_id'];
+            $ContentRating->rating = $request['rating'];
+
+            $ContentRating->save();
+            $message = 'Content rating has been created';
+        } catch (Exception $e) {
+
+            $message = 'Something went wrong';
+        }
+
+        return response()->json([
+                    'message' => $message]);
+    }
 
 }

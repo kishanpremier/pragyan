@@ -27,6 +27,7 @@
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4.0",
+        "nesbot/carbon": "^2.21",
         "nette/di": "2.*",
         "spatie/laravel-cors": "^1.2",
         "tymon/jwt-auth": "dev-develop",
