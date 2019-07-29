@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend\Auth;
 use App\Http\Controllers\Controller;
 use App\Repositories\Frontend\Access\User\UserRepository;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 /**
@@ -50,11 +51,10 @@ class ResetPasswordController extends Controller
      */
     public function showResetForm($token = null)
     {
-       
         if (!$token) {
             return redirect()->route('frontend.auth.password.email');
         }
-        
+
         $user = $this->user->findByPasswordResetToken($token);
 
         //&& app()->make('auth.password.broker')->tokenExists($user, $token)
