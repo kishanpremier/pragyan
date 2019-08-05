@@ -54,6 +54,7 @@
                             <th>Chapter Name</th>
                             <th>Content Title</th>
                             <th>Content Description</th>
+                            <th></th>
                         </tr>
                     </tfoot>
             </table>
@@ -81,7 +82,7 @@
 $(document).ready(function() {
     $('#example').DataTable({
         initComplete: function () {
-            this.api().columns().every( function () {
+            this.api().columns([0,1,2,3,4,5]).every( function () {
                 var column = this;
                 var select = $('<select><option value=""></option></select>')
                     .appendTo( $(column.footer()).empty() )
