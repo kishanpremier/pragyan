@@ -46,11 +46,12 @@
                                         {{$val2->content_link}}
                                     </td>
                                     <td>
-                                        <select>
+                                        {{$val2->content_title}} ({{$dataCount}})
+                                        {{--<select>
                                             @foreach($val1 as $drop)
                                                 <option>{{$drop->content_title}} ({{$dataCount}})</option>
                                             @endforeach
-                                        </select>
+                                        </select>--}}
                                     </td>
                                 </tr>
                                 @break
