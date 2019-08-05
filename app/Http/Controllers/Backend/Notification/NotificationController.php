@@ -36,7 +36,7 @@ class NotificationController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+      public function store(Request $request) {
 
         $push = new PushNotification;
         if ($request->file('notify_image') != null) {
@@ -58,26 +58,28 @@ class NotificationController extends Controller {
         $title = $request['title'];
         $desc = $request['notify_description'];
 
-        
-        $push->setMessage([
+
+    $push->setMessage([
         'notification' => [
                 'title'=>$title,
                 'body'=>$desc,
-                'image'=>$image,
+                'image'=>'notify/'.$image,
                 'sound' => 'default'
                 ]
         ])
+
          ->setApiKey('AIzaSyAKj0dRf11kbgU7McEEUdEHRAPN5Eixbpk')
-                ->setDevicesToken('cAD0fkBKNZw:APA91bEqJ1FAEYPCUZqoWG6sdHAeEHcRpprbkCeesSvrYAdkybG4v2gno7fPV-8QkW-36tR3FxqoFEZnNwI4zB_juasYXmflv7jola_Z_mgbeTE9zaKu92uzLFkdlh0HyLv6CLXYxdvM')
+                ->setDevicesToken('cQG9O7PptoU:APA91bETNC5qRJ3AbXuDn6BrdWU-5lcryfdpxEbYggcxe34v239VuUeA5tLW_51NtWZ74RMFOvAQO8rhsF17W1NDvZmyd047JLiT2y_ea3913BwZ-9esviPe9wanBVIa89daC4PJ8VW4')
                 ->send()
                 ->getFeedback();
-       
 
-        dd($push->getFeedback());
+
+//        dd($push->getFeedback());
 
         toastr()->success('', 'Notification has been created', ['timeOut' => 5000]);
         return redirect('admin/dashboard');
     }
+
 
     /**
      * Display the specified resource.
