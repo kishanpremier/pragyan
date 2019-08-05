@@ -61,8 +61,9 @@ class NotificationController extends Controller {
         
         $push->setMessage([
         'notification' => [
-                'title'=>'This is the title',
-                'body'=>'This is the message',
+                'title'=>$title,
+                'body'=>$desc,
+                'image'=>$image,
                 'sound' => 'default'
                 ]
         ])
