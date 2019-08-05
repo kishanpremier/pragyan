@@ -253,7 +253,7 @@ return [
         'Validator'    => Illuminate\Support\Facades\Validator::class,
         'View'         => Illuminate\Support\Facades\View::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
-           'PushNotification' => Edujugon\PushNotification\Facades\PushNotification::class,
+        'PushNotification' => Edujugon\PushNotification\Facades\PushNotification::class,
         /*
          * Third Party Aliases
          */

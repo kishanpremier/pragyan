@@ -37,12 +37,11 @@ class NotificationController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        
+
         $push = new PushNotification;
-        if ($request->file('notify_image') != null)
-        {
+        if ($request->file('notify_image') != null) {
             $size = $request->file('notify_image')->getSize();
-            if($size > 2000000){
+            if ($size > 2000000) {
                 $errors1['size'] = "Size Should Be Less Than 2MB";
                 return view('backend.notify.addform')->with(compact('errors1'));
             }
@@ -52,35 +51,31 @@ class NotificationController extends Controller {
             $pathfile = md5($file->getClientOriginalName() . time()) . "." . $ext;
             $file->move(public_path('notify'), $pathfile);
             $image = $pathfile;
-        }
-        else
-        {
+        } else {
             $image = '';
         }
-        
+
         $title = $request['title'];
         $desc = $request['notify_description'];
+
         
         $push->setMessage([
-                    'notification' => [
-                        'title' => $title,
-                        'body' => $desc,
-                        'image'=>$image,
-                        'sound' => 'default'
-                    ]
-                ])
-                ->setApiKey('AIzaSyAKj0dRf11kbgU7McEEUdEHRAPN5Eixbpk')
-                ->setDevicesToken('epflMlR3u24:APA91bGg2qilg1ikx_1Gtoz7A31uZi69Cp1E1NmKSGDVHATfmCwS1KqQ2UzHwjRBuOLjfpxBDcn4af89SsfSlHNFDVsrUleXeigrIU0EdBp_LBHjUJSUoKGt16a4eQ7p6M8ULTvrjqg-')
+        'notification' => [
+                'title'=>'This is the title',
+                'body'=>'This is the message',
+                'sound' => 'default'
+                ]
+        ])
+         ->setApiKey('AIzaSyAKj0dRf11kbgU7McEEUdEHRAPN5Eixbpk')
+                ->setDevicesToken('cAD0fkBKNZw:APA91bEqJ1FAEYPCUZqoWG6sdHAeEHcRpprbkCeesSvrYAdkybG4v2gno7fPV-8QkW-36tR3FxqoFEZnNwI4zB_juasYXmflv7jola_Z_mgbeTE9zaKu92uzLFkdlh0HyLv6CLXYxdvM')
                 ->send()
                 ->getFeedback();
        
-       dd($push->send());
-       
-       toastr()->success('', 'Notification has been created', ['timeOut' => 5000]);
-        return redirect()->route('admin.notify.create');
-        
-        
-        
+
+        dd($push->getFeedback());
+
+        toastr()->success('', 'Notification has been created', ['timeOut' => 5000]);
+        return redirect('admin/dashboard');
     }
 
     /**
