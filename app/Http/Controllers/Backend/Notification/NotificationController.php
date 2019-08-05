@@ -61,10 +61,6 @@ class NotificationController extends Controller {
         $title = $request['title'];
         $desc = $request['notify_description'];
         
-            
-        
-            
-        
         $push->setMessage([
                     'notification' => [
                         'title' => $title,
@@ -78,7 +74,7 @@ class NotificationController extends Controller {
                 ->send()
                 ->getFeedback();
        
-       //dd($push->send());
+       dd($push->send());
        
        toastr()->success('', 'Notification has been created', ['timeOut' => 5000]);
         return redirect()->route('admin.notify.create');
