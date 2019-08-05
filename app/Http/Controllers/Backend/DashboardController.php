@@ -86,7 +86,7 @@ class DashboardController extends Controller
     }
     public function users()
     {
-        $user = User::get();
+        $user = User::where('user_type','!=',2)->get();
         return view('backend.user.index', compact('user'));
     }
 }

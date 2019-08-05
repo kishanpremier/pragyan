@@ -24,6 +24,10 @@
                         <tr>
                             <th>Id</th>
                             <th>User Name</th>
+                            <th>Gender</th>
+                            <th>Age</th>
+                            <th>User-Type</th>
+                            <th>Status</th>
                             <th>Email</th>
                             <th>Mobile</th>
                             <th>District</th>
@@ -37,6 +41,28 @@
                         <tr>
                             <td>{{$SchoolBoardData->id}}</td>
                             <td>{{$SchoolBoardData->first_name}} {{$SchoolBoardData->last_name}}</td>
+                            <td>
+                                @if($SchoolBoardData->gender)
+                                    Male
+                                @else
+                                    Female
+                                @endif
+                            </td>
+                            <td>{{$SchoolBoardData->age}}</td>
+                            <td>
+                                @if($SchoolBoardData->user_type)
+                                    Teacher
+                                @else
+                                    Parent
+                                @endif
+                            </td>
+                            <td>
+                                @if($SchoolBoardData->status)
+                                    Active
+                                @else
+                                    InActive
+                                @endif
+                            </td>
                             <td>{{$SchoolBoardData->email}}</td>
                             <th>{{$SchoolBoardData->mobile}}</th>
                             <th>{{$SchoolBoardData->district}}</th>
