@@ -46,6 +46,16 @@
                     </tr>
                     @endforeach
                 </tbody>
+                <tfoot>
+                        <tr>
+                            <th>Id</th>
+                            <th>Subject Name</th>
+                            <th>Class Name</th>
+                            <th>Chapter Name</th>
+                            <th>Content Title</th>
+                            <th>Content Description</th>
+                        </tr>
+                    </tfoot>
             </table>
         </div>
     </div><!-- /.box-body -->
@@ -68,9 +78,27 @@
 {{ Html::script('js/dataTable.js') }}
 
 <script>
-
 $(document).ready(function() {
     $('#example').DataTable({
+        initComplete: function () {
+            this.api().columns().every( function () {
+                var column = this;
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+
+                column.data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+        },
         dom: 'Bfrtip',
         buttons: [
             {

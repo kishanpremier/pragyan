@@ -30,6 +30,10 @@
                             <th>State</th>
                             <th>School Name</th>
                             <th>State Board</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>User-Type</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,6 +47,28 @@
                             <th>{{$SchoolBoardData->state}}</th>
                             <th>{{$SchoolBoardData->school_name}}</th>
                             <th>{{$SchoolBoardData->state_board}}</th>
+                            <td>{{$SchoolBoardData->age}}</td>
+                            <td>
+                                @if($SchoolBoardData->gender)
+                                    Male
+                                @else
+                                    Female
+                                @endif
+                            </td>
+                            <td>
+                                @if($SchoolBoardData->user_type)
+                                    Teacher
+                                @else
+                                    Parent
+                                @endif
+                            </td>
+                            <td>
+                                @if($SchoolBoardData->status)
+                                    Active
+                                @else
+                                    InActive
+                                @endif
+                            </td>
                         </tr>
                         @endforeach
 
