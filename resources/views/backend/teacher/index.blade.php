@@ -1,5 +1,4 @@
 <html>
-
 </html><title>Video Count Listing</title>
 
 
@@ -47,7 +46,11 @@
                                         {{$val2->content_link}}
                                     </td>
                                     <td>
-                                        {{$val2->content_title}} ({{$dataCount}})
+                                        <select>
+                                            @foreach($val1 as $drop)
+                                                <option>{{$drop->content_title}} ({{$dataCount}})</option>
+                                            @endforeach
+                                        </select>
                                     </td>
                                 </tr>
                                 @break
