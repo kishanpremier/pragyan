@@ -24,16 +24,16 @@
                         <tr>
                             <th>Id</th>
                             <th>User Name</th>
-                            <th>Gender</th>
-                            <th>Age</th>
-                            <th>User-Type</th>
-                            <th>Status</th>
                             <th>Email</th>
                             <th>Mobile</th>
                             <th>District</th>
                             <th>State</th>
                             <th>School Name</th>
                             <th>State Board</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>User-Type</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,6 +41,13 @@
                         <tr>
                             <td>{{$SchoolBoardData->id}}</td>
                             <td>{{$SchoolBoardData->first_name}} {{$SchoolBoardData->last_name}}</td>
+                            <td>{{$SchoolBoardData->email}}</td>
+                            <th>{{$SchoolBoardData->mobile}}</th>
+                            <th>{{$SchoolBoardData->district}}</th>
+                            <th>{{$SchoolBoardData->state}}</th>
+                            <th>{{$SchoolBoardData->school_name}}</th>
+                            <th>{{$SchoolBoardData->state_board}}</th>
+                            <td>{{$SchoolBoardData->age}}</td>
                             <td>
                                 @if($SchoolBoardData->gender)
                                     Male
@@ -48,7 +55,6 @@
                                     Female
                                 @endif
                             </td>
-                            <td>{{$SchoolBoardData->age}}</td>
                             <td>
                                 @if($SchoolBoardData->user_type)
                                     Teacher
@@ -63,12 +69,6 @@
                                     InActive
                                 @endif
                             </td>
-                            <td>{{$SchoolBoardData->email}}</td>
-                            <th>{{$SchoolBoardData->mobile}}</th>
-                            <th>{{$SchoolBoardData->district}}</th>
-                            <th>{{$SchoolBoardData->state}}</th>
-                            <th>{{$SchoolBoardData->school_name}}</th>
-                            <th>{{$SchoolBoardData->state_board}}</th>
                         </tr>
                         @endforeach
 
