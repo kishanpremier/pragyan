@@ -19,6 +19,17 @@
     <div class="box-body">
         <div class="table-responsive data-table-wrapper">
             <table id="example" class="display" style="width:100%">
+                  <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Subject Name</th>
+                            <th>Class Name</th>
+                            <th>Chapter Name</th>
+                            <th>Content Title</th>
+                            <th>Content Description</th>
+                            <th></th>
+                        </tr>
+                    </thead>
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -46,17 +57,7 @@
                     </tr>
                     @endforeach
                 </tbody>
-                <tfoot>
-                        <tr>
-                            <th>Id</th>
-                            <th>Subject Name</th>
-                            <th>Class Name</th>
-                            <th>Chapter Name</th>
-                            <th>Content Title</th>
-                            <th>Content Description</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
+              
             </table>
         </div>
     </div><!-- /.box-body -->
@@ -85,7 +86,7 @@ $(document).ready(function() {
             this.api().columns([0,1,2,3,4,5]).every( function () {
                 var column = this;
                 var select = $('<select><option value=""></option></select>')
-                    .appendTo( $(column.footer()).empty() )
+                    .appendTo( $(column.header()).empty() )
                     .on( 'change', function () {
                         var val = $.fn.dataTable.util.escapeRegex(
                             $(this).val()
