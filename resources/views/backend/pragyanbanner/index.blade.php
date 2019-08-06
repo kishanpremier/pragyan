@@ -27,9 +27,13 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php $i=0;?>
                     @foreach($bannerdata as $k=> $bannerdata1)
                     <tr>
-                        <td>{{$bannerdata1->id}}</td>
+                        <td>
+                            <?php $i++;?>
+                            {{$i}}
+                        </td>
                         <td>{{$bannerdata1->title}}</td>
                         <td>
                             <a href="{{route('admin.banner.edit',$bannerdata1->id)}}"><i class="fa fa-pencil schoolclass" aria-hidden="true"></i></a>

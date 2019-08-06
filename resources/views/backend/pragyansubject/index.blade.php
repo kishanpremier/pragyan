@@ -27,9 +27,13 @@
                     </tr>
                 </thead>
                 <tbody>
+                <?php $i=0;?>
                     @foreach($schoolsubject as $k=> $SchoolsubjectData)
                     <tr>
-                        <td>{{$SchoolsubjectData->id}}</td>
+                        <td>
+                            <?php $i++;?>
+                            {{$i}}
+                        </td>
                         <td>{{$SchoolsubjectData->subject_name}}</td>
                         <td>
                             <a href="{{route('admin.subjectschool.edit',$SchoolsubjectData->id)}}"><i class="fa fa-pencil schoolclass" aria-hidden="true"></i></a>

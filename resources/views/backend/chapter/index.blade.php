@@ -29,9 +29,13 @@
                     </tr>
                 </thead>
                 <tbody>
+                <?php $i=0;?>
                     @foreach($chapter as $k=> $chapter1)
                     <tr>
-                        <td>{{$chapter1->id}}</td>
+                        <td>
+                            <?php $i++;?>
+                            {{$i}}
+                        </td>
                         <td>{{$chapter1->subject_name}}</td>
                         <td>{{$chapter1->class_name}}</td>
                         <td>{{$chapter1->chapter_name}}</td>

@@ -37,9 +37,13 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $i=0;?>
                         @foreach($user as $k=> $SchoolBoardData)
                         <tr>
-                            <td>{{$SchoolBoardData->id}}</td>
+                            <td>
+                                <?php $i++;?>
+                                {{$i}}
+                            </td>
                             <td>{{$SchoolBoardData->first_name}} {{$SchoolBoardData->last_name}}</td>
                             <td>{{$SchoolBoardData->email}}</td>
                             <th>{{$SchoolBoardData->mobile}}</th>
