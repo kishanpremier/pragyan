@@ -25,7 +25,9 @@ class DashboardController extends Controller
         $getparentUserCount = User::where('users.user_type','=','0')
                 ->count();
         
-         $getvideocount = videocount::count();
+        $getvideocount1 = videocount::sum('count');
+        $getvideocount = (int)$getvideocount1;
+        
         $settingData = Setting::first();
         $google_analytics = $settingData->google_analytics;
 
