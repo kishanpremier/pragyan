@@ -30,13 +30,13 @@
                     <tbody>
                     <?php $i=0;?>
                     @forelse($videoCount as $k=> $val)
-                        <?php $i++;?>
                         @forelse($val as $l=> $val1)
                         <?php $dataCount = count($val1); ?>
                         @if($dataCount > 1)
                             @forelse($val1 as $j=> $val2)
                                 <tr>
                                     <td>
+                                        <?php $i++;?>
                                         {{$i}}
                                     </td>
                                     <td>
@@ -46,7 +46,6 @@
                                         {{$val2->content_link}}
                                     </td>
                                     <td>
-                                        
                                        <select>
                                             @foreach($val1 as $drop)
                                               @if(isset($drop->content_title))

@@ -16,7 +16,6 @@ class TeacherController extends Controller {
      */
     //
     public function index() {
-
         $videoCount = [];
 
         $teacherList = User::where('users.user_type', '=', 1)
@@ -37,7 +36,6 @@ class TeacherController extends Controller {
                     ->get();
             array_push($videoCount, [$data->id => $teacherListWithVideocount]);
         }
-        
         return view('backend.teacher.index')->with(compact('videoCount'));
     }
 

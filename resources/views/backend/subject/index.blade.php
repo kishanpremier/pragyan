@@ -29,9 +29,13 @@
                     </tr>
                 </thead>
                 <tbody>
+                <?php $i=0;?>
                     @foreach($users as $k=> $SchoolclassData)
                     <tr>
-                        <td>{{$SchoolclassData->id}}</td>
+                        <td>
+                            <?php $i++;?>
+                            {{$i}}
+                        </td>
                         <td>{{$SchoolclassData->subject_name}}</td>
                         <td>{{$SchoolclassData->class_name}}</td>
                         <td>
