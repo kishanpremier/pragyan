@@ -242,7 +242,7 @@ class RegisterController extends APIController {
                     'message' => 'Subject']);
     }
 
-    public function videoCount(Request $request) {
+  public function videoCount(Request $request) {
         try {
             $affectedRows = videocount::where('user_id', '=', $request['user_id'])
                 ->where('chapter_content_id','=',$request['content_id'])
@@ -277,7 +277,7 @@ class RegisterController extends APIController {
                     'status' => $countStatus,
                     'message' => 'video count']);
     }
-
+    
     public function getbanner() {
 
         $getBanner = Banner::get();
