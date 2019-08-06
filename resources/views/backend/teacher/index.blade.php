@@ -29,39 +29,26 @@
                     </thead>
                     <tbody>
                     <?php $i=0;?>
-                    @forelse($videoCount as $k=> $val)
-                        <?php $i++;?>
-                        @forelse($val as $l=> $val1)
-                        <?php $dataCount = count($val1); ?>
-                        @if($dataCount > 1)
-                            @forelse($val1 as $j=> $val2)
-                                <tr>
-                                    <td>
-                                        {{$i}}
-                                    </td>
-                                    <td>
-                                        {{$val2->first_name}} {{$val2->last_name}}
-                                    </td>
-                                    <td>
-                                        {{$val2->content_link}}
-                                    </td>
-                                    <td>
-                                        {{$val2->content_title}} ({{$dataCount}})
-                                        {{--<select>
-                                            @foreach($val1 as $drop)
-                                                <option>{{$drop->content_title}} ({{$dataCount}})</option>
-                                            @endforeach
-                                        </select>--}}
-                                    </td>
-                                </tr>
-                                @break
-                            @empty
-                            @endforelse
-                        @endif
-                        @empty
-                        @endforelse
-                    @empty
-                    @endforelse
+                    @foreach($teacherList as $k=> $val)
+                        <tr>
+                            <td>
+                                {{$val->id}}
+                            </td>
+                            <td>
+                                {{$val->first_name}} {{$val->last_name}}
+                            </td>
+                            <td>
+                                {{$val->content_link}}
+                            </td>
+                            <td>
+                                {{--<select>
+                                    @foreach($val1 as $drop)
+                                        <option>{{$drop->content_title}} ({{$dataCount}})</option>
+                                    @endforeach
+                                </select>--}}
+                            </td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
