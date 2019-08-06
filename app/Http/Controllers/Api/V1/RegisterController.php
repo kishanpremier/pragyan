@@ -18,6 +18,7 @@ use Auth;
 use App\Mail\SendOtp;
 use Illuminate\Http\Request;
 use Validator;
+use DB;
 
 class RegisterController extends APIController {
 
@@ -241,20 +242,31 @@ class RegisterController extends APIController {
                     'message' => 'Subject']);
     }
 
-    public function videoCount(Request $request) {
+  public function videoCount(Request $request) {
         try {
+            $affectedRows = videocount::where('user_id', '=', $request['user_id'])
+                ->where('chapter_content_id','=',$request['content_id'])
+                ->update([
+                    'count' => DB::raw('count + 1'),
+                ]);
+            if($affectedRows == 0){
+                $videocount = new videocount();
+                $videocount->user_id = $request['user_id'];
+                $videocount->chapter_content_id = $request['content_id'];
+                $videocount->count = 1;
 
-            $videocount = new videocount();
-            $videocount->user_id = $request['user_id'];
-            $videocount->chapter_content_id = $request['content_id'];
-            $videocount->count = 1;
-
-            $save = $videocount->save();
-
-            if ($save != '') {
+                $save = $videocount->save();
+                if ($save != '') {
+                    $countStatus = true;
+                } else {
+                    $countStatus = false;
+                }
+                return response()->json([
+                    'status' => $countStatus,
+                    'message' => 'video count']);
+            }
+            else{
                 $countStatus = true;
-            } else {
-                $countStatus = false;
             }
         } catch (Exception $e) {
 
@@ -265,7 +277,7 @@ class RegisterController extends APIController {
                     'status' => $countStatus,
                     'message' => 'video count']);
     }
-
+    
     public function getbanner() {
 
         $getBanner = Banner::get();
