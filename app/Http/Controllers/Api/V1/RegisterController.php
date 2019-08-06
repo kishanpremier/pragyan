@@ -15,7 +15,6 @@ use Config;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Auth;
-use Illuminate\Support\Facades\DB;
 use App\Mail\SendOtp;
 use Illuminate\Http\Request;
 use Validator;
