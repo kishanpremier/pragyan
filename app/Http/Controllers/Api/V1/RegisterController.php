@@ -329,13 +329,14 @@ class RegisterController extends APIController {
             curl_close($curl);
         }
         if ($err) {
-
+             $status = false;
             return response()->json([
-                        'status' => 'false',
+                        'status' => $status,
                         'data' => "cURL Error #:" . $err]);
         } else {
+            $status = true;
             return response()->json([
-                        'status' => 'true',
+                        'status' => $status,
                         'data' => $response]);
         }
     }
@@ -379,13 +380,14 @@ class RegisterController extends APIController {
             curl_close($curl);
 
             if ($err) {
-
+ $status = false;
                 return response()->json([
-                            'status' => 'false',
+                            'status' => $status,
                             'data' => "cURL Error #:" . $err]);
             } else {
+                 $status = true;
                 return response()->json([
-                            'status' => 'true',
+                            'status' => $status,
                             'data' => $response]);
             }
         }
