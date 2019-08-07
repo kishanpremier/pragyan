@@ -29,6 +29,7 @@
         "laravelcollective/html": "^5.4.0",
         "nesbot/carbon": "^2.21",
         "nette/di": "2.*",
+        "sendotp/sendotp": "^1.1",
         "spatie/laravel-cors": "^1.2",
         "tymon/jwt-auth": "dev-develop",
         "unisharp/laravel-filemanager": "~1.8",
