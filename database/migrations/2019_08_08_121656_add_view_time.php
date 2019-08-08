@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class RemoveSchoolIdFromSubject extends Migration
+class AddViewTime extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class RemoveSchoolIdFromSubject extends Migration
      */
     public function up()
     {
-        Schema::table('subject', function (Blueprint $table) {
-            $table->dropColumn('school_id');
+        Schema::table('video_count', function (Blueprint $table) {
+            $table->string('view_time')->default('null');
         });
     }
 
@@ -25,8 +25,8 @@ class RemoveSchoolIdFromSubject extends Migration
      */
     public function down()
     {
-        Schema::table('subject', function (Blueprint $table) {
-            $table->string('school_id');
+        Schema::table('video_count', function (Blueprint $table) {
+            $table->dropColumn('view_time');
         });
     }
 }
