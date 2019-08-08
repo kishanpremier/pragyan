@@ -98,5 +98,21 @@ class TeacherController extends Controller {
     public function destroy($id) {
         //
     }
+    public function history($id)
+    {
+        $obj = videocount::where('user_id',$id)
+            ->leftjoin('chapter_content','chapter_content.id','=','video_count.chapter_content_id')
+            ->leftjoin('users','users.id','=','video_count.user_id')
+            ->select([
+                'users.first_name',
+                'users.last_name',
+                'chapter_content.content_title',
+                'video_count.view_time',
+                'video_count.count',
+                'chapter_content.content_link'
+            ])
+            ->get();
+        return view('backend.teacher.history')->with(compact('obj'));
+    }
 
 }
