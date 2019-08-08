@@ -34,6 +34,7 @@
                             <th>Gender</th>
                             <th>User-Type</th>
                             <th>Status</th>
+                            <th>Last Login Time</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -72,6 +73,9 @@
                                 @else
                                     InActive
                                 @endif
+                            </td>
+                            <td>
+                                {{$SchoolBoardData->login_time}}
                             </td>
                         </tr>
                         @endforeach

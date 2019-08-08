@@ -30,17 +30,17 @@
                             <th></th>
                         </tr>
                     </thead>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Subject Name</th>
-                        <th>Class Name</th>
-                        <th>Chapter Name</th>
-                        <th>Content Title</th>
-                        <th>Content Description</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
+                  <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Subject Name</th>
+                            <th>Class Name</th>
+                            <th>Chapter Name</th>
+                            <th>Content Title</th>
+                            <th>Content Description</th>
+                            <th>Action</th>
+                        </tr>
+                  </thead>
                 <tbody>
                 <?php $i=0;?>
                     @foreach($chapter as $k=> $chapter1)
@@ -101,7 +101,11 @@ $(document).ready(function() {
                     } );
 
                 column.data().unique().sort().each( function ( d, j ) {
-                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                    if(column.search() === '^'+d+'$'){
+                        select.append( '<option value="'+d+'" selected="selected">'+d+'</option>' )
+                    } else {
+                        select.append( '<option value="'+d+'">'+d+'</option>' )
+                    }
                 } );
             } );
         },
