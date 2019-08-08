@@ -110,6 +110,7 @@ $(document).ready(function() {
             } );
         },
         dom: 'Bfrtip',
+       
         buttons: [
             {
                 extend: 'excelHtml5',

@@ -15,7 +15,6 @@ use Config;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Auth;
-use Illuminate\Support\Facades\DB;
 use App\Mail\SendOtp;
 use Illuminate\Http\Request;
 use Validator;
@@ -63,7 +62,7 @@ class RegisterController extends APIController {
         }
 
         $user = $this->repository->create($request->all());
-        
+
         if (!Config::get('api.register.release_token')) {
             return $this->respondCreated([
                         'message' => trans('api.messages.registeration.success'),
@@ -108,7 +107,6 @@ class RegisterController extends APIController {
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'email' => 'required|email|unique:users',
-                
             ]);
 
             $userUpdate = User::findOrFail($id);
@@ -243,14 +241,14 @@ class RegisterController extends APIController {
                     'message' => 'Subject']);
     }
 
-  public function videoCount(Request $request) {
+    public function videoCount(Request $request) {
         try {
             $affectedRows = videocount::where('user_id', '=', $request['user_id'])
-                ->where('chapter_content_id','=',$request['content_id'])
-                ->update([
-                    'count' => DB::raw('count + 1'),
-                ]);
-            if($affectedRows == 0){
+                    ->where('chapter_content_id', '=', $request['content_id'])
+                    ->update([
+                'count' => DB::raw('count + 1'),
+            ]);
+            if ($affectedRows == 0) {
                 $videocount = new videocount();
                 $videocount->user_id = $request['user_id'];
                 $videocount->chapter_content_id = $request['content_id'];
@@ -263,10 +261,9 @@ class RegisterController extends APIController {
                     $countStatus = false;
                 }
                 return response()->json([
-                    'status' => $countStatus,
-                    'message' => 'video count']);
-            }
-            else{
+                            'status' => $countStatus,
+                            'message' => 'video count']);
+            } else {
                 $countStatus = true;
             }
         } catch (Exception $e) {
@@ -278,7 +275,7 @@ class RegisterController extends APIController {
                     'status' => $countStatus,
                     'message' => 'video count']);
     }
-    
+
     public function getbanner() {
 
         $getBanner = Banner::get();
@@ -311,82 +308,89 @@ class RegisterController extends APIController {
 
             $otp = rand(100000, 999999);
 
-            $emailResponse = $this->sendSMS($otp, $userEmail);
+            $curl = curl_init();
 
-            if ($emailResponse['error']) {
-                $response['error'] = 1;
-                $response['message'] = $emailResponse['message'];
-                
-            } else {
-                
-               User::where('email', $userEmail)->update(['otp' => $otp]);
-              //  Session::put('OTP', $otp);
-               
-                $response['error'] = 0;
-                $response['message'] = 'Your OTP is created.';
-                $response['OTP'] = $otp;
-                
-            }
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://control.msg91.com/api/sendotp.php?otp=$otp&sender=OTPSMS&message=Your OTP is $otp&mobile=$users->mobile&authkey=288423Azld09katI5d492dee",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => "",
+                CURLOPT_SSL_VERIFYHOST => 0,
+                CURLOPT_SSL_VERIFYPEER => 0,
+            ));
+
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
         }
-        
-        if($response['error'] == 0) {
-            $responseStatus = true;
+        if ($err) {
+             $status = false;
+            return response()->json([
+                        'status' => $status,
+                        'data' => "cURL Error #:" . $err]);
         } else {
-            $responseStatus = false;
+            $status = true;
+            return response()->json([
+                        'status' => $status,
+                        'data' => $response]);
         }
-        
-          return response()->json([
-                    'status' => $responseStatus,
-                    'data' => $response,
-                    'message' => 'Your OTP is created']);
-        
     }
 
     public function verifyOtp(Request $request) {
-        
+
         $response = array();
 
         $enteredOtp = $request->input('otp');
-     
+
         $userEmail = $request->email;
         $usersEmailId = User::where('email', $userEmail)->first();
-         
+
         if ($userEmail == "" || $userEmail == null) {
             $response['error'] = 1;
             $response['message'] = 'You are logged out, Login again.';
             $response['loggedIn'] = 0;
         } else {
-            $OTP = $usersEmailId->otp;
-            
-            if ($OTP == $enteredOtp) {
-                     // Updating user's status "isVerified" as 1.
 
-                User::where('email', $userEmail)->update(['isVerified' => 1]);
+            $curl = curl_init();
 
-                //Removing Session variable
-             //   Session::forget('OTP');
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://control.msg91.com/api/verifyRequestOTP.php?authkey=288423Azld09katI5d492dee&mobile=$usersEmailId->mobile&otp=$enteredOtp",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => "",
+                CURLOPT_SSL_VERIFYHOST => 0,
+                CURLOPT_SSL_VERIFYPEER => 0,
+                CURLOPT_HTTPHEADER => array(
+                    "content-type: application/x-www-form-urlencoded"
+                ),
+            ));
 
-                $response['error'] = 0;
-                $response['isVerified'] = 1;
-                $response['loggedIn'] = 1;
-                $response['message'] = "Your email is Verified.";
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+            if ($err) {
+ $status = false;
+                return response()->json([
+                            'status' => $status,
+                            'data' => "cURL Error #:" . $err]);
             } else {
-                $response['error'] = 1;
-                $response['isVerified'] = 0;
-                $response['loggedIn'] = 1;
-                $response['message'] = "OTP does not match.";
+                 $status = true;
+                return response()->json([
+                            'status' => $status,
+                            'data' => $response]);
             }
         }
-          if($response['error'] == 0) {
-            $responseStatus = true;
-        } else {
-            $responseStatus = false;
-        }
-        
-          return response()->json([
-                    'status' => $responseStatus,
-                    'data' => $response,
-                    'message' => $response['message']]);
     }
 
     public function sendSMS($otp, $email) {
@@ -397,7 +401,6 @@ class RegisterController extends APIController {
         if ($otp != '') {
             Mail::to($email)->send(new SendOtp($otp));
             return array('error' => 0);
-            
         } else {
             
         }
