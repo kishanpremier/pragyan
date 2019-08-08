@@ -75,7 +75,11 @@
                                 @endif
                             </td>
                             <td>
-                                {{$SchoolBoardData->login_time}}
+                                @if($SchoolBoardData->login_time == "null")
+                                    <p></p>
+                                @else
+                                    {{$SchoolBoardData->login_time}}
+                                @endif
                             </td>
                         </tr>
                         @endforeach

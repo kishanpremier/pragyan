@@ -47,7 +47,13 @@
                             <td>{{$data->content_title}}</td>
                             <td>{{$data->content_link}}</td>
                             <td>{{$data->count}}</td>
-                            <td>{{$data->view_time}}</td>
+                            <td>
+                                @if($data->view_time == "null")
+                                    <p></p>
+                                @else
+                                    {{$data->view_time}}
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
