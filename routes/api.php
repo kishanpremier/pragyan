@@ -37,6 +37,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::post('rating', 'ChapterController@rating');
 
         Route::post('videoCount', 'RegisterController@videoCount');
+        Route::post('userlogin', 'RegisterController@userLogin');
 
 
         /* banner route */

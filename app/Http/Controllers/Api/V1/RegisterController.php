@@ -242,18 +242,21 @@ class RegisterController extends APIController {
     }
 
     public function videoCount(Request $request) {
+   
         try {
             $affectedRows = videocount::where('user_id', '=', $request['user_id'])
                     ->where('chapter_content_id', '=', $request['content_id'])
                     ->update([
                 'count' => DB::raw('count + 1'),
+                'view_time' => $request['time'],
             ]);
             if ($affectedRows == 0) {
                 $videocount = new videocount();
                 $videocount->user_id = $request['user_id'];
                 $videocount->chapter_content_id = $request['content_id'];
                 $videocount->count = 1;
-
+                $videocount->view_time = $request['time'];
+                
                 $save = $videocount->save();
                 if ($save != '') {
                     $countStatus = true;
@@ -404,6 +407,33 @@ class RegisterController extends APIController {
         } else {
             
         }
+    }
+    
+    public function userLogin(Request $request){
+        
+        try {
+            
+            $data = User::where('id', $request->user_id)->update(['login_time' => $request->login_time]);
+            
+            if($data == 1){
+                $status = true;
+                $message = 'successfully update time';
+            }else{
+                $status = false;
+                $message = 'something went wrong';
+            }
+            
+            
+        } catch (Exception $e) {
+
+            $message = $e;
+        }
+        
+         return response()->json([
+                            'status' => $status,
+                            'message' => $message]);
+        
+        
     }
 
 }

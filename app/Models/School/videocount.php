@@ -17,5 +17,5 @@ class videocount extends Model
      * @var array
      */
     protected $fillable = [
-        'chapter_content_id','user_id','count', 'created_at', 'updated_at'];
+        'chapter_content_id','user_id','count', 'created_at', 'updated_at','view_time'];
 }
