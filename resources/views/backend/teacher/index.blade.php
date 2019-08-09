@@ -5,72 +5,55 @@
 @extends('backend.layouts.app')
 
 @section('page-header')
-    <h1>
-        Video Count Listing
-        {{--<small>{{ trans('strings.backend.dashboard.classdashboard') }}</small>--}}
-    </h1>
+<h1>
+    Video Count Listing
+    {{--<small>{{ trans('strings.backend.dashboard.classdashboard') }}</small>--}}
+</h1>
 @endsection
 
 @section('content')
-    <div class="box box-info">
-        <div class="box-header with-border">
-            <h3 class="box-title">{{ trans('history.backend.videocount') }}</h3>
-        </div><!-- /.box-header -->
-        <div class="box-body">
-            <div class="table-responsive data-table-wrapper">
-                <table id="example" class="display" style="width:100%">
-                    <thead>
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">{{ trans('history.backend.videocount') }}</h3>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <div class="table-responsive data-table-wrapper">
+            <table id="example" class="display" style="width:100%">
+                <thead>
                     <tr>
                         <th>Id</th>
                         <th>Teacher Name</th>
                         <th>Content Link</th>
                         {{--<th>Content Count</th>--}}
                     </tr>
-                    </thead>
-                    <tbody>
-                    <?php $i=0;?>
-                    @forelse($videoCount as $k=> $val)
-                        @forelse($val as $l=> $val1)
-                        <?php $dataCount = count($val1); ?>
-                        @if($dataCount > 1)
-                            @forelse($val1 as $j=> $val2)
-                                <tr>
-                                    <td>
-                                        <?php $i++;?>
-                                        {{$i}}
-                                    </td>
-                                    <td>
-                                        <a href="{{route('admin.teacher.video_count',$val2->id)}}">{{$val2->first_name}} {{$val2->last_name}}</a>
-                                    </td>
-                                    <td>
-                                        {{$val2->content_link}}
-                                    </td>
-                                    {{--<td>
-                                       <select>
-                                            @foreach($val1 as $drop)
-                                              @if(isset($drop->content_title))
-                                                <option>{{$drop->content_title}} ({{$drop->count}})</option>
-                                              @endif  
-                                            @endforeach
-                                        </select>
-                                    </td>--}}
-                                </tr>
-                                @break
-                            @empty
-                            @endforelse
-                        @endif
-                        @empty
-                        @endforelse
-                    @empty
-                    @endforelse
-                    </tbody>
-                </table>
-            </div>
-        </div><!-- /.box-body -->
-        <div class="box-footer">
+                </thead>
+                <tbody>
+                    <?php $i = 0; ?>
 
+                    @foreach($videoCount as $val)
+                   <tr>
+                    <td>
+                        <?php $i++; ?>
+                        {{$i}}
+                    </td>
+                    <td>
+                        <a href="{{route('admin.teacher.video_count',$val->id)}}">{{$val->first_name}} {{$val->last_name}}</a>
+                    </td>
+                    <td>
+                        {{$val->content_link}}
+                    </td>
+
+                </tr>
+                @endforeach
+               
+                </tbody>
+            </table>
         </div>
-    </div><!--box box-info-->
+    </div><!-- /.box-body -->
+    <div class="box-footer">
+
+    </div>
+</div><!--box box-info-->
 @endsection
 @jquery
 @toastr_js
@@ -82,19 +65,19 @@
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 </html>
 @section('after-scripts')
-    {{-- For DataTables --}}
-    {{ Html::script('js/dataTable.js') }}
+{{-- For DataTables --}}
+{{ Html::script('js/dataTable.js') }}
 
-    <script>
+<script>
 
-        $(document).ready(function() {
-            $('#example').DataTable( {
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
-                ]
-            } );
-        } );
+$(document).ready(function () {
+    $('#example').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+});
 
-    </script>
+</script>
 @endsection
