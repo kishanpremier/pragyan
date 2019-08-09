@@ -44,7 +44,11 @@
                                         {{$val->content_link}}
                                     </td>
                                     <td>
-                                        {{$val->content_title}} ({{$val->count}})
+                                        
+                                        {{$val->content_title}} <?php if($val->count != ''){ ?>
+                                            ({{$val->count}})
+                                            
+                                            <?php }  ?>
                                     </td>
                                 </tr>
                                
