@@ -23,7 +23,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Teacher Name</th>
-                        <th>Content Link</th>
+                        {{--<th>Content Link</th>--}}
                         {{--<th>Content Count</th>--}}
                     </tr>
                     </thead>
@@ -42,9 +42,9 @@
                                     <td>
                                         <a href="{{route('admin.teacher.video_count',$val2->id)}}">{{$val2->first_name}} {{$val2->last_name}}</a>
                                     </td>
-                                    <td>
+                                    {{--<td>
                                         {{$val2->content_link}}
-                                    </td>
+                                    </td>--}}
                                     {{--<td>
                                        <select>
                                             @foreach($val1 as $drop)
