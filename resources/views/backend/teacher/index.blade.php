@@ -23,6 +23,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Teacher Name</th>
+                    <th>Last Login Time</th>
                     {{--<th>Content Link</th>--}}
                     {{--<th>Content Count</th>--}}
                 </tr>
@@ -37,6 +38,13 @@
                         </td>
                         <td>
                             <a href="{{route('admin.teacher.video_count',$val->id)}}">{{$val->first_name}} {{$val->last_name}}</a>
+                        </td>
+                        <td>
+                            @if($val->login_time == "null")
+                                <p></p>
+                            @else
+                                {{$val->login_time}}
+                            @endif
                         </td>
                         {{--<td>
                             {{$val->content_link}}

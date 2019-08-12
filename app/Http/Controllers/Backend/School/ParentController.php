@@ -23,6 +23,7 @@ class ParentController extends Controller
                         'users.id',
                         'users.first_name',
                         'users.last_name',
+                        'users.login_time',
                         'video_count.count',
                         'chapter_content.content_title',
                         'chapter_content.content_link'
