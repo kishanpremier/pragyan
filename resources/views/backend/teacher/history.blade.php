@@ -19,7 +19,7 @@
         <div class="box-header with-border">
             @foreach($obj as $username)
                 <h3 class="box-title">
-                    Teacher Name:- {{$username->first_name}} {{$username->last_name}}
+                    Teacher Name:- <span id="name">{{$username->first_name}} {{$username->last_name}}</span>
                 </h3>
                 @break
             @endforeach
@@ -89,9 +89,8 @@
                 buttons: [
                     {
                         extend: 'excelHtml5',
-                        title: 'Class'
+                        title: $('#name').text(),
                     }
-
                 ]
             } );
         } );
