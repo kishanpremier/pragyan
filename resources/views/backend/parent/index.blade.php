@@ -24,6 +24,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Parent Name</th>
+                        <th>Last Login Time</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -37,6 +38,13 @@
                                     </td>
                                     <td>
                                         <a href="{{route('admin.parent.history',$val->id)}}">{{$val->first_name}} {{$val->last_name}}</a>
+                                    </td>
+                                    <td>
+                                        @if($val->login_time == "null")
+                                            <p></p>
+                                        @else
+                                            {{$val->login_time}}
+                                        @endif
                                     </td>
                                 </tr>
                     @endforeach
