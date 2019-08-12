@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Models\School\Chaptercontent;
 use App\Models\School\ContentRating;
 use App\Models\School\Chapter;
+use App\Models\School\ContentCount;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -94,6 +95,32 @@ class ChapterController extends Controller {
         }
 
         return response()->json([
+                    'message' => $message]);
+    }
+
+    public function getcontentcount(Request $request) {
+        
+        try {
+            
+             $request->validate([
+                'content_id' => 'required',
+                'user_id' => 'required',
+                  'view_time' => 'required',
+            ]);
+          
+            $ContentCount = new ContentCount();
+            $ContentCount->content_id = $request['content_id'];
+            $ContentCount->user_id = $request['user_id'];
+            $ContentCount->view_time = $request['view_time'];
+            $ContentCount->save();
+            
+            $message = 'Content count has been created';
+            
+        } catch (Exception $e) {
+
+            $message = 'Something went wrong';
+        }
+          return response()->json([
                     'message' => $message]);
     }
 

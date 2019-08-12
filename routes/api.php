@@ -33,6 +33,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::get('getchapter/{id}', 'ChapterController@getchapter');
         Route::post('chaptercontent', 'ChapterController@chapterContent');
         Route::get('getchapterContent/{id}', 'ChapterController@getchapterContent');
+        Route::post('contentCount', 'ChapterController@getcontentcount');
         
         Route::post('rating', 'ChapterController@rating');
 
