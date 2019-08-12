@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\ChapterContent;
 
 use App\Models\School\Chapter;
 use App\Models\School\Chaptercontent;
+use App\Models\School\ContentCount;
 use App\Models\School\Schoolclass;
 use App\Models\School\Subject;
 use Illuminate\Http\Request;
@@ -286,5 +287,18 @@ class ChapterContentController extends Controller
             return response()->json($output);
         }
 
+    }
+    public function viewUsers($id){
+        $obj = ContentCount::query()->where('content_id',$id)
+            ->leftjoin('users', 'users.id', '=', 'content_count.user_id')
+            ->leftJoin('chapter_content','chapter_content.id','=','content_count.content_id')
+            ->select([
+                'users.first_name',
+                'users.last_name',
+                'chapter_content.content_title',
+                'content_count.view_time'
+            ])
+            ->get();
+        return view('backend.teacher.content_count')->with(compact('obj'));
     }
 }

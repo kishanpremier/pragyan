@@ -73,6 +73,8 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
     Route::get('schoolchaptercontentdelete/{id}', 'ChapterContent\ChapterContentController@delete')->name('schoolchaptercontent.delete');
     Route::post('dynamicclass_dependent/fetch', 'ChapterContent\ChapterContentController@fetchclass')->name('dynamicclass.fetch');
     Route::post('dynamicchapter_dependent/fetch', 'ChapterContent\ChapterContentController@fetchchapter')->name('dynamicchapter.fetch');
+    Route::get('View/User/{id}', 'ChapterContent\ChapterContentController@viewUsers')->name('ViewUser.data');
+
 
     /* Teacher Route */
     

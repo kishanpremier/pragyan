@@ -105,17 +105,27 @@ class ChapterController extends Controller {
              $request->validate([
                 'content_id' => 'required',
                 'user_id' => 'required',
-                  'view_time' => 'required',
+                'view_time'=>'required'
             ]);
-          
-            $ContentCount = new ContentCount();
-            $ContentCount->content_id = $request['content_id'];
-            $ContentCount->user_id = $request['user_id'];
-            $ContentCount->view_time = $request['view_time'];
-            $ContentCount->save();
-            
-            $message = 'Content count has been created';
-            
+
+            $affectedRows = ContentCount::where('content_id', '=', $request['content_id'])
+                ->where('user_id', '=', $request['user_id'])
+                ->update([
+                    'view_time' => $request['view_time'],
+                ]);
+
+            if($affectedRows == 0)
+            {
+                $ContentCount = new ContentCount();
+                $ContentCount->content_id = $request['content_id'];
+                $ContentCount->user_id = $request['user_id'];
+                $ContentCount->view_time = $request['view_time'];
+                $ContentCount->save();
+                $message = 'Content count has been created';
+            }
+            else
+                $message = 'Content count has been Updated';
+
         } catch (Exception $e) {
 
             $message = 'Something went wrong';
