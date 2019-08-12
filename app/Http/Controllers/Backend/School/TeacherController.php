@@ -97,10 +97,14 @@ class TeacherController extends Controller {
     {
         $obj = videocount::where('user_id',$id)
             ->leftjoin('chapter_content','chapter_content.id','=','video_count.chapter_content_id')
+            ->leftjoin('class','class.id','=','chapter_content.class_id')
+            ->leftjoin('subject','subject.id','=','chapter_content.subject_id')
             ->leftjoin('users','users.id','=','video_count.user_id')
             ->select([
                 'users.first_name',
                 'users.last_name',
+                'class.class_name',
+                'subject.subject_name',
                 'chapter_content.content_title',
                 'video_count.view_time',
                 'video_count.count',

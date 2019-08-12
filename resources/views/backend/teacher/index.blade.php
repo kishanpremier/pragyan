@@ -20,32 +20,29 @@
         <div class="table-responsive data-table-wrapper">
             <table id="example" class="display" style="width:100%">
                 <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Teacher Name</th>
-                        <th>Content Link</th>
-                        {{--<th>Content Count</th>--}}
-                    </tr>
+                <tr>
+                    <th>Id</th>
+                    <th>Teacher Name</th>
+                    {{--<th>Content Link</th>--}}
+                    {{--<th>Content Count</th>--}}
+                </tr>
                 </thead>
                 <tbody>
-                    <?php $i = 0; ?>
-
-                    @foreach($videoCount as $val)
-                   <tr>
-                    <td>
-                        <?php $i++; ?>
-                        {{$i}}
-                    </td>
-                    <td>
-                        <a href="{{route('admin.teacher.video_count',$val->id)}}">{{$val->first_name}} {{$val->last_name}}</a>
-                    </td>
-                    <td>
-                        {{$val->content_link}}
-                    </td>
-
-                </tr>
+                <?php $i = 0; ?>
+                @foreach($videoCount as $val)
+                    <tr>
+                        <td>
+                            <?php $i++; ?>
+                            {{$i}}
+                        </td>
+                        <td>
+                            <a href="{{route('admin.teacher.video_count',$val->id)}}">{{$val->first_name}} {{$val->last_name}}</a>
+                        </td>
+                        {{--<td>
+                            {{$val->content_link}}
+                        </td>--}}
+                    </tr>
                 @endforeach
-               
                 </tbody>
             </table>
         </div>

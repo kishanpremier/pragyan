@@ -31,7 +31,9 @@
                     <tr>
                         <th>Id</th>
                         <th>Content Title</th>
-                        <th>Content Link</th>
+                        <th>Class Name</th>
+                        <th>Subject Name</th>
+                        {{--<th>Content Link</th>--}}
                         <th>Count</th>
                         <th>View Time</th>
                     </tr>
@@ -45,7 +47,9 @@
                                 {{$i}}
                             </td>
                             <td>{{$data->content_title}}</td>
-                            <td>{{$data->content_link}}</td>
+                            <td>{{$data->class_name}}</td>
+                            <td>{{$data->subject_name}}</td>
+                            {{--<td>{{$data->content_link}}</td>--}}
                             <td>{{$data->count}}</td>
                             <td>
                                 @if($data->view_time == "null")
@@ -61,7 +65,6 @@
             </div>
         </div><!-- /.box-body -->
         <div class="box-footer">
-
         </div>
     </div><!--box box-info-->
 @endsection
