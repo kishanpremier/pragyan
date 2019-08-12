@@ -30,34 +30,29 @@
                     </thead>
                     <tbody>
                     <?php $i=0;?>
-                    @forelse($videoCount as $k=> $val)
+                  @foreach($videoCount as $val)
                         <?php $i++;?>
-                        @forelse($val as $l=> $val1)
-                        <?php $dataCount = count($val1); ?>
-                        @if($dataCount > 1)
-                            @forelse($val1 as $j=> $val2)
+                      
                                 <tr>
                                     <td>
                                         {{$i}}
                                     </td>
                                     <td>
-                                        {{$val2->first_name}} {{$val2->last_name}}
+                                        {{$val->first_name}} {{$val->last_name}}
                                     </td>
                                     <td>
-                                        {{$val2->content_link}}
+                                        {{$val->content_link}}
                                     </td>
                                     <td>
-                                        {{$val2->content_title}} ({{$dataCount}})
+                                        
+                                        {{$val->content_title}} <?php if($val->count != ''){ ?>
+                                            ({{$val->count}})
+                                            
+                                            <?php }  ?>
                                     </td>
                                 </tr>
-                                @break
-                            @empty
-                            @endforelse
-                        @endif
-                        @empty
-                        @endforelse
-                    @empty
-                    @endforelse
+                               
+                    @endforeach
                     </tbody>
                 </table>
             </div>
