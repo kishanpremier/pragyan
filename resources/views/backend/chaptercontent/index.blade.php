@@ -52,7 +52,7 @@
                         <td>{{$chapter1->subject_name}}</td>
                         <td>{{$chapter1->class_name}}</td>
                         <td>{{$chapter1->chapter_name}}</td>
-                        <td>{{$chapter1->content_title}}</td>
+                        <td><a href="{{route('admin.ViewUser.data',$chapter1->id)}}">{{$chapter1->content_title}}</a></td>
                         <td>{{$chapter1->content_short_desc}}</td>
                         <td>
                             <a href="{{route('admin.schoolchaptercontent.edit',$chapter1->id)}}"><i class="fa fa-pencil schoolclass" aria-hidden="true"></i></a>

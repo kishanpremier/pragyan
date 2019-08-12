@@ -16,22 +16,7 @@ class TeacherController extends Controller {
      */
     //
     public function index() {
-      //  $videoCount = [];
-
-//        $videoCount = videocount::leftJoin('chapter_content', 'chapter_content.id', '=', 'video_count.chapter_content_id')
-//                 ->leftJoin('users', 'users.id', '=', 'video_count.user_id')
-//                ->where('users.user_type', '=', 1)
-//                ->select([
-//                        'users.id',
-//                        'users.first_name',
-//                        'users.last_name',
-//                        'video_count.count',
-//                        'chapter_content.content_title',
-//                        'chapter_content.content_link'
-//                    ])
-//                ->groupBy('users.id')
-//                ->get();
-        
+      
         $videoCount = User::leftJoin('video_count', 'video_count.user_id', '=', 'users.id')
                 ->leftJoin('chapter_content', 'chapter_content.id', '=', 'video_count.chapter_content_id')
                 ->where('users.user_type', '=', 1)
@@ -46,22 +31,6 @@ class TeacherController extends Controller {
                 ->groupBy('users.id')
                 ->get();
         
-//        foreach ($teacherList as $data) {
-//            $teacherListWithVideocount = videocount::where('video_count.user_id', '=', $data->id)
-//                    ->leftJoin('chapter_content', 'chapter_content.id', '=', 'video_count.chapter_content_id')
-//                    ->leftJoin('users', 'users.id', '=', 'video_count.user_id')
-//                    ->select([
-//                        'users.id',
-//                        'users.first_name',
-//                        'users.last_name',
-//                        'video_count.count',
-//                        'chapter_content.content_title',
-//                        'chapter_content.content_link'
-//                    ])
-//                    ->get();
-//            array_push($videoCount, [$data->id => $teacherListWithVideocount]);
-//        }
-           // dd($videoCount); exit;
         return view('backend.teacher.index')->with(compact('videoCount'));
     }
 
@@ -128,10 +97,14 @@ class TeacherController extends Controller {
     {
         $obj = videocount::where('user_id',$id)
             ->leftjoin('chapter_content','chapter_content.id','=','video_count.chapter_content_id')
+            ->leftjoin('class','class.id','=','chapter_content.class_id')
+            ->leftjoin('subject','subject.id','=','chapter_content.subject_id')
             ->leftjoin('users','users.id','=','video_count.user_id')
             ->select([
                 'users.first_name',
                 'users.last_name',
+                'class.class_name',
+                'subject.subject_name',
                 'chapter_content.content_title',
                 'video_count.view_time',
                 'video_count.count',

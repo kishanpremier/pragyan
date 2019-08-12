@@ -2,7 +2,7 @@
 
 </html>
 @foreach($obj as $username)
-    <title>{{$username->first_name}} {{$username->last_name}} - History</title>
+    <title>{{$username->content_title}} - History</title>
     @break
 @endforeach
 
@@ -19,7 +19,7 @@
         <div class="box-header with-border">
             @foreach($obj as $username)
                 <h3 class="box-title">
-                    Teacher Name:- {{$username->first_name}} {{$username->last_name}}
+                    Content Name:- {{$username->content_title}}
                 </h3>
                 @break
             @endforeach
@@ -30,11 +30,7 @@
                     <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Content Title</th>
-                        <th>Class Name</th>
-                        <th>Subject Name</th>
-                        {{--<th>Content Link</th>--}}
-                        <th>Count</th>
+                        <th>UserName</th>
                         <th>View Time</th>
                     </tr>
                     </thead>
@@ -46,11 +42,7 @@
                                 <?php $i++;?>
                                 {{$i}}
                             </td>
-                            <td>{{$data->content_title}}</td>
-                            <td>{{$data->class_name}}</td>
-                            <td>{{$data->subject_name}}</td>
-                            {{--<td>{{$data->content_link}}</td>--}}
-                            <td>{{$data->count}}</td>
+                            <td>{{$data->first_name}} {{$data->last_name}}</td>
                             <td>
                                 @if($data->view_time == "null")
                                     <p></p>
