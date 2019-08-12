@@ -2,7 +2,7 @@
 
 </html>
 @foreach($obj as $username)
-    <title>{{$username->content_title}} - History</title>
+    <title>{{$username->first_name}} {{$username->last_name}} - History</title>
     @break
 @endforeach
 
@@ -19,7 +19,7 @@
         <div class="box-header with-border">
             @foreach($obj as $username)
                 <h3 class="box-title">
-                    Content Name:- <span id="title">{{$username->content_title}}</span>
+                    Parent Name:- <span id="name">{{$username->first_name}} {{$username->last_name}}</span>
                 </h3>
                 @break
             @endforeach
@@ -30,7 +30,11 @@
                     <thead>
                     <tr>
                         <th>Id</th>
-                        <th>UserName</th>
+                        <th>Content Title</th>
+                        <th>Class Name</th>
+                        <th>Subject Name</th>
+                        {{--<th>Content Link</th>--}}
+                        <th>Count</th>
                         <th>View Time</th>
                     </tr>
                     </thead>
@@ -42,7 +46,11 @@
                                 <?php $i++;?>
                                 {{$i}}
                             </td>
-                            <td>{{$data->first_name}} {{$data->last_name}}</td>
+                            <td>{{$data->content_title}}</td>
+                            <td>{{$data->class_name}}</td>
+                            <td>{{$data->subject_name}}</td>
+                            {{--<td>{{$data->content_link}}</td>--}}
+                            <td>{{$data->count}}</td>
                             <td>
                                 @if($data->view_time == "null")
                                     <p></p>
@@ -81,7 +89,7 @@
                 buttons: [
                     {
                         extend: 'excelHtml5',
-                        title: $('#title').text(),
+                        title: $('#name').text(),
                     }
                 ]
             } );

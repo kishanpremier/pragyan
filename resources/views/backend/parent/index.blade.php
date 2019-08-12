@@ -24,8 +24,6 @@
                     <tr>
                         <th>Id</th>
                         <th>Parent Name</th>
-                        <th>Content Link</th>
-                        <th>Content Count</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -38,20 +36,9 @@
                                         {{$i}}
                                     </td>
                                     <td>
-                                        {{$val->first_name}} {{$val->last_name}}
-                                    </td>
-                                    <td>
-                                        {{$val->content_link}}
-                                    </td>
-                                    <td>
-                                        
-                                        {{$val->content_title}} <?php if($val->count != ''){ ?>
-                                            ({{$val->count}})
-                                            
-                                            <?php }  ?>
+                                        <a href="{{route('admin.parent.history',$val->id)}}">{{$val->first_name}} {{$val->last_name}}</a>
                                     </td>
                                 </tr>
-                               
                     @endforeach
                     </tbody>
                 </table>

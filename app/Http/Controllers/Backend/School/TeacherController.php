@@ -111,7 +111,7 @@ class TeacherController extends Controller {
                 'chapter_content.content_link'
             ])
             ->get();
-        return view('backend.teacher.history')->with(compact('obj'));
+        return view('backend.parent.history')->with(compact('obj'));
     }
 
 }

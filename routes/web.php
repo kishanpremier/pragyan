@@ -81,6 +81,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
     Route::get('teacher', 'School\TeacherController@index')->name('teacher.list');
     Route::get('Teacher/Video/History/{id}', 'School\TeacherController@history')->name('teacher.video_count');
     Route::get('parent', 'School\ParentController@index')->name('parent.list');
+    Route::get('Parent/History/{id}', 'School\ParentController@getData')->name('parent.history');
     
     Route::get('bannerList','PragyanBanner\PragyanBannerController@index')->name('banner.list');
     Route::get('bannercreate','PragyanBanner\PragyanBannerController@create')->name('banner.create');
