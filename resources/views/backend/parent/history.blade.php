@@ -33,6 +33,7 @@
                         <th>Content Title</th>
                         <th>Class Name</th>
                         <th>Subject Name</th>
+                        <th>Chapter Name</th>
                         {{--<th>Content Link</th>--}}
                         <th>Count</th>
                         <th>View Time</th>
@@ -49,6 +50,7 @@
                             <td>{{$data->content_title}}</td>
                             <td>{{$data->class_name}}</td>
                             <td>{{$data->subject_name}}</td>
+                            <td>{{$data->chapter_name}}</td>
                             {{--<td>{{$data->content_link}}</td>--}}
                             <td>{{$data->count}}</td>
                             <td>
