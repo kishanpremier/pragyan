@@ -106,6 +106,7 @@ class ParentController extends Controller
             ->leftjoin('class', 'class.id', '=', 'chapter_content.class_id')
             ->leftjoin('subject', 'subject.id', '=', 'chapter_content.subject_id')
             ->leftjoin('users', 'users.id', '=', 'video_count.user_id')
+            ->leftjoin('chapter','chapter.id','=','chapter_content.chapter_id')
             ->select([
                 'users.first_name',
                 'users.last_name',
@@ -114,7 +115,8 @@ class ParentController extends Controller
                 'chapter_content.content_title',
                 'video_count.view_time',
                 'video_count.count',
-                'chapter_content.content_link'
+                'chapter_content.content_link',
+                'chapter.chapter_name'
             ])
             ->get();
         return view('backend.parent.history')->with(compact('obj'));

@@ -51,7 +51,7 @@ class RegisterController extends APIController {
                     'district' => 'required',
                     'first_name' => 'required',
                     'last_name' => 'required',
-                    'email' => 'required|email|unique:users',
+                    'email' => 'required|string|email|max:255|unique:users,email,'.$request->id.',id',
                     'password' => 'required|min:4',
                     'password_confirmation' => 'required|same:password',
                     'is_term_accept' => 'required',
@@ -106,7 +106,8 @@ class RegisterController extends APIController {
                 'district' => 'required',
                 'first_name' => 'required',
                 'last_name' => 'required',
-                'email' => 'required|email|unique:users',
+                'email' => 'required|string|email|max:255|unique:users,email,'.$request->id.',id',
+                //'email' => 'required|email|unique:users',
             ]);
 
             $userUpdate = User::findOrFail($id);
