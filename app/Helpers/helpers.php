@@ -3,7 +3,7 @@
 use App\Helpers\uuid;
 use App\Models\Notification\Notification;
 use App\Models\Settings\Setting;
-use App\Models\School\ContentCount;
+use App\Models\School\videocount;
 use Carbon\Carbon as Carbon;
 
 /**
@@ -19,8 +19,8 @@ function generateUuid()
 
 function getCount($id){
     
-    $data = ContentCount::where('content_count.content_id','=',$id)
-                         ->groupBy('content_count.content_id')
+    $data = videocount::where('video_count.chapter_content_id','=',$id)
+                        // ->groupBy('video_count.chapter_content_id')
                          ->count();
     
     return $data;
