@@ -73,21 +73,6 @@ class ChapterContentController extends Controller {
                 ]);
             }
 
-            /* $validate = preg_match('/^(https|http):\/\/(?:www\.)?youtube.com\/embed\/[A-z0-9]+$/',$request->video_link);
-              dd($validate);
-              if(!$validate)
-              {
-              $invalid_url = "This Link Is Invalid";
-              if ($request->id == '') {
-              $subject = Subject::get();
-              return view('backend.chaptercontent.addform')->with(compact('invalid_url','subject'));
-              }
-              else{
-              $subject = Subject::get();
-              return view('backend.chaptercontent.editform')->with(compact('invalid_url','subject'));
-              }
-              } */
-
             if ($request->file('content_type') != null) {
                 $ext = $request->file('content_type')->getClientOriginalExtension();
                 $size = $request->file('content_type')->getSize();
@@ -122,7 +107,7 @@ class ChapterContentController extends Controller {
 
             if ($request->file('content_type') != null) {
 
-                $push = new PushNotification;
+              //  $push = new PushNotification;
                 if ($request->id != '') {
                     $path_to_delete = public_path('chaptercontent//' . $request->image_name_to_delete);
                     if (file_exists($path_to_delete)) {
@@ -144,18 +129,19 @@ class ChapterContentController extends Controller {
                 $chaptercontentdata->content_short_desc = $request['content_description'];
                 $chaptercontentdata->save();
 
-                $push->setMessage([
-                            'notification' => [
-                                'title' => $request['content_title'],
-                                'body' => $request['content_description'],
-                                //'image' => 'notify/' . $image,
-                                'sound' => 'default'
-                            ]
-                        ])
-                        ->setApiKey('AIzaSyAKj0dRf11kbgU7McEEUdEHRAPN5Eixbpk')
-                        ->setDevicesToken('fmndYPphoyk:APA91bFJ9NiQQmIDPLFxm_iMnHB2AbXf0B2jYO2cut1Xht7m7ffN6RO8H_HLdX4bH5C2V1rgBGYMDg2w4jcID5mF7M2m_KHK6J8_vnN4KGRI10L0AnlFoqFndyp83k2lUuyqiuj9QJ_N')
-                        ->send()
-                        ->getFeedback();
+//                $push->setMessage([
+//                'notification' => [
+//                'title' => $request['content_title'],
+//                'body' => $request['content_description'],
+//                'image' => $pathfile,
+//                'sound' => 'default'
+//                ]
+//                
+//                ])
+//                ->setApiKey('AIzaSyAKj0dRf11kbgU7McEEUdEHRAPN5Eixbpk')
+//                        ->setDevicesToken('fmndYPphoyk:APA91bFJ9NiQQmIDPLFxm_iMnHB2AbXf0B2jYO2cut1Xht7m7ffN6RO8H_HLdX4bH5C2V1rgBGYMDg2w4jcID5mF7M2m_KHK6J8_vnN4KGRI10L0AnlFoqFndyp83k2lUuyqiuj9QJ_N')
+//                        ->send()
+//                        ->getFeedback();
             } else {
 
                 $chaptercontentdata->subject_id = $request['subject_name'];
