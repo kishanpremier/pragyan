@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\ChapterContent;
 
 use App\Models\School\Chapter;
+use App\Models\Access\User\User;
 use App\Models\School\Chaptercontent;
 use App\Models\School\ContentCount;
 use App\Models\School\Schoolclass;

@@ -21,8 +21,9 @@ function getCount($id){
     
     $data = videocount::where('video_count.chapter_content_id','=',$id)
                         // ->groupBy('video_count.chapter_content_id')
-                         ->count();
+                         ->sum('count');
     
+     //$getvideocount1 = videocount::sum('count');
     return $data;
 }
 
