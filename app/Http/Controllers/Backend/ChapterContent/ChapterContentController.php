@@ -9,7 +9,6 @@ use App\Models\School\Schoolclass;
 use App\Models\School\Subject;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\School\ContentCount;
 use Edujugon\PushNotification\PushNotification;
 
 class ChapterContentController extends Controller {
@@ -20,12 +19,13 @@ class ChapterContentController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
+        $chapterCountArr = [];
         $chapter = Chaptercontent::query()
                 ->leftjoin('subject', 'subject.id', '=', 'chapter_content.subject_id')
                 ->leftJoin('class', 'class.id', '=', 'chapter_content.class_id')
                 ->leftJoin('chapter', 'chapter.id', '=', 'chapter_content.chapter_id')
                 ->leftJoin('content_count', 'content_count.content_id', '=', 'chapter_content.id')
-                
+                ->groupBy('chapter_content.id')
                 ->select([
                     'subject.subject_name',
                     'chapter.chapter_name',
@@ -38,11 +38,13 @@ class ChapterContentController extends Controller {
                 ])
                 
                 ->get();
-                foreach ($chapter as $d){
-                 $chapterCount = Chaptercontent::get($d->id);
-                 print_r($chapterCount);
-                }
-                exit;
+//                foreach ($chapter as $d){
+//                 $chapterCount = ContentCount::where('content_count.content_id','=',$d->id)
+//                         ->groupBy('content_count.content_id')
+//                         ->count();
+//                 
+//                }
+                
         return view('backend.chaptercontent.index', compact('chapter'));
     }
 

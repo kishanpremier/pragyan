@@ -3,6 +3,7 @@
 use App\Helpers\uuid;
 use App\Models\Notification\Notification;
 use App\Models\Settings\Setting;
+use App\Models\School\ContentCount;
 use Carbon\Carbon as Carbon;
 
 /**
@@ -13,6 +14,16 @@ use Carbon\Carbon as Carbon;
 function generateUuid()
 {
     return uuid::uuid4();
+}
+
+
+function getCount($id){
+    
+    $data = ContentCount::where('content_count.content_id','=',$id)
+                         ->groupBy('content_count.content_id')
+                         ->count();
+    
+    return $data;
 }
 
 if (!function_exists('homeRoute')) {
@@ -291,3 +302,4 @@ if (!function_exists('checkDatabaseConnection')) {
         }
     }
 }
+
