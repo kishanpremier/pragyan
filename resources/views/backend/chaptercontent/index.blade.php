@@ -56,7 +56,7 @@
                         <td>{{$chapter1->class_name}}</td>
                         <td>{{$chapter1->chapter_name}}</td>
                         <td><a href="{{route('admin.ViewUser.data',$chapter1->id)}}">{{$chapter1->content_title}}</a></td>
-                        <td>{!! getCount($chapter1->id); !!}</td>
+                        <td style="text-align:center;">{!! getCount($chapter1->id); !!}</td>
                         <td>{{$chapter1->content_short_desc}}</td>
                         <td>
                             <a href="{{route('admin.schoolchaptercontent.edit',$chapter1->id)}}"><i class="fa fa-pencil schoolclass" aria-hidden="true"></i></a>
