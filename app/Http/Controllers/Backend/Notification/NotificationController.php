@@ -38,7 +38,7 @@ class NotificationController extends Controller {
      */
       public function store(Request $request) {
 
-        $push = new PushNotification;
+          $push = new PushNotification('fcm');
         if ($request->file('notify_image') != null) {
             $size = $request->file('notify_image')->getSize();
             if ($size > 2000000) {
@@ -69,12 +69,11 @@ class NotificationController extends Controller {
         ])
 
          ->setApiKey('AIzaSyAKj0dRf11kbgU7McEEUdEHRAPN5Eixbpk')
-                ->setDevicesToken('cQG9O7PptoU:APA91bETNC5qRJ3AbXuDn6BrdWU-5lcryfdpxEbYggcxe34v239VuUeA5tLW_51NtWZ74RMFOvAQO8rhsF17W1NDvZmyd047JLiT2y_ea3913BwZ-9esviPe9wanBVIa89daC4PJ8VW4')
+                ->setDevicesToken('fmndYPphoyk:APA91bFJ9NiQQmIDPLFxm_iMnHB2AbXf0B2jYO2cut1Xht7m7ffN6RO8H_HLdX4bH5C2V1rgBGYMDg2w4jcID5mF7M2m_KHK6J8_vnN4KGRI10L0AnlFoqFndyp83k2lUuyqiuj9QJ_N')
                 ->send()
                 ->getFeedback();
 
-
-//        dd($push->getFeedback());
+        dd($push->send()); exit;
 
         toastr()->success('', 'Notification has been created', ['timeOut' => 5000]);
         return redirect('admin/dashboard');
