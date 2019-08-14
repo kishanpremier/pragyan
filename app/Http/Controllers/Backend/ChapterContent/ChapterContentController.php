@@ -34,17 +34,11 @@ class ChapterContentController extends Controller {
                     'chapter_content.content_title',
                     'chapter_content.content_short_desc',
                     'content_count.user_id'
-                    //'content_count, sum(content_id) AS sums'
+
                 ])
                 
                 ->get();
-//                foreach ($chapter as $d){
-//                 $chapterCount = ContentCount::where('content_count.content_id','=',$d->id)
-//                         ->groupBy('content_count.content_id')
-//                         ->count();
-//                 
-//                }
-                
+
         return view('backend.chaptercontent.index', compact('chapter'));
     }
 
@@ -119,7 +113,7 @@ class ChapterContentController extends Controller {
 
 
             if ($request->file('content_type') != null) {
-
+ $userToken = User::pluck('device_token')->toArray();
                 $push = new PushNotification('fcm');
                 if ($request->id != '') {
                     $path_to_delete = public_path('chaptercontent//' . $request->image_name_to_delete);
@@ -152,7 +146,7 @@ class ChapterContentController extends Controller {
 
                 ])
                     ->setApiKey('AIzaSyAKj0dRf11kbgU7McEEUdEHRAPN5Eixbpk')
-                    ->setDevicesToken('f6TswImpdjs:APA91bFEJUiNKIcXb6Em9qhQb1DwefgbBmq4SJouxwakVjM_7oKj4SIPwFwQ-rLpMYPVvkMNkaCZxntMuYtG5DX2iFRsopFK-oD8IFc1w5eJGI0zYguktGy53S4UdT6shhe8z2HqJAPg')
+                    ->setDevicesToken($userToken)
                     ->send()
                     ->getFeedback();
 
