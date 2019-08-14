@@ -73,7 +73,7 @@ class NotificationController extends Controller {
                 ->send()
                 ->getFeedback();
 
-        dd($push->send()); exit;
+        //dd($push->send()); exit;
 
         toastr()->success('', 'Notification has been created', ['timeOut' => 5000]);
         return redirect('admin/dashboard');
