@@ -118,7 +118,7 @@ class ChapterContentController extends Controller {
 
             if ($request->file('content_type') != null) {
 
-              //  $push = new PushNotification;
+                $push = new PushNotification('fcm');
                 if ($request->id != '') {
                     $path_to_delete = public_path('chaptercontent//' . $request->image_name_to_delete);
                     if (file_exists($path_to_delete)) {
@@ -140,19 +140,21 @@ class ChapterContentController extends Controller {
                 $chaptercontentdata->content_short_desc = $request['content_description'];
                 $chaptercontentdata->save();
 
-//                $push->setMessage([
-//                'notification' => [
-//                'title' => $request['content_title'],
-//                'body' => $request['content_description'],
-//                'image' => $pathfile,
-//                'sound' => 'default'
-//                ]
-//                
-//                ])
-//                ->setApiKey('AIzaSyAKj0dRf11kbgU7McEEUdEHRAPN5Eixbpk')
-//                        ->setDevicesToken('fmndYPphoyk:APA91bFJ9NiQQmIDPLFxm_iMnHB2AbXf0B2jYO2cut1Xht7m7ffN6RO8H_HLdX4bH5C2V1rgBGYMDg2w4jcID5mF7M2m_KHK6J8_vnN4KGRI10L0AnlFoqFndyp83k2lUuyqiuj9QJ_N')
-//                        ->send()
-//                        ->getFeedback();
+                $push->setMessage([
+                    'notification' => [
+                        'title' => $request['content_title'],
+                        'body' => $request['content_description'],
+                        'image' => $pathfile,
+                        'sound' => 'default'
+                    ]
+
+                ])
+                    ->setApiKey('AIzaSyAKj0dRf11kbgU7McEEUdEHRAPN5Eixbpk')
+                    ->setDevicesToken('f6TswImpdjs:APA91bFEJUiNKIcXb6Em9qhQb1DwefgbBmq4SJouxwakVjM_7oKj4SIPwFwQ-rLpMYPVvkMNkaCZxntMuYtG5DX2iFRsopFK-oD8IFc1w5eJGI0zYguktGy53S4UdT6shhe8z2HqJAPg')
+                    ->send()
+                    ->getFeedback();
+
+
             } else {
 
                 $chaptercontentdata->subject_id = $request['subject_name'];
