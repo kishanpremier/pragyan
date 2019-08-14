@@ -19,19 +19,32 @@ class ChapterContentController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
+        $chapterCountArr = [];
         $chapter = Chaptercontent::query()
                 ->leftjoin('subject', 'subject.id', '=', 'chapter_content.subject_id')
                 ->leftJoin('class', 'class.id', '=', 'chapter_content.class_id')
                 ->leftJoin('chapter', 'chapter.id', '=', 'chapter_content.chapter_id')
+                ->leftJoin('content_count', 'content_count.content_id', '=', 'chapter_content.id')
+                ->groupBy('chapter_content.id')
                 ->select([
                     'subject.subject_name',
                     'chapter.chapter_name',
                     'class.class_name',
                     'chapter_content.id',
                     'chapter_content.content_title',
-                    'chapter_content.content_short_desc'
+                    'chapter_content.content_short_desc',
+                    'content_count.user_id'
+                    //'content_count, sum(content_id) AS sums'
                 ])
+                
                 ->get();
+//                foreach ($chapter as $d){
+//                 $chapterCount = ContentCount::where('content_count.content_id','=',$d->id)
+//                         ->groupBy('content_count.content_id')
+//                         ->count();
+//                 
+//                }
+                
         return view('backend.chaptercontent.index', compact('chapter'));
     }
 
@@ -107,7 +120,7 @@ class ChapterContentController extends Controller {
 
             if ($request->file('content_type') != null) {
 
-              //  $push = new PushNotification;
+                $push = new PushNotification('fcm');
                 if ($request->id != '') {
                     $path_to_delete = public_path('chaptercontent//' . $request->image_name_to_delete);
                     if (file_exists($path_to_delete)) {
@@ -129,19 +142,21 @@ class ChapterContentController extends Controller {
                 $chaptercontentdata->content_short_desc = $request['content_description'];
                 $chaptercontentdata->save();
 
-//                $push->setMessage([
-//                'notification' => [
-//                'title' => $request['content_title'],
-//                'body' => $request['content_description'],
-//                'image' => $pathfile,
-//                'sound' => 'default'
-//                ]
-//                
-//                ])
-//                ->setApiKey('AIzaSyAKj0dRf11kbgU7McEEUdEHRAPN5Eixbpk')
-//                        ->setDevicesToken('fmndYPphoyk:APA91bFJ9NiQQmIDPLFxm_iMnHB2AbXf0B2jYO2cut1Xht7m7ffN6RO8H_HLdX4bH5C2V1rgBGYMDg2w4jcID5mF7M2m_KHK6J8_vnN4KGRI10L0AnlFoqFndyp83k2lUuyqiuj9QJ_N')
-//                        ->send()
-//                        ->getFeedback();
+                $push->setMessage([
+                    'notification' => [
+                        'title' => $request['content_title'],
+                        'body' => $request['content_description'],
+                        'image' => $pathfile,
+                        'sound' => 'default'
+                    ]
+
+                ])
+                    ->setApiKey('AIzaSyAKj0dRf11kbgU7McEEUdEHRAPN5Eixbpk')
+                    ->setDevicesToken('f6TswImpdjs:APA91bFEJUiNKIcXb6Em9qhQb1DwefgbBmq4SJouxwakVjM_7oKj4SIPwFwQ-rLpMYPVvkMNkaCZxntMuYtG5DX2iFRsopFK-oD8IFc1w5eJGI0zYguktGy53S4UdT6shhe8z2HqJAPg')
+                    ->send()
+                    ->getFeedback();
+
+
             } else {
 
                 $chaptercontentdata->subject_id = $request['subject_name'];

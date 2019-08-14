@@ -26,6 +26,7 @@
                             <th>Class Name</th>
                             <th>Chapter Name</th>
                             <th>Content Title</th>
+                              <th>Content Count</th>
                             <th>Content Description</th>
                             <th></th>
                         </tr>
@@ -37,12 +38,14 @@
                             <th>Class Name</th>
                             <th>Chapter Name</th>
                             <th>Content Title</th>
+                            <th>Content Count</th>
                             <th>Content Description</th>
                             <th>Action</th>
                         </tr>
                   </thead>
                 <tbody>
                 <?php $i=0;?>
+                  
                     @foreach($chapter as $k=> $chapter1)
                     <tr>
                         <td>
@@ -53,12 +56,14 @@
                         <td>{{$chapter1->class_name}}</td>
                         <td>{{$chapter1->chapter_name}}</td>
                         <td><a href="{{route('admin.ViewUser.data',$chapter1->id)}}">{{$chapter1->content_title}}</a></td>
+                        <td>{!! getCount($chapter1->id); !!}</td>
                         <td>{{$chapter1->content_short_desc}}</td>
                         <td>
                             <a href="{{route('admin.schoolchaptercontent.edit',$chapter1->id)}}"><i class="fa fa-pencil schoolclass" aria-hidden="true"></i></a>
                             <a href="{{route('admin.schoolchaptercontent.delete',$chapter1->id)}}"><i class="fa fa-trash schoolclass" aria-hidden="true"></i></a>
                         </td>
                     </tr>
+                  
                     @endforeach
                 </tbody>
               

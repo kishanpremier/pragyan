@@ -54,26 +54,26 @@ class NotificationController extends Controller {
         } else {
             $image = '';
         }
+          $push->setMessage([
+              'notification' => [
+                  'title'=>$title,
+                  'body'=>$desc,
+                  'image'=>'notify/'.$image,
+                  'sound' => 'default'
+              ]
+          ])
 
-        $title = $request['title'];
-        $desc = $request['notify_description'];
+              ->setApiKey('AIzaSyAKj0dRf11kbgU7McEEUdEHRAPN5Eixbpk')
+              ->setDevicesToken('f6TswImpdjs:APA91bFEJUiNKIcXb6Em9qhQb1DwefgbBmq4SJouxwakVjM_7oKj4SIPwFwQ-rLpMYPVvkMNkaCZxntMuYtG5DX2iFRsopFK-oD8IFc1w5eJGI0zYguktGy53S4UdT6shhe8z2HqJAPg')
+              ->send()
+              ->getFeedback();
+
+          $title = $request['title'];
+          $desc = $request['notify_description'];
 
 
-    $push->setMessage([
-        'notification' => [
-                'title'=>$title,
-                'body'=>$desc,
-                'image'=>'notify/'.$image,
-                'sound' => 'default'
-                ]
-        ])
 
-         ->setApiKey('AIzaSyAKj0dRf11kbgU7McEEUdEHRAPN5Eixbpk')
-                ->setDevicesToken('fmndYPphoyk:APA91bFJ9NiQQmIDPLFxm_iMnHB2AbXf0B2jYO2cut1Xht7m7ffN6RO8H_HLdX4bH5C2V1rgBGYMDg2w4jcID5mF7M2m_KHK6J8_vnN4KGRI10L0AnlFoqFndyp83k2lUuyqiuj9QJ_N')
-                ->send()
-                ->getFeedback();
-
-        //dd($push->send()); exit;
+          dd($push->send()); exit;
 
         toastr()->success('', 'Notification has been created', ['timeOut' => 5000]);
         return redirect('admin/dashboard');
