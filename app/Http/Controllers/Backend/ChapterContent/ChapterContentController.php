@@ -9,6 +9,7 @@ use App\Models\School\Schoolclass;
 use App\Models\School\Subject;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\School\ContentCount;
 use Edujugon\PushNotification\PushNotification;
 
 class ChapterContentController extends Controller {
@@ -23,15 +24,25 @@ class ChapterContentController extends Controller {
                 ->leftjoin('subject', 'subject.id', '=', 'chapter_content.subject_id')
                 ->leftJoin('class', 'class.id', '=', 'chapter_content.class_id')
                 ->leftJoin('chapter', 'chapter.id', '=', 'chapter_content.chapter_id')
+                ->leftJoin('content_count', 'content_count.content_id', '=', 'chapter_content.id')
+                
                 ->select([
                     'subject.subject_name',
                     'chapter.chapter_name',
                     'class.class_name',
                     'chapter_content.id',
                     'chapter_content.content_title',
-                    'chapter_content.content_short_desc'
+                    'chapter_content.content_short_desc',
+                    'content_count.user_id'
+                    //'content_count, sum(content_id) AS sums'
                 ])
+                
                 ->get();
+                foreach ($chapter as $d){
+                 $chapterCount = Chaptercontent::get($d->id);
+                 print_r($chapterCount);
+                }
+                exit;
         return view('backend.chaptercontent.index', compact('chapter'));
     }
 
