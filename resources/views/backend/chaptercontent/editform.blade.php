@@ -39,7 +39,7 @@
                     content_title: "required",
                     content_type: {
                         required: false,
-                        extension: "docx|xlsx|doc|pdf|jpg|jpeg|png|csv",
+                        extension: "docx|xlsx|doc|pdf|jpg|jpeg|png|csv|eps|emf|wmf|bmp|gif|tiff",
                         size: 500000
                     },
                     video_link: {

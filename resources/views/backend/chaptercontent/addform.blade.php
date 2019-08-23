@@ -60,7 +60,7 @@
                     content_title: "required",
                     content_type: {
                         required: true,
-                        extension: "docx|xlsx|doc|pdf|jpg|jpeg|png|csv",
+                        extension: "docx|xlsx|doc|pdf|jpg|jpeg|png|csv|wmf|emf|eps|tiff|bmp",
                         size: 500000
                     },
                     video_link: {
