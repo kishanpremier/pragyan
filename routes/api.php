@@ -18,7 +18,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
 
         Route::post('password/email', 'PasswordResetAPIController@create');
         Route::get('find/{token}', 'PasswordResetAPIController@find');
-        Route::post('reset', 'PasswordResetAPIController@reset');
+        Route::post('reset', 'PasswordResetAPIController@reset')->name('reset');
 
         Route::post('user/changepassword/{id}', 'RegisterController@updateAuthUserPassword');
         // Password Reset
