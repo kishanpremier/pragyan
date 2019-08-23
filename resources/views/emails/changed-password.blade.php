@@ -13,7 +13,7 @@
                     </p>
                     
                     <p style="line-height: 24px; margin-bottom:20px;">
-                        Your Password has successfully been changed to : {{ $password }}
+                        Your Password has successfully been changed !! Please Go To Application And Login.
                     </p>
 
                     <p style="line-height: 24px; margin-bottom:20px;">
