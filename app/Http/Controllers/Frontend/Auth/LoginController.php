@@ -40,11 +40,15 @@ class LoginController extends Controller
      */
     public function redirectPath()
     {
-        if (access()->allow('view-backend')) {
-            return route('admin.dashboard');
+        if(Auth()->guard()->user()->user_type == 2){
+            if (access()->allow('view-backend')) {
+                return route('admin.dashboard');
+            }
         }
-
-        return route('frontend.user.dashboard');
+        else{
+            $this->sendFailedLoginResponse();
+        }
+        /*return route('frontend.user.dashboard');*/
     }
 
     /**

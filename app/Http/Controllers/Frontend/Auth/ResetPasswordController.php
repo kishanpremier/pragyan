@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend\Auth;
 use App\Http\Controllers\Controller;
 use App\Repositories\Frontend\Access\User\UserRepository;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use App\Models\Access\User\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
@@ -103,6 +104,11 @@ class ResetPasswordController extends Controller
      */
     protected function sendResetResponse($request, $response)
     {
+        $obj = User::where('email',$request->email)->get();
+        if($obj[0]->user_type != 2){
+            $password = $request->password;
+            return  view('emails.changed-password')->with(compact('password'));
+        }
         return redirect()->route(homeRoute())->withFlashSuccess(trans($response));
     }
 }
