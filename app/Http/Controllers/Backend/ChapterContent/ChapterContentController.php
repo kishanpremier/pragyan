@@ -94,7 +94,8 @@ class ChapterContentController extends Controller {
                         $subject = Subject::get();
                         return view('backend.chaptercontent.editform')->with(compact('errors1', 'subject'));
                     }
-                } elseif ($ext != "jpeg" && $ext != "tiff" && $ext != "PNG" && $ext != "gif" && $ext != "png" && $ext != "jpg" && $ext != "bmp"
+                } elseif ($ext != "jpeg" && $ext != "JPEG" && $ext != "tiff" && $ext != "PNG" && $ext != "png"
+                    && $ext != "gif" && $ext != "GIF" && $ext != "jpg" && $ext != "JPG" && $ext != "bmp"
                     && $ext != "pdf" && $ext != "docx" && $ext != "doc" && $ext != "xlsx" && $ext != "csv"
                     && $ext != "wmf" && $ext != "emf" && $ext != "eps") {
                     $errors1['extension'] = "Invalid File Format";
