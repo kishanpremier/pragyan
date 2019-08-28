@@ -54,6 +54,7 @@ class PasswordResetAPIController extends Controller
     {
         $passwordReset = PasswordReset::where('token', $token)
             ->first();
+
         if (!$passwordReset)
             return response()->json([
                 'message' => 'This password reset token is invalid.'
@@ -64,7 +65,15 @@ class PasswordResetAPIController extends Controller
                 'message' => 'This password reset token is invalid.'
             ], 404);
         }
-        return response()->json($passwordReset);
+        /*return response()->json($passwordReset);*/
+        return view('frontend.auth.passwords.apireset')->with(
+            ['token' => $passwordReset->token, 'email' => $passwordReset->email]
+        );
+    }
+
+    public function showResetForm(Request $request, $token = null)
+    {
+
     }
      /**
      * Reset password
@@ -100,8 +109,10 @@ class PasswordResetAPIController extends Controller
         $user->save();
         $passwordReset->delete();
         $user->notify(new PasswordResetSuccess($passwordReset));
-      
-        if($user != ''){
+
+        return  view('emails.changed-password');
+
+        /*if($user != ''){
             $status = true;
         }else{
             $status = false;
@@ -109,7 +120,14 @@ class PasswordResetAPIController extends Controller
         return response()->json([
                 'status' => $status,
                 'message' => $user
-        ], 404);
+        ], 404);*/
+
+        /*$obj = User::where('email',$request->email)->get();
+        if($obj[0]->user_type != 2){
+            $password = $request->password;
+            return  view('emails.changed-password')->with(compact('password'));
+        }
+        return redirect()->route(homeRoute())->withFlashSuccess(trans($response));*/
         
     }
 }

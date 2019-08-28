@@ -95,7 +95,10 @@ class ChapterContentController extends Controller {
                         $subject = Subject::get();
                         return view('backend.chaptercontent.editform')->with(compact('errors1', 'subject'));
                     }
-                } elseif ($ext != "jpeg" && $ext != "png" && $ext != "jpg" && $ext != "pdf" && $ext != "docx" && $ext != "doc" && $ext != "xlsx" && $ext != "csv") {
+                } elseif ($ext != "jpeg" && $ext != "JPEG" && $ext != "tiff" && $ext != "PNG" && $ext != "png"
+                    && $ext != "gif" && $ext != "GIF" && $ext != "jpg" && $ext != "JPG" && $ext != "bmp"
+                    && $ext != "pdf" && $ext != "docx" && $ext != "doc" && $ext != "xlsx" && $ext != "csv"
+                    && $ext != "wmf" && $ext != "emf" && $ext != "eps") {
                     $errors1['extension'] = "Invalid File Format";
                     if ($request->id == '') {
                         $subject = Subject::get();
@@ -115,7 +118,7 @@ class ChapterContentController extends Controller {
 
 
             if ($request->file('content_type') != null) {
- $userToken = User::pluck('device_token')->toArray();
+                $userToken = User::pluck('device_token')->toArray();
                 $push = new PushNotification('fcm');
                 if ($request->id != '') {
                     $path_to_delete = public_path('chaptercontent//' . $request->image_name_to_delete);
