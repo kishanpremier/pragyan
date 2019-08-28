@@ -61,6 +61,7 @@ class ChapterContentController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
+        
         try {
             if ($request->id == '') {
                 $request->validate([
@@ -139,6 +140,7 @@ class ChapterContentController extends Controller {
 
                 $push->setMessage([
                     'notification' => [
+                        'id' => $request['chapter_name'],
                         'title' => $request['content_title'],
                         'body' => $request['content_description'],
                         'image' => $pathfile,
