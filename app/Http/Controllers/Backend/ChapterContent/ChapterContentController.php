@@ -146,11 +146,10 @@ class ChapterContentController extends Controller {
                     ]
                 ])
                     ->setApiKey('AIzaSyAKj0dRf11kbgU7McEEUdEHRAPN5Eixbpk')
-                    ->setDevicesToken('dVAAkEdkxU4:APA91bFPLPuRl1vF3svtic6Rx2OW10dy1i2ZkNvjVsh5wh-L1nkH3y8Fv2nB0EF5TcByA3fFtivX8fPm8T0jCxJt7JRww2T_ty9OcPchOPlXI7kjRcHFt0CxMf8LM8M2fD_bl-pLOlCV')
+                    ->setDevicesToken($userToken)
                     ->send()
                     ->getFeedback();
 
-                dd($push->getFeedback());
             } else {
                 $chaptercontentdata->subject_id = $request['subject_name'];
                 $chaptercontentdata->class_id = $request['class_name'];
