@@ -149,7 +149,6 @@ class ChapterContentController extends Controller {
                     ->setDevicesToken($userToken)
                     ->send()
                     ->getFeedback();
-
             } else {
                 $chaptercontentdata->subject_id = $request['subject_name'];
                 $chaptercontentdata->class_id = $request['class_name'];
