@@ -61,7 +61,6 @@ class ChapterContentController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        
         try {
             if ($request->id == '') {
                 $request->validate([
@@ -81,11 +80,9 @@ class ChapterContentController extends Controller {
                     'content_description' => 'required'
                 ]);
             }
-
             if ($request->file('content_type') != null) {
                 $ext = $request->file('content_type')->getClientOriginalExtension();
                 $size = $request->file('content_type')->getSize();
-
                 if ($size > 5000000) {
                     $errors1['size'] = "Size Should Be Less Than 5MB";
                     if ($request->id == '') {
@@ -109,14 +106,11 @@ class ChapterContentController extends Controller {
                     }
                 }
             }
-
             if ($request->id != '') {
                 $chaptercontentdata = Chaptercontent::findOrFail($request->id);
             } else {
                 $chaptercontentdata = new Chaptercontent();
             }
-
-
             if ($request->file('content_type') != null) {
                 $userToken = User::pluck('device_token')->toArray();
                 $push = new PushNotification('fcm');
@@ -126,12 +120,9 @@ class ChapterContentController extends Controller {
                         unlink($path_to_delete);
                     }
                 }
-
-
                 $file = $request->file('content_type');
                 $pathfile = md5($file->getClientOriginalName() . time()) . "." . $ext;
                 $file->move(public_path('chaptercontent'), $pathfile);
-
                 $chaptercontentdata->subject_id = $request['subject_name'];
                 $chaptercontentdata->class_id = $request['class_name'];
                 $chaptercontentdata->chapter_id = $request['chapter_name'];
@@ -140,25 +131,27 @@ class ChapterContentController extends Controller {
                 $chaptercontentdata->content_link = $request['video_link'];
                 $chaptercontentdata->content_short_desc = $request['content_description'];
                 $chaptercontentdata->save();
-
                 $push->setMessage([
                     'notification' => [
-                        'id' => $request['chapter_name'],
                         'title' => $request['content_title'],
                         'body' => $request['content_description'],
                         'image' => $pathfile,
                         'sound' => 'default'
+                    ],
+                    'data' => [
+                        'chaptercontent' => $chaptercontentdata->id,
+                        'subject' => $chaptercontentdata->subject_id,
+                        'chapter' => $chaptercontentdata->chapter_id,
+                        'class' => $chaptercontentdata->class_id,
                     ]
-
                 ])
                     ->setApiKey('AIzaSyAKj0dRf11kbgU7McEEUdEHRAPN5Eixbpk')
-                    ->setDevicesToken($userToken)
+                    ->setDevicesToken('dVAAkEdkxU4:APA91bFPLPuRl1vF3svtic6Rx2OW10dy1i2ZkNvjVsh5wh-L1nkH3y8Fv2nB0EF5TcByA3fFtivX8fPm8T0jCxJt7JRww2T_ty9OcPchOPlXI7kjRcHFt0CxMf8LM8M2fD_bl-pLOlCV')
                     ->send()
                     ->getFeedback();
 
-
+                dd($push->getFeedback());
             } else {
-
                 $chaptercontentdata->subject_id = $request['subject_name'];
                 $chaptercontentdata->class_id = $request['class_name'];
                 $chaptercontentdata->chapter_id = $request['chapter_name'];
@@ -167,18 +160,14 @@ class ChapterContentController extends Controller {
                 $chaptercontentdata->content_short_desc = $request['content_description'];
                 $chaptercontentdata->save();
             }
-
-
             if ($request->id != '') {
                 toastr()->success('', 'Content has been updated', ['timeOut' => 5000]);
             } else {
                 toastr()->success('', 'Content has been created', ['timeOut' => 5000]);
             }
         } catch (Exception $e) {
-
             toastr()->warning('', 'Something went wrong', ['timeOut' => 5000]);
         }
-
         return redirect()->route('admin.schoolchaptercontent.list');
     }
 
