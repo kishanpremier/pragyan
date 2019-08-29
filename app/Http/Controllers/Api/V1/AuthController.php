@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Validator;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Access\User\User;
 
 class AuthController extends APIController {
 
@@ -18,8 +19,10 @@ class AuthController extends APIController {
     public function login(Request $request) {
 
         $validation = Validator::make($request->all(), [
-                    'email' => 'required|email',
-                    'password' => 'required|min:4',
+            'email' => 'required|email',
+            'password' => 'required|min:4',
+            'device_token' => 'required'
+
         ]);
 
         if ($validation->fails()) {
@@ -37,24 +40,23 @@ class AuthController extends APIController {
                 ]);
             }
             $user = $request->user();
-            
-       
             $passportToken = $user->createToken('API Access Token');
-
             // Save generated token
             $passportToken->token->save();
             $token = $passportToken->accessToken;
-          
-            
         } catch (\Exception $e) {
-
             return $this->respondInternalError($e->getMessage());
         }
         if ($token != '') {
             $message = trans('api.messages.login.success');
             $loginStatus = true;
+            if ($loginStatus) {
+                $obj = User::where('email', $request['email'])
+                    ->update([
+                        'device_token' => $request['device_token'],
+                    ]);
+            }
         } else {
-            
             $message = trans('api.messages.login.failed');
             $loginStatus = false;
         }
@@ -65,7 +67,6 @@ class AuthController extends APIController {
                     'token' => $token,
         ]);
     }
-
     /**
      * Get the authenticated User.
      *
