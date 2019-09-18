@@ -113,7 +113,7 @@ class ChapterContentController extends Controller {
             }
             if ($request->file('content_type') != null) {
                 $userToken = User::pluck('device_token')->toArray();
-                $push = new PushNotification('fcm');
+                //$push = new PushNotification('fcm');
                 if ($request->id != '') {
                     $path_to_delete = public_path('chaptercontent//' . $request->image_name_to_delete);
                     if (file_exists($path_to_delete)) {
@@ -131,24 +131,24 @@ class ChapterContentController extends Controller {
                 $chaptercontentdata->content_link = $request['video_link'];
                 $chaptercontentdata->content_short_desc = $request['content_description'];
                 $chaptercontentdata->save();
-                $push->setMessage([
-                    'notification' => [
-                        'title' => $request['content_title'],
-                        'body' => $request['content_description'],
-                        'image' => $pathfile,
-                        'sound' => 'default'
-                    ],
-                    'data' => [
-                        'chaptercontent' => $chaptercontentdata->id,
-                        'subject' => $chaptercontentdata->subject_id,
-                        'chapter' => $chaptercontentdata->chapter_id,
-                        'class' => $chaptercontentdata->class_id,
-                    ]
-                ])
-                    ->setApiKey('AIzaSyAKj0dRf11kbgU7McEEUdEHRAPN5Eixbpk')
-                    ->setDevicesToken($userToken)
-                    ->send()
-                    ->getFeedback();
+//                $push->setMessage([
+//                    'notification' => [
+//                        'title' => $request['content_title'],
+//                        'body' => $request['content_description'],
+//                        'image' => $pathfile,
+//                        'sound' => 'default'
+//                    ],
+//                    'data' => [
+//                        'chaptercontent' => $chaptercontentdata->id,
+//                        'subject' => $chaptercontentdata->subject_id,
+//                        'chapter' => $chaptercontentdata->chapter_id,
+//                        'class' => $chaptercontentdata->class_id,
+//                    ]
+//                ])
+//                    ->setApiKey('AIzaSyAKj0dRf11kbgU7McEEUdEHRAPN5Eixbpk')
+//                    ->setDevicesToken($userToken)
+//                    ->send()
+//                    ->getFeedback();
             } else {
                 $chaptercontentdata->subject_id = $request['subject_name'];
                 $chaptercontentdata->class_id = $request['class_name'];
