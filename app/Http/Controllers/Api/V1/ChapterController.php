@@ -8,13 +8,17 @@ use App\Models\School\Chapter;
 use App\Models\School\ContentCount;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
 class ChapterController extends Controller {
 
     public function getchapter($id) {
-
-        $getChapter = Chapter::where('chapter.class_id', '=', $id)
-                ->get();
+        
+        $query = "CAST(chapter_name AS unsigned) ASC";
+       $getChapter = DB::table('chapter')->where('chapter.class_id', '=', $id)->orderByRaw($query)->get();   
+        
+       // $getChapter = Chapter::where('chapter.class_id', '=', $id)
+        //            ->get();
         if ($getChapter != '') {
             $getChapterStatus = true;
         } else {
