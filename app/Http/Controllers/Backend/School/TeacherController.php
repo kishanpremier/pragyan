@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\School;
 
 use App\Models\Access\User\User;
 use App\Models\School\videocount;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -31,6 +32,12 @@ class TeacherController extends Controller {
                     ])
                 ->groupBy('users.id')
                 ->get();
+
+        foreach ($videoCount as $data) {
+            if($data->login_time != null && $data->login_time != "null"){
+                $data->login_time = date("Y-m-d g:i:s", strtotime($data->login_time));
+            }
+        }
         return view('backend.teacher.index')->with(compact('videoCount'));
     }
 
