@@ -38,6 +38,7 @@ class TeacherController extends Controller {
                 $data->login_time = date("Y-m-d g:i:s", strtotime($data->login_time));
             }
         }
+
         return view('backend.teacher.index')->with(compact('videoCount'));
     }
 
