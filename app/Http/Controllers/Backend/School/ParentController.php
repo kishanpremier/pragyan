@@ -16,20 +16,26 @@ class ParentController extends Controller
      */
     public function index()
     {
-          $videoCount = User::leftJoin('video_count', 'video_count.user_id', '=', 'users.id')
-                ->leftJoin('chapter_content', 'chapter_content.id', '=', 'video_count.chapter_content_id')
-                ->where('users.user_type', '=', 0)
-                ->select([
-                        'users.id',
-                        'users.first_name',
-                        'users.last_name',
-                        'users.login_time',
-                        'video_count.count',
-                        'chapter_content.content_title',
-                        'chapter_content.content_link'
-                    ])
-                ->groupBy('users.id')
-                ->get();
+        $videoCount = User::leftJoin('video_count', 'video_count.user_id', '=', 'users.id')
+            ->leftJoin('chapter_content', 'chapter_content.id', '=', 'video_count.chapter_content_id')
+            ->where('users.user_type', '=', 0)
+            ->select([
+                'users.id',
+                'users.first_name',
+                'users.last_name',
+                'users.login_time',
+                'video_count.count',
+                'chapter_content.content_title',
+                'chapter_content.content_link'
+            ])
+            ->groupBy('users.id')
+            ->get();
+
+        foreach ($videoCount as $data) {
+            if($data->login_time != null && $data->login_time != "null"){
+                $data->login_time = date("Y-m-d g:i:s", strtotime($data->login_time));
+            }
+        }
         return view('backend.parent.index')->with(compact('videoCount'));
     }
 
