@@ -89,13 +89,11 @@ class DashboardController extends Controller
     public function users()
     {
         $user = User::where('user_type','!=',2)->get();
-
         foreach ($user as $data) {
             if($data->login_time != null && $data->login_time != "null"){
                 $data->login_time = date("Y-m-d g:i:s", strtotime($data->login_time));
             }
         }
-
         return view('backend.user.index', compact('user'));
     }
 }
